@@ -1,0 +1,7 @@
+# Data and ML libraries
+-r requirements-base.in
+numpy
+pandas
+scikit-learn
+tensorflow
+absl-py

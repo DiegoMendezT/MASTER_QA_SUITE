@@ -35,7 +35,7 @@ class TestFrameworkStructure:
     def test_core_framework_files_exist(self):
         """Verify core framework files are present"""
         core_files = [
-            "conftest.py", "pytest.ini", "requirements.txt",
+            "conftest.py", "pytest.ini",
             "README.md", ".gitignore", "verify_setup.py", "becoming_master.py"
         ]
         
@@ -277,7 +277,7 @@ class TestFrameworkMetrics:
             'configuration_management': os.path.exists("config/settings.yaml"),
             'test_fixtures': os.path.exists("conftest.py"),
             'html_reporting': "html" in open("pytest.ini").read(),
-            'parallel_execution': "xdist" in open("requirements.txt").read(),
+            'parallel_execution': "xdist" in open("requirements/dev.txt").read(),
             'data_generation': os.path.exists("utils/data_factory.py"),
             'self_reflection': os.path.exists("tests/self_reflection/test_framework_health.py"),
         }

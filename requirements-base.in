@@ -1,0 +1,38 @@
+# Libraries that are often transitive dependencies or low-level utilities.
+# We can let pip-compile manage these based on the high-level requirements.
+# If specific versions are needed, they can be pinned here.
+urllib3
+trio
+trio-websocket
+certifi
+packaging
+sortedcontainers
+idna
+outcome
+sniffio
+cffi
+wsproto
+pysocks
+pycparser
+h11
+pyee
+greenlet
+marshmallow
+colorama
+iniconfig
+pygments
+pluggy
+attrs
+websocket-client
+typing-extensions
+cattrs
+charset-normalizer==3.4.3
+execnet
+gitdb
+jsonschema
+jsonschema-specifications
+python-dateutil
+pytz
+referencing
+rpds-py
+smmap

@@ -1,0 +1,2 @@
+# Pinning conflicting transitive dependencies to a single version.
+charset-normalizer==3.4.3

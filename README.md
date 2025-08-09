@@ -81,9 +81,17 @@ For a more detailed breakdown of each component and the execution flow, please s
     ```
 
 3.  **Install all dependencies:**
+    This project uses a modular dependency structure. Install them in the correct order:
     ```bash
-    pip install -r requirements.txt
+    pip install -r requirements/base.txt
+    pip install -r requirements/core-tests.txt
+    pip install -r requirements/dev.txt
+    pip install -r requirements/ui.txt
+    pip install -r requirements/visual.txt
+    pip install -r requirements/data.txt
     ```
+    **DO NOT** use a single `requirements.txt` file from the root directory.
+
 
 4.  **(Optional) Set up environment variables:**
     Create a `.env` file in the root directory for secrets and local overrides. This is required for Sauce Labs execution.
@@ -92,6 +100,12 @@ For a more detailed breakdown of each component and the execution flow, please s
     SAUCE_USERNAME="your-sauce-username"
     SAUCE_ACCESS_KEY="your-sauce-access-key"
     ```
+
+### Note for Windows Users (Git Hooks)
+To enable the pre-commit hook on Windows, you may need to configure Git to use the correct hooks path. Run this command in your terminal from the project root:
+```bash
+git config core.hooksPath .githooks
+```
 
 ---
 

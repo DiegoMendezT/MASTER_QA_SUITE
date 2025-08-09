@@ -1,0 +1,8 @@
+-r base.in
+
+# Visual testing libraries
+eyes-selenium
+axe-selenium-python
+Appium-Python-Client
+eyes-common
+core-universal4

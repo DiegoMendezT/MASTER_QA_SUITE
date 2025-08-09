@@ -1,0 +1,7 @@
+# Base libraries required by multiple modules
+requests
+requests-cache
+python-dotenv
+PyYAML
+# Common transitive dependencies
+charset-normalizer==3.4.3

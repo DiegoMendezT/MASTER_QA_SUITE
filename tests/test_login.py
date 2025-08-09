@@ -64,7 +64,9 @@ class TestLoginScenarios:
         driver.find_element(By.CSS_SELECTOR, "button[type='submit']").click()
         
         # Verify successful login
-        success_message = driver.find_element(By.ID, "flash").text
+        wait = WebDriverWait(driver, 10)
+        success_element = wait.until(EC.presence_of_element_located((By.ID, "flash")))
+        success_message = success_element.text
         assert "secure area" in success_message.lower(), \
             f"Expected success message, got: {success_message}"
         

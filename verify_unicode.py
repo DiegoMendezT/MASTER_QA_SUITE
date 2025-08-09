@@ -71,7 +71,7 @@ def verify_file_structure():
     required_files = [
         'conftest.py',
         'pytest.ini', 
-        'requirements.txt',
+        'requirements/base.in',
         'config/settings.yaml',
         'tests/test_self_reflection.py',
         'pages/__init__.py',

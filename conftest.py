@@ -41,8 +41,16 @@ def pytest_addoption(parser):
         choices=["selenium", "playwright"],
         help="Choose test engine: selenium | playwright (default: selenium)",
     )
+    
+    # Selenium-specific browser option
+    group.addoption(
+        "--sel-browser",
+        action="store",
+        default="chrome",
+        help="Choose Selenium browser: chrome | firefox | edge (default: chrome)",
+    )
+
     # Let pytest-playwright handle its own options like --browser, --headed etc.
-    # My custom --browser and --headed options were removed to resolve conflicts.
     
     # Add other options to the general group to avoid conflicts
     parser.addoption(
@@ -93,10 +101,14 @@ def config():
 def eyes(driver, applitools_config, request):
     """Applitools Eyes fixture for visual testing."""
     # Initialize the eyes SDK and set your private API key.
+    api_key = os.getenv("APPLITOOLS_API_KEY", applitools_config.get('api_key'))
+    if not api_key or "YOUR_APPLITOOLS_API_KEY" in api_key:
+        pytest.skip("APPLITOOLS_API_KEY is not set or is a placeholder. Skipping visual tests.")
+
     eyes = Eyes()
     
     config = Configuration()
-    config.set_api_key(os.getenv("APPLITOOLS_API_KEY", applitools_config.get('api_key')))
+    config.set_api_key(api_key)
     config.set_batch(BatchInfo(applitools_config.get('batch_name', "MASTER QA SUITE")))
     config.set_app_name(applitools_config.get('app_name', "MASTER QA SUITE"))
     
@@ -128,7 +140,7 @@ def driver(config, request):
         pytest.skip("Skipping Selenium driver fixture for a Playwright test.")
         return
 
-    browser_name = os.getenv("BROWSER", "chrome").lower()
+    browser_name = request.config.getoption("--sel-browser").lower()
     
     if SAUCE_ENABLED:
         logging.info(f"Running on Sauce Labs with browser: {browser_name}")

@@ -1,0 +1,60 @@
+# Core testing libraries
+pytest
+selenium
+playwright
+requests
+requests-cache
+allure-pytest
+webdriver-manager
+chromedriver-autoinstaller
+python-dotenv
+PyYAML
+
+# Development and code quality tools
+pytest-xdist
+pytest-rerunfailures
+pytest-html
+pytest-metadata
+faker
+gitpython
+pip-audit
+pip-check-reqs
+pipdeptree
+autoflake
+isort
+pip-tools
+
+# Streamlit and UI libraries
+streamlit
+altair
+blinker
+cachetools
+click
+Jinja2
+MarkupSafe
+narwhals
+pandas
+pillow
+platformdirs
+plotly
+pyarrow
+pydeck
+six
+toml
+tornado
+tzdata
+watchdog
+
+# Visual testing libraries
+eyes-selenium
+axe-selenium-python
+Appium-Python-Client
+eyes-common
+core-universal4
+
+# Data and ML libraries
+numpy
+pandas
+scikit-learn
+tensorflow
+absl-py
