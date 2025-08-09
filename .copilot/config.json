@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "ignore": [
+    "node_modules/**",
+    ".venv/**",
+    "__pycache__/**",
+    "*.log",
+    "allure-results/**"
+  ],
+  "context": {
+    "description": "MASTER_QA_SUITE is a Python Selenium automation framework using pytest, Page Object Model, integration tests, accessibility checks, performance smoke tests, and GitHub Actions CI/CD."
+  }
+}

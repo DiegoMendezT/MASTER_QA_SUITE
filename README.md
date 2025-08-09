@@ -1,4 +1,6 @@
-# � MASTER QA SUITE v2.5 - The Self-Aware Automation Framework
+# MASTER_QA_SUITE
+
+[![CI](https://github.com/DiegoMendezT/MASTER_QA_SUITE/actions/workflows/ci.yml/badge.svg)](https://github.com/DiegoMendezT/MASTER_QA_SUITE/actions/workflows/ci.yml)
 
 > *"The first automation framework that tests itself as rigorously as it tests your applications."*
 
