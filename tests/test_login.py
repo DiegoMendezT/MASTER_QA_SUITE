@@ -97,19 +97,21 @@ class TestLoginScenarios:
         """Test login with only username, no password"""
         login_url = "https://the-internet.herokuapp.com/login"
         driver.get(login_url)
-        
+
         # Enter only username
         username = DataFactory.random_string(8)
         driver.find_element(By.ID, "username").send_keys(username)
         driver.find_element(By.CSS_SELECTOR, "button[type='submit']").click()
-        
-        # Should show error
-        error_element = driver.find_element(By.ID, "flash")
+
+        # Wait for error element
+        error_element = WebDriverWait(driver, 5).until(
+            EC.presence_of_element_located((By.ID, "flash"))
+        )
         error_text = error_element.text
-        
+
         assert "invalid" in error_text.lower(), \
             f"Expected error for missing password, got: {error_text}"
-        
+
         logger.info("✅ Missing password properly handled")
     
     @pytest.mark.slow
