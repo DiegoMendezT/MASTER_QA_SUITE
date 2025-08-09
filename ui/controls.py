@@ -68,20 +68,35 @@ def run_tests_ui():
 
             st.code(f"Running command: {cmd}", language="bash")
             
+            # Live log output
+            log_placeholder = st.empty()
+            log_output = ""
+            
             try:
-                process = subprocess.run(
+                process = subprocess.Popen(
                     cmd, 
                     shell=True, 
-                    capture_output=True, 
-                    text=True, 
-                    check=True,
-                    env=env
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.STDOUT,
+                    text=True,
+                    env=env,
+                    bufsize=1,
+                    universal_newlines=True
                 )
-                st.text_area("Test Output", process.stdout, height=400)
-                st.success("Tests completed successfully!")
-            except subprocess.CalledProcessError as e:
-                st.text_area("Test Output", e.stdout + e.stderr, height=400)
-                st.error("Tests failed.")
+                
+                for line in process.stdout:
+                    log_output += line
+                    log_placeholder.text_area("Live Test Output", log_output, height=400)
+                
+                process.wait()
+                
+                if process.returncode == 0:
+                    st.success("Tests completed successfully!")
+                else:
+                    st.error(f"Tests failed with exit code {process.returncode}.")
+
+            except Exception as e:
+                st.error(f"An error occurred while running tests: {e}")
 
     with col2:
         st.header("InnerCouncil")
