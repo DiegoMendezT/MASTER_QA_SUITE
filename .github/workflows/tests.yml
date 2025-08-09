@@ -2,7 +2,7 @@ name: Master QA Suite CI
 
 on:
   push:
-    branches: [ main, parallel-ci ]
+    branches: [ main ]
   pull_request:
     branches: [ main ]
 
