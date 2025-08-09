@@ -2,11 +2,15 @@
 Login test scenarios for MASTER QA SUITE v2.0
 Demonstrates advanced form testing, data generation, and POM reuse
 """
+import logging
+
 import pytest
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
+
 from pages.login_page import LoginPage
 from utils.data_factory import DataFactory
-import logging
 
 logger = logging.getLogger(__name__)
 
@@ -60,7 +64,9 @@ class TestLoginScenarios:
         driver.find_element(By.CSS_SELECTOR, "button[type='submit']").click()
         
         # Verify successful login
-        success_message = driver.find_element(By.ID, "flash").text
+        wait = WebDriverWait(driver, 10)
+        success_element = wait.until(EC.presence_of_element_located((By.ID, "flash")))
+        success_message = success_element.text
         assert "secure area" in success_message.lower(), \
             f"Expected success message, got: {success_message}"
         
@@ -91,19 +97,21 @@ class TestLoginScenarios:
         """Test login with only username, no password"""
         login_url = "https://the-internet.herokuapp.com/login"
         driver.get(login_url)
-        
+
         # Enter only username
         username = DataFactory.random_string(8)
         driver.find_element(By.ID, "username").send_keys(username)
         driver.find_element(By.CSS_SELECTOR, "button[type='submit']").click()
-        
-        # Should show error
-        error_element = driver.find_element(By.ID, "flash")
+
+        # Wait for error element
+        error_element = WebDriverWait(driver, 5).until(
+            EC.presence_of_element_located((By.ID, "flash"))
+        )
         error_text = error_element.text
-        
+
         assert "invalid" in error_text.lower(), \
             f"Expected error for missing password, got: {error_text}"
-        
+
         logger.info("✅ Missing password properly handled")
     
     @pytest.mark.slow
@@ -126,7 +134,9 @@ class TestLoginScenarios:
             driver.find_element(By.CSS_SELECTOR, "button[type='submit']").click()
             
             # Verify each attempt fails
-            error_element = driver.find_element(By.ID, "flash")
+            error_element = WebDriverWait(driver, 5).until(
+                EC.presence_of_element_located((By.ID, "flash"))
+            )
             error_text = error_element.text
             
             assert "invalid" in error_text.lower(), \
@@ -179,6 +189,7 @@ class TestLoginPageNavigation:
         """Test login page has correct title"""
         driver.get("https://the-internet.herokuapp.com/login")
         
+        WebDriverWait(driver, 10).until(EC.title_contains("The Internet"))
         title = driver.title
         assert "The Internet" in title, f"Expected 'The Internet' in title, got: {title}"
         
@@ -194,6 +205,7 @@ class TestLoginPageNavigation:
         driver.find_element(By.CSS_SELECTOR, "button[type='submit']").click()
         
         # Check redirect
+        WebDriverWait(driver, 10).until(EC.url_contains("/secure"))
         current_url = driver.current_url
         assert "/secure" in current_url, f"Should redirect to secure area, got: {current_url}"
         

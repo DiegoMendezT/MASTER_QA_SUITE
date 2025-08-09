@@ -2,24 +2,15 @@
 MASTER QA SUITE v2.5 - Advanced Consciousness Dashboard
 Real-time framework monitoring with self-awareness metrics
 """
-import streamlit as st
-import sys
-import os
-import json
-import time
 from datetime import datetime, timedelta
+
+import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
-import pandas as pd
+import streamlit as st
 
-# Add utils to path
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'utils'))
+from utils.data_factory import DataFactory
 
-try:
-    from data_factory import DataFactory
-except ImportError:
-    st.error("Data Factory not available")
-    DataFactory = None
 
 def load_consciousness_metrics():
     """Load real-time consciousness metrics"""

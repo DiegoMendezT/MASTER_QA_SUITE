@@ -6,6 +6,7 @@ retrieving navigation timing metrics from the browser.
 """
 import logging
 
+
 def get_nav_timing(driver) -> dict:
     """
     Retrieves the window.performance.timing object from the browser.

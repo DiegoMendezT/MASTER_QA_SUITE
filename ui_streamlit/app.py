@@ -4,11 +4,12 @@ Streamlit Test Runner for MASTER QA SUITE
 This application provides a simple UI for selecting and running pytest tests,
 viewing live output, and accessing reports and artifacts.
 """
-import streamlit as st
-import subprocess
-import os
 import glob
+import os
+import subprocess
 from datetime import datetime
+
+import streamlit as st
 
 # --- Configuration ---
 TEST_DIR = "tests"

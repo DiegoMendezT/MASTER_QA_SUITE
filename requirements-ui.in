@@ -1,0 +1,21 @@
+# Streamlit and UI libraries
+-r requirements-base.in
+streamlit
+altair
+blinker
+cachetools
+click
+Jinja2
+MarkupSafe
+narwhals
+pandas
+pillow
+platformdirs
+plotly
+pyarrow
+pydeck
+six
+toml
+tornado
+tzdata
+watchdog

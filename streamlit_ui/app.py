@@ -2,12 +2,12 @@
 Streamlit UI for MASTER QA SUITE v2.0
 Test execution dashboard and monitoring
 """
-import streamlit as st
-import subprocess
-import os
-import yaml
-from datetime import datetime
 import glob
+import os
+import subprocess
+
+import streamlit as st
+import yaml
 
 # Page configuration
 st.set_page_config(

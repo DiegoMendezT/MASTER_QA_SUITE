@@ -1,0 +1,8 @@
+-r base.in
+
+# Data and ML libraries
+numpy
+pandas
+scikit-learn
+tensorflow
+absl-py

@@ -6,6 +6,7 @@ accessibility testing engine in the browser.
 """
 import json
 import logging
+
 from selenium.webdriver.remote.webdriver import WebDriver
 
 AXE_CORE_CDN_URL = "https://cdnjs.cloudflare.com/ajax/libs/axe-core/4.8.3/axe.min.js"

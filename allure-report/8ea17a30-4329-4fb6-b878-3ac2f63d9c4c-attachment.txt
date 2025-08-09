@@ -1,0 +1,5 @@
+[32mINFO    [0m root:conftest.py:180 Running locally with browser: chrome
+[32mINFO    [0m root:utils.py:317 Chromedriver is already installed.
+[32mINFO    [0m tests.test_login:test_login.py:35 Testing with fake username: dAQpmYcs
+[32mINFO    [0m tests.test_login:test_login.py:50 ✅ Invalid login properly rejected with message: Your username is invalid!
+×

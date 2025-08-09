@@ -2,9 +2,11 @@
 Google search test - First validation test for MASTER QA SUITE v2.0
 """
 import pytest
-from selenium.webdriver.common.by import By
-from pages.base_page import BasePage
 from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.common.by import By
+
+from pages.base_page import BasePage
+
 
 class GooglePage(BasePage):
     SEARCH_BOX = (By.NAME, "q")

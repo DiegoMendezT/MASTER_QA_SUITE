@@ -1,0 +1,5 @@
+2025-08-09 14:36:54,941 - INFO - Running locally with browser: chrome
+2025-08-09 14:36:55,265 - INFO - Chromedriver is already installed.
+2025-08-09 14:36:58,212 - INFO - Testing with fake username: PGBxSlim
+2025-08-09 14:36:58,685 - INFO - ✅ Invalid login properly rejected with message: Your username is invalid!
+×

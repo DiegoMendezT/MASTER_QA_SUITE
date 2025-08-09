@@ -1,0 +1,10 @@
+2025-08-09 14:32:22,697 - INFO - Running locally with browser: chrome
+2025-08-09 14:32:23,163 - INFO - Chromedriver is already installed.
+2025-08-09 14:32:26,510 - INFO - Navigating to URL: https://www.saucedemo.com
+2025-08-09 14:32:26,891 - INFO - Entering text 'standard_user' into element: ('id', 'user-name')
+2025-08-09 14:32:28,702 - INFO - Entering text 'secret_sauce' into element: ('id', 'password')
+2025-08-09 14:32:28,809 - INFO - Clicking element: ('id', 'login-button')
+2025-08-09 14:32:28,926 - INFO - axe-core script injected successfully.
+2025-08-09 14:32:28,962 - WARNING - axe-core not injected. Skipping accessibility scan.
+2025-08-09 14:32:28,962 - INFO - Clicking element: ('id', 'shopping_cart_container')
+2025-08-09 14:32:28,998 - WARNING - axe-core not injected. Skipping accessibility scan.

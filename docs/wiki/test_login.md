@@ -30,7 +30,7 @@ class TestLoginScenarios:
         """Test login with invalid credentials using generated data"""
         # Test with the-internet.herokuapp.com login page (reliable test site)
         login_url = "https://the-internet.herokuapp.com/login"
-        login_page = LoginPage(driver)
+        login_page = LoginPage(driver, config)
         
         # Navigate to login page
         driver.get(login_url)

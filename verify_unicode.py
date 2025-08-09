@@ -3,10 +3,9 @@ MASTER QA SUITE v2.5 - Universal Unicode System Verification
 Supports ALL characters: ASCII, Extended, Unicode, Emojis, Mathematical Symbols, etc.
 🌍🔤📝✨ Full International Support ✨📝🔤🌍
 """
-import sys
 import importlib
 import os
-import codecs
+import sys
 
 # Ensure UTF-8 encoding for all output
 if sys.platform.startswith('win'):
@@ -72,7 +71,7 @@ def verify_file_structure():
     required_files = [
         'conftest.py',
         'pytest.ini', 
-        'requirements.txt',
+        'requirements/base.in',
         'config/settings.yaml',
         'tests/test_self_reflection.py',
         'pages/__init__.py',

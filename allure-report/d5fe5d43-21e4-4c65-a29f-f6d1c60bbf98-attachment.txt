@@ -1,0 +1,5 @@
+✅ Generated 100 profiles in 0.11s
+
+📊 Performance Metrics:
+   ⏱️  Execution Time: 0.11s
+   🧠 Memory Usage: 0.04 MB

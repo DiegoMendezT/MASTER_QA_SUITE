@@ -7,6 +7,7 @@ It can be configured to work in 'simulated' or 'live' mode.
 import requests
 from tenacity import retry, stop_after_attempt, wait_fixed
 
+
 class ApiClient:
     """A client for interacting with the application's API."""
 

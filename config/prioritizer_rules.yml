@@ -1,0 +1,14 @@
+strategy: linear        # linear | wsjf | rice
+weights:
+  roi: 0.55
+  complexity: -0.25
+  learning: 0.25
+  risk: -0.15
+penalty_blocked: -1000000
+penalty_has_open_deps: -1000
+bonus_due_today: 0.25
+bonus_due_soon_days: 3
+bonus_due_soon: 0.1
+cooldown_days: 2
+penalty_recently_done: -0.2
+tiebreak: [roi, learning, effort_hrs]

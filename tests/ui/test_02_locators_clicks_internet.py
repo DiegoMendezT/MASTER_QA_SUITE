@@ -8,6 +8,7 @@ Purpose: To demonstrate finding elements using different locator strategies (ID,
 import pytest
 from selenium.webdriver.common.by import By
 
+
 @pytest.mark.ui
 def test_02_locators_and_clicks(driver, config):
     """
