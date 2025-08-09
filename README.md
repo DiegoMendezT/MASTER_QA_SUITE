@@ -29,6 +29,7 @@ This project stands on the shoulders of giants. Here is the core technology stac
 | **Local UI Runner** | [Streamlit](https://streamlit.io/)                                                                     |
 | **CI/CD**           | [GitHub Actions](https://github.com/features/actions)                                                  |
 | **Cloud Testing**   | [Sauce Labs](https://saucelabs.com/)                                                                     |
+| **Visual Testing**  | [Applitools](https://applitools.com/)                                                                  |
 | **AI Assistance**   | [GitHub Copilot](https://github.com/features/copilot), ChatGPT                                         |
 
 ---

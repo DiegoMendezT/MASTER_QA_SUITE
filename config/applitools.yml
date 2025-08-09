@@ -1,0 +1,17 @@
+# Applitools Configuration
+# This file contains settings for the Applitools Eyes SDK.
+
+# Your Applitools API key. It's recommended to set this as an environment variable.
+api_key: ${APPLITOOLS_API_KEY}
+
+# The name of the application under test.
+app_name: "MASTER_QA_SUITE"
+
+# The name of the batch for this test run.
+# You can use environment variables to make this dynamic, e.g., for CI builds.
+batch_name: "Local Development Batch"
+
+# Viewport size for the browser during visual tests.
+viewport_size:
+  width: 1920
+  height: 1080

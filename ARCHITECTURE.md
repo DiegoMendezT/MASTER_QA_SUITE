@@ -70,6 +70,11 @@ MASTER_QA_SUITE/
 - A custom script, `sync_docs.py`, automatically generates markdown documentation from test file docstrings and markers.
 - This creates a living documentation system and a traceability matrix, ensuring that documentation is always up-to-date with the test suite.
 
+### 7. Visual Testing (`Applitools`)
+- **`Applitools Eyes`** is integrated for automated visual regression testing.
+- The `eyes` fixture in `conftest.py` manages the connection to the Applitools Ultrafast Grid.
+- Tests can capture screenshots of pages or elements and compare them against an established baseline, catching unintended UI changes that functional tests might miss.
+
 ## Execution Flow
 
 1.  **Initialization**: `conftest.py` reads configuration files and sets up the environment based on command-line arguments or Streamlit UI selections.

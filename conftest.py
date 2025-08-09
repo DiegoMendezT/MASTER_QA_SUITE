@@ -13,6 +13,7 @@ import tempfile
 import shutil
 import threading
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+from applitools.selenium import Eyes, BatchInfo, Configuration, Target
 
 # Set up basic logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -39,6 +40,13 @@ def pytest_addoption(parser):
     )
 
 @pytest.fixture(scope="session")
+def applitools_config():
+    """Load Applitools configuration."""
+    config_path = os.path.join(os.path.dirname(__file__), 'config', 'applitools.yml')
+    with open(config_path, 'r', encoding='utf-8') as file:
+        return yaml.safe_load(file)
+
+@pytest.fixture(scope="session")
 def integration_config():
     """Load integration configuration from integration.yaml"""
     config_path = os.path.join(os.path.dirname(__file__), 'config', 'integration.yaml')
@@ -46,19 +54,36 @@ def integration_config():
         return yaml.safe_load(file)
 
 @pytest.fixture(scope="session")
-def integration_mode(pytestconfig, integration_config):
-    """Determine the integration test mode."""
-    cli_mode = pytestconfig.getoption("integration_mode")
-    if cli_mode:
-        return cli_mode
-    return integration_config.get('mode', 'simulated')
-
-@pytest.fixture(scope="session")
 def config():
     """Load configuration from settings.yaml"""
     config_path = os.path.join(os.path.dirname(__file__), 'config', 'settings.yaml')
     with open(config_path, 'r', encoding='utf-8') as file:
         return yaml.safe_load(file)
+
+@pytest.fixture(scope="function")
+def eyes(driver, applitools_config, request):
+    """Applitools Eyes fixture for visual testing."""
+    # Initialize the eyes SDK and set your private API key.
+    eyes = Eyes()
+    
+    config = Configuration()
+    config.set_api_key(os.getenv("APPLITOOLS_API_KEY", applitools_config.get('api_key')))
+    config.set_batch(BatchInfo(applitools_config.get('batch_name', "MASTER QA SUITE")))
+    config.set_app_name(applitools_config.get('app_name', "MASTER QA SUITE"))
+    
+    # Set viewport size
+    vp_size = applitools_config.get('viewport_size', {'width': 1920, 'height': 1080})
+    config.set_viewport_size({'width': vp_size['width'], 'height': vp_size['height']})
+
+    eyes.set_configuration(config)
+    
+    # Start the test and set the browser's viewport size to match the baseline.
+    eyes.open(driver, app_name=config.app_name, test_name=request.node.name)
+    
+    yield eyes
+    
+    # Close the eyes instance and abort if not closed.
+    eyes.close_async()
 
 @pytest.fixture(scope="function")
 def driver(config, request):
