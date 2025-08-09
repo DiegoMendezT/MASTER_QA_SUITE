@@ -1,178 +1,137 @@
 # MASTER_QA_SUITE
 
-[![CI](https://github.com/DiegoMendezT/MASTER_QA_SUITE/actions/workflows/ci.yml/badge.svg)](https://github.com/DiegoMendezT/MASTER_QA_SUITE/actions/workflows/ci.yml)
+[![CI](https://github.com/DiegoMendezT/MASTER_QA_SUITE/actions/workflows/tests.yml/badge.svg)](https://github.com/DiegoMendezT/MASTER_QA_SUITE/actions/workflows/tests.yml)
 
-> *"The first automation framework that tests itself as rigorously as it tests your applications."*
-
-**What if your test framework could think, learn, and evolve?** 
-
-MASTER QA SUITE v2.5 isn't just another Selenium automation framework—it's a **self-aware system** that combines professional-grade testing capabilities with consciousness-level self-reflection. Built for QA engineers who want their tools to be as intelligent as they are.
-
-## 🌟 Why This Framework Is Different
-
-### 🔄 **Self-Reflection Capabilities**
-- **Tests its own structure** and validates framework integrity
-- **Tracks its own evolution** through consciousness logging  
-- **Measures its own effectiveness** with built-in health metrics
-- **Maintains its own quality** through meta-layer validation
-
-### ⚡ **Professional Testing Power**
-- **Cross-Browser Testing**: Chrome, Firefox, Edge support with WebDriver management
-- **Advanced Page Objects**: Intelligent inheritance with fallback locator patterns
-- **Real-World Test Scenarios**: Login flows, form handling, dynamic content
-- **Parallel Execution**: pytest-xdist integration for speed
-- **Smart Data Generation**: Faker integration for realistic test data
-- **Professional Reporting**: HTML reports with failure screenshots and metrics
-
-### 🎯 **Built for Cloning & Extension**
-- **Template-Ready**: Clone and adapt for any client project in minutes
-- **Modular Architecture**: Add/remove components without breaking the system  
-- **Configuration-Driven**: YAML-based settings for easy environment management
-- **Documentation-Rich**: Every component explained and extensible
-
-## 📁 Project Structure
-
-```
-MASTER_QA_SUITE/
-├── tests/                 # Test cases and test suites
-├── pages/                 # Page Object Model classes
-├── drivers/               # WebDriver factory and management
-├── utils/                 # Helper utilities and data generators
-├── config/                # Configuration files (YAML)
-├── reports/               # Test reports and failure screenshots
-├── streamlit_ui/          # Web UI for test management
-├── conftest.py            # Pytest fixtures and configuration
-├── pytest.ini            # Pytest settings and markers
-└── requirements.txt       # Python dependencies
-```
-
-## 🛠️ Setup
-
-### Prerequisites
-- Python 3.11+
-- pip package manager
-
-### Installation
-
-1. **Clone repository:**
-   ```bash
-   git clone <repository-url>
-   cd MASTER_QA_SUITE
-   ```
-
-2. **Create virtual environment:**
-   ```bash
-   python -m venv .venv
-   .venv\Scripts\activate  # Windows
-   ```
-
-3. **Install dependencies:**
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-## 🧪 Running Tests
-
-### Command Line (pytest)
-
-```bash
-# Run all tests
-python -m pytest tests/ -v
-
-# Run specific test file
-python -m pytest tests/test_google.py -v
-
-# Run with markers
-python -m pytest -m smoke -v
-
-# Parallel execution
-python -m pytest tests/ -n auto -v
-
-# Generate HTML report
-python -m pytest tests/ --html=reports/report.html --self-contained-html
-```
-
-### Streamlit UI
-
-```bash
-# Launch test dashboard
-streamlit run streamlit_ui/app.py
-```
-
-Then open `http://localhost:8501` in your browser.
-
-## 📊 Test Markers
-
-- `smoke`: Critical functionality tests
-- `regression`: Full regression test suite  
-- `ui`: User interface tests
-- `slow`: Long-running tests
-
-## 🌐 Browser Configuration
-
-Edit `config/settings.yaml` to customize:
-
-```yaml
-browsers:
-  chrome:
-    headless: false
-    window_size: "1920,1080"
-  firefox:
-    headless: false  
-    window_size: "1920,1080"
-```
-
-## ☁️ Cloud Testing (SauceLabs)
-
-Configure `config/saucelabs_config.yaml` with your credentials:
-
-```yaml
-saucelabs:
-  username: "${SAUCE_USERNAME}"
-  access_key: "${SAUCE_ACCESS_KEY}"
-```
-
-## 📈 Reports
-
-- **HTML Reports**: `reports/report.html`
-- **Screenshots**: `reports/screenshots/` (on test failures)
-- **Logs**: Console output with timestamp and level
-
-## 🔧 Development
-
-### Adding New Tests
-1. Create test file in `tests/` directory
-2. Import `BasePage` and create page objects in `pages/`
-3. Use appropriate pytest markers
-4. Follow Page Object Model patterns
-
-### Adding New Pages
-1. Create page class in `pages/` directory
-2. Inherit from `BasePage`
-3. Define locators as class attributes
-4. Implement page-specific methods
-
-## 🚀 CI/CD
-
-Ready for GitHub Actions integration. Pipeline configuration supports:
-- Multi-browser testing
-- Parallel execution
-- Test reporting
-- Artifact collection
-
-## 🏆 Portfolio Value
-
-This framework demonstrates:
-- **SDET Expertise**: Advanced Selenium patterns and best practices
-- **Clean Architecture**: Page Object Model with inheritance
-- **Modern Tools**: Python 3.11, pytest, Streamlit integration
-- **Scalability**: Parallel execution and cloud readiness
-- **Professional Quality**: Comprehensive reporting and error handling
-
-## 📞 Support
-
-Built with ❤️ for QA automation excellence.
+An advanced, self-aware test automation framework designed for modern SDETs and QA teams. It combines a robust testing architecture with AI-powered development workflows to accelerate quality assurance.
 
 ---
 
-**MASTER QA SUITE v2.0** - Showcasing 2025-level SDET capabilities
+## 🎯 Core Philosophy
+
+This framework is built for three primary audiences:
+
+1.  **For the Tech Lead/Architect**: A scalable, maintainable, and cloud-ready solution using industry best practices like POM, configuration-driven testing, and a staged CI/CD pipeline.
+2.  **For the QA Manager/Director**: A reliable system that provides clear, actionable reports (HTML, screenshots), traceability, and a user-friendly Streamlit UI for non-technical users to launch tests.
+3.  **For the Student/Learner**: A comprehensive, real-world example of a professional-grade automation project, demonstrating advanced concepts in a practical way.
+
+---
+
+## ✨ Powered By
+
+This project stands on the shoulders of giants. Here is the core technology stack:
+
+| Category          | Technology                                                                                             |
+| ----------------- | ------------------------------------------------------------------------------------------------------ |
+| **Core Framework**  | [Python 3.11+](https://www.python.org/), [Pytest](https://pytest.org/)                                    |
+| **Web Automation**  | [Selenium](https://www.selenium.dev/), [WebDriver Manager](https://github.com/autoinstaller/py-web-driver) |
+| **Parallelization** | [pytest-xdist](https://github.com/pytest-dev/pytest-xdist)                                             |
+| **Reporting**       | [pytest-html](https://github.com/pytest-dev/pytest-html)                                               |
+| **Local UI Runner** | [Streamlit](https://streamlit.io/)                                                                     |
+| **CI/CD**           | [GitHub Actions](https://github.com/features/actions)                                                  |
+| **Cloud Testing**   | [Sauce Labs](https://saucelabs.com/)                                                                     |
+| **AI Assistance**   | [GitHub Copilot](https://github.com/features/copilot), ChatGPT                                         |
+
+---
+
+## 🏗️ Architecture Overview
+
+The framework follows a modular, configuration-driven architecture that separates concerns and promotes maintainability.
+
+```
++-------------------------+      +-----------------------+      +---------------------+
+|      Streamlit UI       |----->|       Pytest Core     |<---->|      Selenium       |
+| (ui/controls.py)        |      | (conftest.py, tests/) |      | (pages/, BasePage)  |
++-------------------------+      +-----------+-----------+      +----------+----------+
+            ^                            |                              |
+            |                            |                              |
++-----------+-----------+      +---------v-----------+      +-----------v-----------+
+|  Configuration Files  |<---->|   CI/CD Pipeline    |      |   Cloud Grid        |
+| (config/*.yml, .env)  |      | (.github/workflows) |      |   (Sauce Labs)      |
++-------------------------+      +-----------------------+      +---------------------+
+```
+
+For a more detailed breakdown of each component and the execution flow, please see the full **[ARCHITECTURE.md](ARCHITECTURE.md)** file.
+
+---
+
+## 🛠️ Setup & Installation
+
+### Prerequisites
+- Python 3.11+
+- Git
+
+### Steps
+
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/DiegoMendezT/MASTER_QA_SUITE.git
+    cd MASTER_QA_SUITE
+    ```
+
+2.  **Create and activate a virtual environment:**
+    ```bash
+    # Windows
+    python -m venv .venv
+    .venv\Scripts\activate
+
+    # macOS/Linux
+    python3 -m venv .venv
+    source .venv/bin/activate
+    ```
+
+3.  **Install all dependencies:**
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+4.  **(Optional) Set up environment variables:**
+    Create a `.env` file in the root directory for secrets and local overrides. This is required for Sauce Labs execution.
+    ```env
+    # .env
+    SAUCE_USERNAME="your-sauce-username"
+    SAUCE_ACCESS_KEY="your-sauce-access-key"
+    ```
+
+---
+
+## 🧪 Running Tests
+
+You can run tests via the command line or the Streamlit UI.
+
+### 1. Command Line (Powerful & Flexible)
+
+```bash
+# Run all tests sequentially
+pytest
+
+# Run tests in parallel (recommended)
+pytest -n auto
+
+# Run only tests with a specific marker (e.g., smoke tests)
+pytest -m smoke
+
+# Generate a self-contained HTML report
+pytest --html=reports/report.html --self-contained-html
+```
+
+### 2. Streamlit UI (User-Friendly)
+
+Launch the interactive test runner dashboard:
+```bash
+streamlit run ui/controls.py
+```
+Open `http://localhost:8501` in your browser to select tests, configure options, and run them with the click of a button.
+
+---
+
+## 📄 Documentation & Reporting
+
+- **Test Reports**: Generated in the `reports/` directory. Includes an HTML report and screenshots for failed tests.
+- **Auto-Generated Docs**: The project includes a tool to generate documentation from test files. Run it via the Streamlit UI or directly:
+  ```bash
+  python tools/sync_docs.py
+  ```
+- **Contribution Guidelines**: See `CONTRIBUTING.md` for details on commit messages and pull requests.
+
+---
+Built with ❤️ and AI for the future of QA.
