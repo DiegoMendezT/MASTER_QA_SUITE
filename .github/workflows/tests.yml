@@ -1,0 +1,42 @@
+name: Master QA Suite CI
+
+on:
+  push:
+    branches: [ main, parallel-ci ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11"]
+        browser: ["chrome", "firefox", "edge"]
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run tests on ${{ matrix.browser }}
+        env:
+          SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
+          SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
+          BROWSER: ${{ matrix.browser }}
+        run: pytest -n auto --maxfail=1 --disable-warnings --html=report-${{ matrix.browser }}.html --self-contained-html
+
+      - name: Upload HTML report for ${{ matrix.browser }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-report-${{ matrix.browser }}
+          path: report-${{ matrix.browser }}.html

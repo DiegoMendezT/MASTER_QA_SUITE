@@ -1,0 +1,26 @@
+# SauceLabs Configuration (placeholder for future use)
+saucelabs:
+  username: "${SAUCE_USERNAME}"
+  access_key: "${SAUCE_ACCESS_KEY}"
+  region: "us-west-1"
+  
+# Browser capabilities for SauceLabs
+capabilities:
+  chrome:
+    browserName: "chrome"
+    browserVersion: "latest"
+    platformName: "Windows 11"
+  firefox:
+    browserName: "firefox" 
+    browserVersion: "latest"
+    platformName: "Windows 11"
+  edge:
+    browserName: "MicrosoftEdge"
+    browserVersion: "latest"
+    platformName: "Windows 11"
+
+# Test options
+options:
+  build: "MASTER_QA_SUITE_${BUILD_NUMBER}"
+  name: "Cross-Browser Test Suite"
+  tags: ["selenium", "cross-browser", "qa-suite"]

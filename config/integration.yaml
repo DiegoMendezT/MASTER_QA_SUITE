@@ -1,0 +1,13 @@
+mode: simulated # can be 'simulated' or 'live'
+
+simulated:
+  user: "standard_user"
+  pass: "secret_sauce"
+  base_url: "https://www.saucedemo.com"
+  # We can add other simulated-specific settings here
+  
+live:
+  user: "standard_user" # In a real scenario, this might come from an env var or secret store
+  pass: "secret_sauce"
+  base_url: "https://www.saucedemo.com"
+  # Live-specific settings, e.g., different API keys or timeouts
