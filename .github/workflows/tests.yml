@@ -1,4 +1,4 @@
-name: Master QA Suite CI
+name: MASTER QA SUITE CI
 
 on:
   push:
@@ -7,36 +7,54 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: pip install ruff
+      - name: Run linter
+        run: ruff check .
+
+  fast_tests:
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run fast tests
+        run: pytest -m "not slow and not ui"
+
+  ui_tests:
+    needs: fast_tests
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
-        python-version: ["3.11"]
         browser: ["chrome", "firefox", "edge"]
-
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
-
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v4
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
         with:
-          python-version: ${{ matrix.python-version }}
-
+          python-version: '3.11'
       - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-
-      - name: Run tests on ${{ matrix.browser }}
+        run: pip install -r requirements.txt
+      - name: Run UI tests on ${{ matrix.browser }}
         env:
           SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
           SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
           BROWSER: ${{ matrix.browser }}
-        run: pytest -n auto --maxfail=1 --disable-warnings --html=report-${{ matrix.browser }}.html --self-contained-html
-
-      - name: Upload HTML report for ${{ matrix.browser }}
+        run: pytest -n auto -m ui --html=report-${{ matrix.browser }}.html --self-contained-html
+      - name: Upload HTML report
         uses: actions/upload-artifact@v3
+        if: always()
         with:
           name: test-report-${{ matrix.browser }}
           path: report-${{ matrix.browser }}.html

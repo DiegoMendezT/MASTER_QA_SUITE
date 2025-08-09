@@ -1,13 +1,22 @@
 {
-  "version": 1,
-  "ignore": [
-    "node_modules/**",
-    ".venv/**",
-    "__pycache__/**",
-    "*.log",
-    "allure-results/**"
-  ],
   "context": {
-    "description": "MASTER_QA_SUITE is a Python Selenium automation framework using pytest, Page Object Model, integration tests, accessibility checks, performance smoke tests, and GitHub Actions CI/CD."
+    "project_goal": "MASTER QA SUITE: a cloneable, portfolio-grade Selenium+Pytest framework with self-generated wiki, Streamlit runner, and CI matrix (local & Sauce).",
+    "key_rules": [
+      "Respect markers: @ui @api @integration @a11y @perf @auth @security @external @quarantine",
+      "Preserve docstring headers; they feed docs sync",
+      "Follow folder layout: tests/, pages/, utils/, tools/, ui_streamlit/, docs/wiki/",
+      "Default Python 3.11; avoid 3.13-only features",
+      "Use WebDriverWait over sleep; robust click with JS fallback is allowed"
+    ],
+    "dont_touch": [
+      "Docstring header format",
+      "Traceability matrix column names",
+      "Runner CLI options"
+    ],
+    "hints": {
+      "tests": "Prefer parametrization & fixtures; no global state.",
+      "pages": "Keep small, high-signal helpers only.",
+      "ui_streamlit": "Stateless; read run args and spawn pytest via subprocess."
+    }
   }
 }
