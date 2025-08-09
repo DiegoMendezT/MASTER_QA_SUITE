@@ -10,13 +10,14 @@ automatic retries for robustness and performance.
   retrying failed requests with exponential backoff.
 """
 
-import requests
 import os
+from functools import lru_cache
+
+import requests
+import requests_cache
+import yaml
 from requests.adapters import HTTPAdapter
 from tenacity import retry, stop_after_attempt, wait_exponential
-import requests_cache
-from functools import lru_cache
-import yaml
 
 # Singleton instance of the HTTP client
 _http_client = None

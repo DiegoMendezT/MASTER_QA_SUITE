@@ -5,6 +5,7 @@ import logging
 import os
 from datetime import datetime
 
+
 def setup_logger(name=__name__, level=logging.INFO):
     """Setup logger with file and console handlers"""
     

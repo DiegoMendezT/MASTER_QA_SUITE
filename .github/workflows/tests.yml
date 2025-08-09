@@ -5,56 +5,132 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   lint:
+    name: "Lint Codebase"
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
+      - name: "Checkout repository"
+        uses: actions/checkout@v4
+      - name: "Set up Python"
+        uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Install dependencies
+      - name: "Install linting dependencies"
         run: pip install ruff
-      - name: Run linter
+      - name: "Run Ruff linter"
         run: ruff check .
 
-  fast_tests:
+  non_ui_tests:
+    name: "Run Non-UI Tests"
     needs: lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
+      - name: "Checkout repository"
+        uses: actions/checkout@v4
+      - name: "Set up Python"
+        uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Install dependencies
+      - name: "Install dependencies"
         run: pip install -r requirements.txt
-      - name: Run fast tests
-        run: pytest -m "not slow and not ui"
+      - name: "Run non-UI tests"
+        run: pytest -m "not ui" --junitxml=junit/test-results-non-ui.xml
+      - name: "Upload test results"
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: non-ui-test-results
+          path: junit/test-results-non-ui.xml
 
-  ui_tests:
-    needs: fast_tests
+  parallel_ui_tests:
+    name: "Run Parallel UI Tests (${{ matrix.engine }} on ${{ matrix.browser }})"
+    needs: non_ui_tests
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        browser: ["chrome", "firefox", "edge"]
+        include:
+          # Selenium on Sauce Labs
+          - engine: selenium
+            browser: chrome
+          - engine: selenium
+            browser: firefox
+          - engine: selenium
+            browser: edge
+          # Playwright on GitHub Runner
+          - engine: playwright
+            browser: chromium
+          - engine: playwright
+            browser: firefox
+          - engine: playwright
+            browser: webkit
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
+      - name: "Checkout repository"
+        uses: actions/checkout@v4
+      - name: "Set up Python"
+        uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Install dependencies
+      - name: "Install dependencies"
         run: pip install -r requirements.txt
-      - name: Run UI tests on ${{ matrix.browser }}
+      - name: "Install Playwright browsers"
+        if: matrix.engine == 'playwright'
+        run: python -m playwright install --with-deps ${{ matrix.browser }}
+      - name: "Run tests"
         env:
           SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
           SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
-          BROWSER: ${{ matrix.browser }}
-        run: pytest -n auto -m ui --html=report-${{ matrix.browser }}.html --self-contained-html
-      - name: Upload HTML report
-        uses: actions/upload-artifact@v3
+          BROWSER: ${{ matrix.browser }} # Used by Selenium fixture
+        run: |
+          pytest -n auto -m "ui and not serial" --engine=${{ matrix.engine }} --browser=${{ matrix.browser }} \
+          --html=report-${{ matrix.engine }}-${{ matrix.browser }}.html --self-contained-html \
+          --junitxml=junit/test-results-${{ matrix.engine }}-${{ matrix.browser }}.xml
+      - name: "Upload test report"
         if: always()
+        uses: actions/upload-artifact@v4
         with:
-          name: test-report-${{ matrix.browser }}
-          path: report-${{ matrix.browser }}.html
+          name: test-report-${{ matrix.engine }}-${{ matrix.browser }}
+          path: |
+            report-${{ matrix.engine }}-${{ matrix.browser }}.html
+            junit/test-results-${{ matrix.engine }}-${{ matrix.browser }}.xml
+
+  serial_ui_tests:
+    name: "Run Serial UI Tests"
+    needs: non_ui_tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v4
+      - name: "Set up Python"
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: "Install dependencies"
+        run: pip install -r requirements.txt
+      - name: "Install Playwright browsers"
+        run: python -m playwright install --with-deps chromium
+      - name: "Run Serial Tests (Selenium)"
+        env:
+          SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
+          SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
+          BROWSER: "chrome"
+        run: |
+          pytest -m "ui and serial" --engine=selenium \
+          --html=report-serial-selenium.html --self-contained-html \
+          --junitxml=junit/test-results-serial-selenium.xml
+      - name: "Run Serial Tests (Playwright)"
+        run: |
+          pytest -m "ui and serial" --engine=playwright --browser=chromium \
+          --html=report-serial-playwright.html --self-contained-html \
+          --junitxml=junit/test-results-serial-playwright.xml
+      - name: "Upload test reports"
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: serial-test-reports
+          path: |
+            report-serial-*.html
+            junit/test-results-serial-*.xml

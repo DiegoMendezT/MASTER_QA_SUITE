@@ -6,8 +6,9 @@ Markers: @ui @integration
 Purpose: To verify a complete user journey from login to checkout confirmation, demonstrating the use of the Page Object Model to structure a complex test.
 """
 import pytest
-from pages.sauce_login_page import SauceLoginPage
+
 from pages.sauce_inventory_page import SauceInventoryPage
+from pages.sauce_login_page import SauceLoginPage
 
 # Note: For a real E2E test, we would create more page objects (Cart, Checkout, etc.)
 # For this MVP, we will keep it focused on Login -> Inventory.

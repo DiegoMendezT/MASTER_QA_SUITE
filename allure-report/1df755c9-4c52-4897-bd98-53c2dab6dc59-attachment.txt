@@ -1,0 +1,6 @@
+[32mINFO    [0m root:conftest.py:162 Running locally with browser: chrome
+[32mINFO    [0m root:utils.py:317 Chromedriver is already installed.
+[32mINFO    [0m pages.base_page:base_page.py:37 Navigating to URL: https://www.saucedemo.com
+[32mINFO    [0m pages.base_page:base_page.py:128 Entering text 'invalid_user' into element: ('id', 'user-name')
+[32mINFO    [0m pages.base_page:base_page.py:128 Entering text 'invalid_password' into element: ('id', 'password')
+[32mINFO    [0m pages.base_page:base_page.py:102 Clicking element: ('id', 'login-button')

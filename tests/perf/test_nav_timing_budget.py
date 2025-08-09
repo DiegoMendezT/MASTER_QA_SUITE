@@ -6,9 +6,11 @@ Markers: @perf @ui
 Purpose: Verifies that the page load time of a simple page is within an
          acceptable performance budget.
 """
-import pytest
 import os
-from utils.perf import get_nav_timing, calc_load_ms
+
+import pytest
+
+from utils.perf import calc_load_ms, get_nav_timing
 
 # --- Test Configuration ---
 # Performance budget in milliseconds for page load.

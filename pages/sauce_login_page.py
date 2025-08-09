@@ -5,7 +5,9 @@ This class encapsulates the elements and actions available on the login page
 of the Sauce Demo application (https://www.saucedemo.com).
 """
 from selenium.webdriver.common.by import By
+
 from pages.base_page import BasePage
+
 
 class SauceLoginPage(BasePage):
     """

@@ -2,13 +2,15 @@
 Framework Health Check - Self-Reflection Test Module
 Tests the MASTER QA SUITE framework itself to ensure structural integrity
 """
-import os
-import pytest
 import glob
-import yaml
+import importlib.util
+import os
 import subprocess
 from pathlib import Path
-import importlib.util
+
+import pytest
+import yaml
+
 
 @pytest.mark.self_reflection
 class TestFrameworkStructure:

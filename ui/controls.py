@@ -1,42 +1,49 @@
-import streamlit as st
-import subprocess
 import os
+import subprocess
 import sys
+
+import streamlit as st
 
 # Add project root to the Python path
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from tools.innercouncil import InnerCouncil
+from tools.task_prioritizer import TaskPrioritizer
+
 
 def run_tests_ui():
     st.set_page_config(layout="wide")
-    st.title("MASTER QA SUITE :: InnerCouncil Runner")
+    st.title("MASTER QA SUITE :: Task Prioritizer")
 
     # --- Main Columns ---
     col1, col2 = st.columns([2, 1])
 
     with col1:
         st.header("Test Execution")
+
+        # --- Engine Selection ---
+        engine = st.selectbox("Test Engine", ["Selenium", "Playwright"], index=0)
         
         # --- Worker Selection ---
         workers = st.slider("Parallel Workers", min_value=1, max_value=os.cpu_count() or 1, value=2)
         
-        # --- Browser Selection ---
-        browser = st.selectbox("Browser", ["chrome", "firefox", "edge"], index=0)
+        # --- Browser & Engine-Specific Options ---
+        if engine == "Selenium":
+            browser = st.selectbox("Browser", ["chrome", "firefox", "edge"], index=0)
+            login_mode = st.radio(
+                "Login Method",
+                ["UI Login", "API+Cookie Login"],
+                index=0,
+                horizontal=True
+            )
+            headless = st.checkbox("Run Headless", value=True)
+            sauce = st.checkbox("Run on Sauce Labs", value=False)
         
-        # --- Login Mode Selection ---
-        login_mode = st.radio(
-            "Login Method",
-            ["UI Login", "API+Cookie Login"],
-            index=0,
-            horizontal=True
-        )
-
-        # --- Headless Mode ---
-        headless = st.checkbox("Run Headless", value=True)
-
-        # --- Sauce Labs Toggle ---
-        sauce = st.checkbox("Run on Sauce Labs", value=False)
+        elif engine == "Playwright":
+            browser = st.selectbox("Browser", ["chromium", "firefox", "webkit"], index=0)
+            headless = st.checkbox("Run Headless", value=True)
+            # Set Selenium-specific options to defaults that won't interfere
+            login_mode = "N/A"
+            sauce = False
 
         # --- Marker Selection ---
         markers = st.text_input("Markers (e.g., 'smoke and not slow')")
@@ -49,17 +56,30 @@ def run_tests_ui():
             env_vars_str = st.text_area("Enter as KEY=VALUE pairs, one per line")
 
         if st.button("Run Tests", use_container_width=True):
-            cmd = f"pytest {test_path} -n {workers} --login-mode='{login_mode}'"
+            env = os.environ.copy()
+
+            # Base command
+            cmd = f"pytest {test_path} -n {workers}"
+
+            # Engine-specific command building
+            if engine == "Selenium":
+                cmd += f" --login-mode='{login_mode}'"
+                env["BROWSER"] = browser
+                if headless:
+                    env["QA_HEADLESS"] = "1"
+                if sauce:
+                    env["SAUCE_USERNAME"] = os.getenv("SAUCE_USERNAME", "")
+                    env["SAUCE_ACCESS_KEY"] = os.getenv("SAUCE_ACCESS_KEY", "")
+            
+            elif engine == "Playwright":
+                cmd += f" --browser {browser}"
+                # The --headless flag for pytest-playwright is a store_true action,
+                # so it doesn't take an argument. We just add it if the box is checked.
+                if headless:
+                    cmd += " --headless"
+
             if markers:
                 cmd += f" -m '{markers}'"
-            
-            env = os.environ.copy()
-            env["BROWSER"] = browser
-            if headless:
-                env["QA_HEADLESS"] = "1"
-            if sauce:
-                env["SAUCE_USERNAME"] = os.getenv("SAUCE_USERNAME", "")
-                env["SAUCE_ACCESS_KEY"] = os.getenv("SAUCE_ACCESS_KEY", "")
             
             for line in env_vars_str.splitlines():
                 if "=" in line:
@@ -99,16 +119,35 @@ def run_tests_ui():
                 st.error(f"An error occurred while running tests: {e}")
 
     with col2:
-        st.header("InnerCouncil")
+        st.header("Task Prioritizer")
+
+        # --- Strategy Selection ---
+        strategies = ["wsjf", "rice", "linear"]
+        strategy = st.selectbox("Scoring Strategy", strategies, index=0)
         
-        if st.button("Let InnerCouncil Decide", use_container_width=True):
-            council = InnerCouncil()
-            next_task, score = council.decide_next_task()
-            if 'error' in next_task:
-                st.error(next_task['error'])
-            else:
-                st.success(f"Next Task: **{next_task['name']}**")
-                st.info(f"Score: **{score:.2f}** (ROI: {next_task['roi']}, Complexity: {next_task['complexity']}, Learning: {next_task['learning']})")
+        if st.button(f"Prioritize with '{strategy.upper()}'", use_container_width=True):
+            try:
+                engine = TaskPrioritizer()
+                recommended_tasks = engine.prioritize(strategy_name=strategy, top=5)
+                
+                st.success(f"Top 5 Recommendations using '{strategy}' strategy:")
+
+                if not recommended_tasks:
+                    st.info("No tasks to prioritize or all tasks are blocked.")
+                
+                for i, task in enumerate(recommended_tasks, 1):
+                    with st.expander(f"{i}. {task.name} (Score: {task.score:.2f})"):
+                        st.markdown(f"**ID:** `{task.id}` | **Status:** `{task.status}`")
+                        st.json(task.metrics)
+                        if task.dependencies:
+                            st.markdown(f"**Dependencies:** `{', '.join(task.dependencies)}`")
+
+            except FileNotFoundError:
+                st.error("Error: A required configuration file (`prioritizer_rules.yml` or `roadmap_phase2.yml`) was not found.")
+            except ValueError as ve:
+                st.error(f"Configuration Error: {ve}")
+            except Exception as e:
+                st.error(f"An unexpected error occurred: {e}")
 
         st.header("Documentation")
         if st.button("Sync Docs", use_container_width=True):

@@ -1,0 +1,5 @@
+2025-08-09 12:34:54,099 - INFO - Running locally with browser: chrome
+2025-08-09 12:34:54,560 - INFO - Chromedriver is already installed.
+2025-08-09 12:34:55,928 - INFO - Opening page: https://www.google.com/ncr
+2025-08-09 12:35:06,736 - INFO - Entering text 'pytest' into element: ('name', 'q')
+2025-08-09 12:35:07,162 - INFO - Waiting for URL to contain: 'search?'

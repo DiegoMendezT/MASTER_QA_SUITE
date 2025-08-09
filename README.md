@@ -95,33 +95,40 @@ For a more detailed breakdown of each component and the execution flow, please s
 
 ---
 
-## 🧪 Running Tests
+## 🧪 Test Engines
 
-You can run tests via the command line or the Streamlit UI.
+We support two UI automation engines:
 
-### 1. Command Line (Powerful & Flexible)
+- **Selenium** — full-fidelity, plugin-rich UI testing (local Chrome/Firefox/Edge + Sauce Labs in CI).
+- **Playwright** — fast, hermetic headless/headed runs with built-in fixtures (browser, context, page).
+
+Switch engines with a single flag:
 
 ```bash
-# Run all tests sequentially
-pytest
+# Selenium (default)
+pytest -m "ui and not external" --engine selenium -n 4
 
-# Run tests in parallel (recommended)
-pytest -n auto
-
-# Run only tests with a specific marker (e.g., smoke tests)
-pytest -m smoke
-
-# Generate a self-contained HTML report
-pytest --html=reports/report.html --self-contained-html
+# Playwright
+pytest tests/playwright --engine playwright --browser chromium
+pytest tests/playwright --engine playwright --browser chromium --headed  # visible
 ```
 
-### 2. Streamlit UI (User-Friendly)
+### One-time setup (per machine/runner):
+
+```bash
+python -m pip install -r requirements.txt
+python -m playwright install   # add --with-deps on Linux containers if needed
+```
+
+## 🚀 Streamlit Runner
 
 Launch the interactive test runner dashboard:
 ```bash
 streamlit run ui/controls.py
 ```
-Open `http://localhost:8501` in your browser to select tests, configure options, and run them with the click of a button.
+Open `http://localhost:8501` in your browser.
+
+Controls auto-adapt: when Playwright is selected, the UI shows "PW Browser" and "Headed" toggles. When Selenium is selected, the UI shows Selenium-specific options (headless, Sauce Labs, etc.).
 
 ---
 
@@ -136,9 +143,9 @@ Open `http://localhost:8501` in your browser to select tests, configure options,
 
 ---
 
-## 🏛️ Governance: The InnerCouncil
+## 🏛️ Governance: The Task Prioritizer
 
-This project's development is guided by the **InnerCouncil**, a symbolic Agile framework that ensures every change is deliberate, documented, and aligned with our architectural principles. All significant changes follow a structured review process detailed in our `CONTRIBUTING.md`. The protocol is symbolically represented by the **Origin Seal** located in the `docs/` folder.
+This project's development is guided by the **Task Prioritizer**, a symbolic Agile framework that ensures every change is deliberate, documented, and aligned with our architectural principles. All significant changes follow a structured review process detailed in our `CONTRIBUTING.md`. The protocol is symbolically represented by the **Origin Seal** located in the `docs/` folder.
 
 ---
 Built with ❤️ and AI for the future of QA.

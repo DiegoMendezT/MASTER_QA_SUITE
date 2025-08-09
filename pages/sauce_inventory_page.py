@@ -5,7 +5,9 @@ This class represents the main product inventory page that appears after a
 successful login. It encapsulates the elements and actions available on this page.
 """
 from selenium.webdriver.common.by import By
+
 from pages.base_page import BasePage
+
 
 class SauceInventoryPage(BasePage):
     """

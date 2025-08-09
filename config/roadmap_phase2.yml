@@ -8,11 +8,11 @@ principles:
 
 epics:
   - id: E2-UX
-    name: Developer UX & Observability
+    name: "Developer UX & Observability"
     why: "Make failures obvious, debugging fast, and demos slick."
     tasks:
       - id: T2-01
-        name: FlakyGuard: unified retry + smart waits (both engines)
+        name: "FlakyGuard: unified retry + smart waits (both engines)"
         engine: both
         roi: 9
         complexity: 5
@@ -23,7 +23,7 @@ epics:
           - Playwright traces + Selenium HAR where possible
         labels: [stability, visibility, core]
       - id: T2-02
-        name: Live artifacts panel in Streamlit (screens, traces, allure link)
+        name: "Live artifacts panel in Streamlit (screens, traces, allure link)"
         engine: both
         roi: 8
         complexity: 4
@@ -35,21 +35,21 @@ epics:
         labels: [dx, ui]
 
   - id: E2-CFG
-    name: Environments & Data
+    name: "Environments & Data"
     why: "One suite, many targets (dev/stage/prod) with hermetic data."
     tasks:
       - id: T2-03
-        name: Env switcher (dev/stage/prod) + secrets model
+        name: "Env switcher (dev/stage/prod) + secrets model"
         engine: both
         roi: 8
         complexity: 4
         learning: 4
         accepts:
-          - `--env=dev|stage|prod` or ENV var
+          - "--env=dev|stage|prod or ENV var"
           - single config resolver (URLs, creds, toggles)
         labels: [config]
       - id: T2-04
-        name: Test data factory + fixtures (users, carts, orders)
+        name: "Test data factory + fixtures (users, carts, orders)"
         engine: both
         roi: 7
         complexity: 5
@@ -60,11 +60,11 @@ epics:
         labels: [data, repeatability]
 
   - id: E2-CROSS
-    name: Cross-device & Visual Excellence
+    name: "Cross-device & Visual Excellence"
     why: "Impress designers/PMs + broaden coverage."
     tasks:
       - id: T2-05
-        name: Playwright mobile emulation matrix (iPhone/Pixel/iPad)
+        name: "Playwright mobile emulation matrix (iPhone/Pixel/iPad)"
         engine: playwright
         roi: 8
         complexity: 5
@@ -74,7 +74,7 @@ epics:
           - per-device screenshots on failure
         labels: [mobile, coverage]
       - id: T2-06
-        name: Visual Baseline Manager (Applitools)
+        name: "Visual Baseline Manager (Applitools)"
         engine: both
         roi: 7
         complexity: 4
@@ -85,21 +85,21 @@ epics:
         labels: [visual, ux]
 
   - id: E2-API
-    name: Full-stack hardening
+    name: "Full-stack hardening"
     why: "Prove integration depth for Tech Heads & the course."
     tasks:
       - id: T2-07
-        name: Contract tests + schema registry & drift alerts
+        name: "Contract tests + schema registry & drift alerts"
         engine: n/a
         roi: 8
         complexity: 6
         learning: 6
         accepts:
-          - jsonschema set + `pytest --contract`
+          - "jsonschema set + `pytest --contract`"
           - CI job fails on breaking change
         labels: [api, contracts]
       - id: T2-08
-        name: UI↔API parity checks (cart totals, inventory)
+        name: "UI↔API parity checks (cart totals, inventory)"
         engine: both
         roi: 8
         complexity: 5
@@ -109,27 +109,27 @@ epics:
         labels: [integration]
 
   - id: E2-DOCS
-    name: Course & Wiki Enhancements
+    name: "Course & Wiki Enhancements"
     why: "This repo doubles as a course—serve Tech Heads, leaders, and students."
     tasks:
       - id: T2-09
-        name: Powered By + Credits auto-generator
+        name: "Powered By + Credits auto-generator"
         engine: n/a
         roi: 6
         complexity: 3
         learning: 3
         accepts:
-          - Script scrapes `requirements.txt` + tools to update README Powered By
-          - Section explains ‘why we chose it’ for each item
+          - "Script scrapes `requirements.txt` + tools to update README Powered By"
+          - "Section explains ‘why we chose it’ for each item"
         labels: [docs]
       - id: T2-10
-        name: Dual-audience docs mode (Tech Heads vs Managers)
+        name: "Dual-audience docs mode (Tech Heads vs Managers)"
         engine: n/a
         roi: 7
         complexity: 4
         learning: 4
         accepts:
-          - Toggle blocks: deep dive vs outcomes/ROI
+          - "Toggle blocks: deep dive vs outcomes/ROI"
           - Examples in Wiki lesson pages
         labels: [docs, course]
 

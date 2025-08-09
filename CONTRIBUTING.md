@@ -7,7 +7,7 @@
 # Secrets
 - Do not commit secrets. Use `.env` for local development.
 
-### Pull Request Checklist (InnerCouncil Protocol)
+### Pull Request Checklist (Task Prioritizer Protocol)
 
 Before submitting a PR, please ensure the following:
 
@@ -17,3 +17,13 @@ Before submitting a PR, please ensure the following:
 - [ ] All new code is covered by tests and appropriate markers.
 - [ ] The CI/CD pipeline is green.
 - [ ] You have run `python tools/sync_docs.py` and included the updated documentation in your commit.
+
+### Engine choice
+Please declare which engine you used when posting failure logs:
+- Selenium: include driver caps, headless flag, and OS.
+- Playwright: include `--browser` + `--headed` (if used), and OS.
+
+### Test placement
+- Selenium UI tests → `tests/ui/`
+- Playwright UI tests → `tests/playwright/`
+```

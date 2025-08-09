@@ -2,11 +2,15 @@
 Login test scenarios for MASTER QA SUITE v2.0
 Demonstrates advanced form testing, data generation, and POM reuse
 """
+import logging
+
 import pytest
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
+
 from pages.login_page import LoginPage
 from utils.data_factory import DataFactory
-import logging
 
 logger = logging.getLogger(__name__)
 
@@ -126,7 +130,9 @@ class TestLoginScenarios:
             driver.find_element(By.CSS_SELECTOR, "button[type='submit']").click()
             
             # Verify each attempt fails
-            error_element = driver.find_element(By.ID, "flash")
+            error_element = WebDriverWait(driver, 5).until(
+                EC.presence_of_element_located((By.ID, "flash"))
+            )
             error_text = error_element.text
             
             assert "invalid" in error_text.lower(), \
@@ -179,6 +185,7 @@ class TestLoginPageNavigation:
         """Test login page has correct title"""
         driver.get("https://the-internet.herokuapp.com/login")
         
+        WebDriverWait(driver, 10).until(EC.title_contains("The Internet"))
         title = driver.title
         assert "The Internet" in title, f"Expected 'The Internet' in title, got: {title}"
         
@@ -194,6 +201,7 @@ class TestLoginPageNavigation:
         driver.find_element(By.CSS_SELECTOR, "button[type='submit']").click()
         
         # Check redirect
+        WebDriverWait(driver, 10).until(EC.url_contains("/secure"))
         current_url = driver.current_url
         assert "/secure" in current_url, f"Should redirect to secure area, got: {current_url}"
         

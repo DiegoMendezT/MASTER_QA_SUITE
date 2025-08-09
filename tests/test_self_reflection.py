@@ -2,14 +2,15 @@
 Self-Reflective Test Module for MASTER QA SUITE v2.0
 Meta-layer that tests the test suite itself - maintaining coherence and precision
 """
-import os
-import pytest
-import glob
-import yaml
 import ast
+import glob
+import logging
+import os
 import subprocess
 from pathlib import Path
-import logging
+
+import pytest
+import yaml
 
 logger = logging.getLogger(__name__)
 
@@ -109,7 +110,7 @@ class TestCodeQuality:
         problematic_files = []
         for py_file in python_files:
             try:
-                with open(py_file, 'r') as file:
+                with open(py_file, 'r', encoding='utf-8') as file:
                     tree = ast.parse(file.read())
                     
                 # Check for basic import structure
@@ -146,14 +147,14 @@ class TestFrameworkCoherence:
         if not os.path.exists("requirements.txt"):
             pytest.skip("requirements.txt not found")
             
-        with open("requirements.txt", 'r') as file:
+        with open("requirements.txt", 'r', encoding='utf-16') as file:
             requirements_content = file.read()
         
         # Verify file has content
         assert len(requirements_content.strip()) > 0, "requirements.txt is empty"
         
         # Check for essential packages (flexible matching)
-        required_packages = ["selenium", "pytest", "streamlit", "PyYAML"]
+        required_packages = ["pytest", "selenium", "playwright", "allure-pytest", "eyes-selenium"]
         missing_packages = []
         
         for package in required_packages:

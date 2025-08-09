@@ -5,11 +5,14 @@ AUT: JSONPlaceholder API
 Markers: @api @external
 Purpose: To verify that the API response for a single post conforms to the expected JSON schema. This ensures the API contract is being met.
 """
-import pytest
 import json
-from jsonschema import validate
-from utils.http_client import get_http_client
 import os
+
+import pytest
+from jsonschema import validate
+
+from utils.http_client import get_http_client
+
 
 def load_schema(file_name):
     """Loads a JSON schema from the contracts directory."""

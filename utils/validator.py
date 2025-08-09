@@ -1,9 +1,11 @@
 """
 Element and selector validators for MASTER QA SUITE v2.0
 """
-from selenium.webdriver.common.by import By
-from selenium.common.exceptions import NoSuchElementException, TimeoutException
 import re
+
+from selenium.common.exceptions import NoSuchElementException, TimeoutException
+from selenium.webdriver.common.by import By
+
 
 class Validator:
     """Utility class for validating elements and selectors"""

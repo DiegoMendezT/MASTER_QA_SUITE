@@ -2,9 +2,10 @@
 MASTER QA SUITE v2.5 - Clean System Verification (ASCII only)
 No Unicode characters - Windows compatible
 """
-import sys
 import importlib
 import os
+import sys
+
 
 def verify_imports():
     """Verify all required packages can be imported"""

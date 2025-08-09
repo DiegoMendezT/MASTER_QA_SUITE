@@ -1,19 +1,25 @@
 """
 Pytest configuration and fixtures for MASTER QA SUITE v2.0
 """
+import logging
+import os
+import shutil
+import tempfile
+import threading
+
+import allure
 import pytest
+import yaml
+from allure_commons.types import AttachmentType
+from applitools.selenium import BatchInfo, Configuration, Eyes, Target
+from chromedriver_autoinstaller import install
+from dotenv import load_dotenv
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from chromedriver_autoinstaller import install
-import os
-import yaml
-import json
-import logging
-import tempfile
-import shutil
-import threading
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
-from applitools.selenium import Eyes, BatchInfo, Configuration, Target
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Set up basic logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -24,8 +30,21 @@ thread_local_data = threading.local()
 # --- Constants ---
 SAUCE_ENABLED = bool(os.getenv("SAUCE_USERNAME") and os.getenv("SAUCE_ACCESS_KEY"))
 
+# --- Playwright/Selenium engine toggle ---------------------------
 def pytest_addoption(parser):
     """Add custom command-line options to pytest."""
+    group = parser.getgroup("engine", "Engine Configuration")
+    group.addoption(
+        "--engine",
+        action="store",
+        default="selenium",
+        choices=["selenium", "playwright"],
+        help="Choose test engine: selenium | playwright (default: selenium)",
+    )
+    # Let pytest-playwright handle its own options like --browser, --headed etc.
+    # My custom --browser and --headed options were removed to resolve conflicts.
+    
+    # Add other options to the general group to avoid conflicts
     parser.addoption(
         "--integration-mode", 
         action="store", 
@@ -38,6 +57,16 @@ def pytest_addoption(parser):
         default="UI Login", 
         help="Login method: 'UI Login' or 'API+Cookie Login'"
     )
+
+def pytest_configure(config):
+    # Make the selected engine visible in reports/metadata
+    config._metadata = getattr(config, "_metadata", {})
+    config._metadata["Engine"] = config.getoption("--engine")
+    if config.getoption("--engine") == "playwright":
+        # For Playwright, browser and headed are standard pytest-playwright options
+        config._metadata["PW Browser"] = config.getoption("browser")
+        config._metadata["PW Headed"] = config.getoption("--headed")
+
 
 @pytest.fixture(scope="session")
 def applitools_config():
@@ -93,6 +122,12 @@ def driver(config, request):
     - For CI/Sauce Labs runs, it connects to a remote WebDriver.
     - It is thread-safe for parallel execution.
     """
+    # This fixture is for Selenium only. Playwright has its own fixtures.
+    # We check if 'page' (a Playwright fixture) is in the request. If so, we skip.
+    if 'page' in request.fixturenames:
+        pytest.skip("Skipping Selenium driver fixture for a Playwright test.")
+        return
+
     browser_name = os.getenv("BROWSER", "chrome").lower()
     
     if SAUCE_ENABLED:
@@ -107,7 +142,8 @@ def driver(config, request):
         }
 
         if browser_name == "firefox":
-            from selenium.webdriver.firefox.options import Options as FirefoxOptions
+            from selenium.webdriver.firefox.options import \
+                Options as FirefoxOptions
             options = FirefoxOptions()
             options.browser_version = 'latest'
             options.platform_name = 'Windows 11'
@@ -119,7 +155,8 @@ def driver(config, request):
             options.platform_name = 'Windows 11'
             options.set_capability('sauce:options', sauce_options)
         else: # Default to Chrome
-            from selenium.webdriver.chrome.options import Options as ChromeOptions
+            from selenium.webdriver.chrome.options import \
+                Options as ChromeOptions
             options = ChromeOptions()
             options.browser_version = 'latest'
             options.platform_name = 'Windows 11'
@@ -130,7 +167,8 @@ def driver(config, request):
     else: # Local execution
         logging.info(f"Running locally with browser: {browser_name}")
         if browser_name == "firefox":
-            from selenium.webdriver.firefox.options import Options as FirefoxOptions
+            from selenium.webdriver.firefox.options import \
+                Options as FirefoxOptions
             options = FirefoxOptions()
             web_driver = webdriver.Firefox(options=options)
         elif browser_name == "edge":
@@ -200,6 +238,11 @@ def api_client(config):
         thread_local_data.api_client = get_http_client()
     return thread_local_data.api_client
 
+@pytest.fixture(scope="session")
+def integration_mode(request):
+    """Returns the selected integration mode from the command line, defaulting to 'live'."""
+    return request.config.getoption("--integration-mode") or "live"
+
 @pytest.fixture(scope="function")
 def active_integration_config(integration_mode, integration_config):
     """Returns the configuration for the active integration mode."""
@@ -255,15 +298,26 @@ def pytest_runtest_makereport(item, call):
 
     if rep.when == "call" and rep.failed:
         try:
+            # --- Screenshot and Allure attachment on failure ---
             if "driver" in item.fixturenames:
                 web_driver = item.funcargs['driver']
+                
                 # Create a valid filename for the screenshot
                 test_name = item.name.encode('ascii', 'ignore').decode('ascii').replace('[', '_').replace(']', '')
                 screenshot_dir = os.path.join(os.path.dirname(__file__), 'artifacts', 'screenshots')
                 os.makedirs(screenshot_dir, exist_ok=True)
                 screenshot_path = os.path.join(screenshot_dir, f"{test_name}_failed.png")
+                
+                # Save screenshot
                 web_driver.save_screenshot(screenshot_path)
                 logging.info(f"Screenshot saved: {screenshot_path}")
+
+                # Attach to Allure report
+                allure.attach(
+                    web_driver.get_screenshot_as_png(),
+                    name="failure_screenshot",
+                    attachment_type=AttachmentType.PNG
+                )
         except Exception as e:
-            logging.error(f"Failed to capture screenshot: {e}")
+            logging.error(f"Failed to capture screenshot or attach to Allure: {e}")
 

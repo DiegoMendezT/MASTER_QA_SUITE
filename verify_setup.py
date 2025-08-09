@@ -4,8 +4,9 @@ MASTER QA SUITE v2.0 - System Verification Script
 Run this to verify all components are properly installed and configured
 """
 
-import sys
 import os
+import sys
+
 
 def verify_imports():
     """Verify all required packages can be imported"""
