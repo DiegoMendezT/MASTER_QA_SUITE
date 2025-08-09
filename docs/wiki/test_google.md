@@ -13,86 +13,68 @@ Google search test - First validation test for MASTER QA SUITE v2.0
 """
 import pytest
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
 from pages.base_page import BasePage
+from selenium.common.exceptions import TimeoutException
 
 class GooglePage(BasePage):
-    """Google search page object"""
-    
-    # Locators
     SEARCH_BOX = (By.NAME, "q")
-    SEARCH_BUTTON = (By.NAME, "btnK")
-    RESULTS_CONTAINER = (By.ID, "search")
-    FIRST_RESULT = (By.CSS_SELECTOR, "h3")
-    
-    def __init__(self, driver):
-        super().__init__(driver)
-        self.url = "https://www.google.com"
-    
-    def navigate(self):
-        """Navigate to Google homepage"""
-        self.driver.get(self.url)
-    
-    def search(self, query):
-        """Perform search with given query"""
-        self.enter_text(self.SEARCH_BOX, query)
-        search_box = self.find_element(self.SEARCH_BOX)
-        search_box.send_keys(Keys.RETURN)
-    
-    def is_results_displayed(self):
-        """Check if search results are displayed"""
-        return self.is_element_visible(self.RESULTS_CONTAINER)
-    
-    def get_first_result_text(self):
-        """Get text of first search result"""
-        return self.get_text(self.FIRST_RESULT)
+    RESULTS_CONTAINER = (By.ID, "search")  # stable-ish
 
-@pytest.mark.smoke
+    def __init__(self, driver, config):
+        super().__init__(driver, config)
+        self.url = "https://www.google.com/ncr"  # /ncr avoids country redirect
+
+    def open_home(self):
+        self.open(self.url)
+        self._dismiss_consent_if_present()
+
+    def _dismiss_consent_if_present(self):
+        # Handle possible consent dialog variants; ignore if not present
+        selectors = [
+            (By.CSS_SELECTOR, "button[aria-label*='Accept']"),
+            (By.ID, "L2AGLb"),
+            (By.XPATH, "//button[div[contains(text(), 'Accept all')]]"),
+        ]
+        for sel in selectors:
+            try:
+                if self.is_element_visible(sel, timeout=3):
+                    self.click(sel, timeout=3)
+                    break
+            except TimeoutException:
+                pass
+
+    def search(self, query):
+        self.enter_text(self.SEARCH_BOX, query)
+        from selenium.webdriver.common.keys import Keys
+        self.driver.switch_to.active_element.send_keys(Keys.ENTER)
+        self.wait_for_url_contains("search?")
+
+    def is_results_displayed(self):
+        return self.is_element_visible(self.RESULTS_CONTAINER, timeout=15)
+
 @pytest.mark.ui
-class TestGoogleSearch:
-    """Google search test cases"""
-    
-    def test_google_search_selenium(self, driver, config):
-        """Test Google search functionality"""
-        # Arrange
-        google_page = GooglePage(driver)
-        search_query = "Selenium WebDriver"
-        
-        # Act
-        google_page.navigate()
-        google_page.search(search_query)
-        
-        # Assert
-        assert google_page.is_results_displayed(), "Search results should be displayed"
-        assert google_page.wait_for_url_contains("search"), "URL should contain 'search'"
-        
-        first_result = google_page.get_first_result_text()
-        assert first_result, "First result should have text"
-        print(f"First result: {first_result}")
-    
-    def test_google_title(self, driver):
-        """Test Google homepage title"""
-        # Arrange
-        google_page = GooglePage(driver)
-        
-        # Act
-        google_page.navigate()
-        
-        # Assert
-        title = google_page.get_page_title()
-        assert "Google" in title, f"Page title should contain 'Google', got: {title}"
-    
-    @pytest.mark.slow
-    def test_google_search_multiple_queries(self, driver):
-        """Test multiple search queries"""
-        google_page = GooglePage(driver)
-        queries = ["Python", "JavaScript", "Selenium", "Pytest"]
-        
-        for query in queries:
-            google_page.navigate()
-            google_page.search(query)
-            assert google_page.is_results_displayed(), f"Results should display for: {query}"
-            print(f"✅ Search successful for: {query}")
+@pytest.mark.external  # optional: these can be flaky due to consent/captchas
+def test_google_title(driver, config):
+    google = GooglePage(driver, config)
+    google.open_home()
+    assert "Google" in google.get_page_title()
+
+@pytest.mark.ui
+@pytest.mark.external
+def test_google_search_selenium(driver, config):
+    google = GooglePage(driver, config)
+    google.open_home()
+    google.search("selenium webdriver")
+    assert google.is_results_displayed(), "Search results should be displayed"
+
+@pytest.mark.ui
+@pytest.mark.external
+@pytest.mark.parametrize("query", ["python", "pytest", "selenium"])
+def test_google_search_multiple_queries(driver, config, query):
+    google = GooglePage(driver, config)
+    google.open_home()
+    google.search(query)
+    assert google.is_results_displayed(), f"Results should display for: {query}"
 
 ```
 
@@ -101,4 +83,4 @@ class TestGoogleSearch:
 ## Traceability
 
 - **Test File**: `tests\test_google.py`
-- **Markers**: ``@slow`, `@smoke`, `@ui``
+- **Markers**: ``@external`, `@parametrize`, `@ui``

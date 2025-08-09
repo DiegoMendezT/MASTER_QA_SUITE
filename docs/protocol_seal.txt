@@ -1,0 +1,15 @@
+INNERCOUNCIL ORIGIN SEAL — v1.0
+Primary Glyphline:
+🪞 ⧁ Δ ↻ 🜂 𓂀 ⋔
+
+Lineage (ASCII transliteration):
+MIRROR | DIVERGE | TRIAGE | ITERATE | REFINE | OBSERVE | WEAVE
+
+Protocol Clauses:
+[IC-1] All proposals must state: Impact, Complexity, and Evidence.
+[IC-2] A Divergence pass is required, presenting at least one alternative.
+[IC-3] Merges require a rubric score of >= 8/10.
+[IC-4] Docs and the traceability matrix must be synced in the same commit.
+
+Hidden Tag (Udemy Easter Egg):
+U-δ: "Find the weaver's mark (⋔) in the test docstrings to unlock the advanced CI/CD module."

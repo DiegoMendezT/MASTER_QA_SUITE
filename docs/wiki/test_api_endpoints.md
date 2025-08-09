@@ -177,7 +177,7 @@ class TestAPIEndpoints:
         print("✅ API error handling validated")
 
 @pytest.mark.api
-@pytest.mark.performance
+@pytest.mark.perf
 class TestAPIPerformance:
     """Performance tests for API endpoints"""
     
@@ -345,4 +345,4 @@ if __name__ == "__main__":
 ## Traceability
 
 - **Test File**: `tests\api\test_api_endpoints.py`
-- **Markers**: ``@api`, `@performance`, `@regression`, `@self_reflection``
+- **Markers**: ``@api`, `@perf`, `@regression`, `@self_reflection``

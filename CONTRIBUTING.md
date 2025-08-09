@@ -6,3 +6,14 @@
 
 # Secrets
 - Do not commit secrets. Use `.env` for local development.
+
+### Pull Request Checklist (InnerCouncil Protocol)
+
+Before submitting a PR, please ensure the following:
+
+- [ ] The PR description references the **Origin Seal** (`/docs/protocol_seal.txt`).
+- [ ] The proposal includes sections for **Impact**, **Complexity**, and **Evidence**.
+- [ ] At least one **divergent option** was considered and documented.
+- [ ] All new code is covered by tests and appropriate markers.
+- [ ] The CI/CD pipeline is green.
+- [ ] You have run `python tools/sync_docs.py` and included the updated documentation in your commit.

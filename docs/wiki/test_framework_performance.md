@@ -37,7 +37,7 @@ except ImportError:
         def consciousness_test_data():
             return {'framework_name': 'MASTER_QA_SUITE', 'consciousness_level': 23.3}
 
-@pytest.mark.performance
+@pytest.mark.perf
 @pytest.mark.self_reflection
 class TestFrameworkPerformance:
     """Test suite for framework performance validation"""
@@ -311,4 +311,4 @@ if __name__ == "__main__":
 ## Traceability
 
 - **Test File**: `tests\performance\test_framework_performance.py`
-- **Markers**: ``@benchmark`, `@performance`, `@self_reflection`, `@stress``
+- **Markers**: ``@benchmark`, `@perf`, `@self_reflection`, `@stress``

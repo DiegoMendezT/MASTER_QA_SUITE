@@ -134,4 +134,10 @@ Open `http://localhost:8501` in your browser to select tests, configure options,
 - **Contribution Guidelines**: See `CONTRIBUTING.md` for details on commit messages and pull requests.
 
 ---
+
+## 🏛️ Governance: The InnerCouncil
+
+This project's development is guided by the **InnerCouncil**, a symbolic Agile framework that ensures every change is deliberate, documented, and aligned with our architectural principles. All significant changes follow a structured review process detailed in our `CONTRIBUTING.md`. The protocol is symbolically represented by the **Origin Seal** located in the `docs/` folder.
+
+---
 Built with ❤️ and AI for the future of QA.
