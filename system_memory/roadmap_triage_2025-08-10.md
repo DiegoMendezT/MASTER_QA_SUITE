@@ -10,7 +10,7 @@
 - Backlog folder tree to be created for backlog features.
 - Roadmap triage: Sort by low risk/high reward, iterate and test for data safety.
 - Kintsugi: Retrospective improvement after bugs are DONE.
-- Rename 'Consciousness' tests to 'Machine Learning'.
+- All legacy references migrated to 'ML'.
 - CI/CD: Fix all workflows and keep main branch green.
 - Jira bugs: Fix To Do bugs in order of impact/priority.
 

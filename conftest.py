@@ -189,7 +189,6 @@ def driver(config, request):
             web_driver = webdriver.Edge(options=options)
         else: # Default to local Chrome with hardened profile
             temp_profile_dir = tempfile.mkdtemp()
-            
             try:
                 install()
             except Exception as e:
@@ -197,6 +196,8 @@ def driver(config, request):
                 pytest.fail("ChromeDriver installation failed.")
 
             options = Options()
+            # Always run headless for DEMO AUT tests to avoid browser popping up
+            options.add_argument("--headless=new")
             # Profile and Isolation
             options.add_argument(f"--user-data-dir={temp_profile_dir}")
             options.add_argument("--password-store=basic")
@@ -223,7 +224,7 @@ def driver(config, request):
             options.add_argument('--disable-dev-shm-usage')
             options.add_argument('--disable-gpu')
             options.add_argument("--start-maximized")
-            
+
             web_driver = webdriver.Chrome(options=options)
     
     yield web_driver

@@ -1,0 +1,4 @@
+📊 Baseline: ML data generation 0.01ms per item
+
+📊 PERFORMANCE BENCHMARKS ESTABLISHED:
+   ml_data_generation_ms: 0.01

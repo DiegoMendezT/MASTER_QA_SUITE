@@ -1,0 +1,6 @@
+
+Running axe-core on Inventory Page...
+Inventory Page: Found 0 serious/critical violations. (Threshold: 0)
+
+Running axe-core on Cart Page...
+Cart Page: Found 0 serious/critical violations. (Threshold: 0)

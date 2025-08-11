@@ -1,0 +1,1 @@
+2025-08-11 04:18:23,825 - INFO - ✅ Configuration structure supports resilience

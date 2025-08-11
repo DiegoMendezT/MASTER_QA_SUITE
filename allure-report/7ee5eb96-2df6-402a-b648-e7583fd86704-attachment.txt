@@ -1,0 +1,6 @@
+2025-08-11 04:17:57,888 - INFO - Running locally with browser: chrome
+2025-08-11 04:17:58,253 - INFO - Chromedriver is already installed.
+2025-08-11 04:17:59,806 - INFO - Opening page: https://www.google.com/ncr
+2025-08-11 04:18:10,364 - INFO - Entering text 'python' into element: ('name', 'q')
+2025-08-11 04:18:10,727 - INFO - Waiting for URL to contain: 'search?'
+2025-08-11 04:18:28,363 - INFO - Screenshot saved: C:\Users\USUARIO\Projects\MASTER_QA_SUITE\artifacts\screenshots\test_google_search_multiple_queries_python_failed.png

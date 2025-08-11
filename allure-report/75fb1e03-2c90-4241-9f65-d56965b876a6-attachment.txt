@@ -1,7 +1,7 @@
-✅ Consciousness-aware API test completed
+✅ ML-aware API test completed
 
-🧠 API Consciousness Metrics:
-   api_consciousness_integration: True
-   consciousness_post_id: 101
+🧠 API ML Metrics:
+   api_ML_integration: True
+   ML_post_id: 101
    processing_time_ms: 269.7441577911377
-   consciousness_level_tested: 50.5
+   ML_level_tested: 50.5

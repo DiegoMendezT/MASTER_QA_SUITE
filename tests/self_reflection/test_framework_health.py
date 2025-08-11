@@ -259,7 +259,7 @@ class TestFrameworkMetrics:
         
         print(f"📊 Framework Completeness Metrics: {metrics}")
         
-        # Store metrics for consciousness tracking
+    # Store metrics for ML tracking
         metrics_path = Path("reflections") / "current_metrics.yaml"
         with open(metrics_path, 'w') as file:
             yaml.dump({

@@ -1,0 +1,3 @@
+2025-08-11 04:08:12,265 - INFO - Running locally with browser: chrome
+2025-08-11 04:08:12,622 - INFO - Chromedriver is already installed.
+2025-08-11 04:08:16,026 - INFO - ✅ Login redirect behavior verified

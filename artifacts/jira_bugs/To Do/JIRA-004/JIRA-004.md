@@ -1,7 +1,7 @@
 # JIRA-004: UI Lingo - Outdated Terms Still Present
 
 **Summary:**
-References to 'Consciousness' and other non-technical terms are still present in the UI after requested changes.
+References to 'ML' and other non-technical terms are still present in the UI after requested changes.
 
 **Steps to Reproduce:**
 1. Open the Streamlit UI.

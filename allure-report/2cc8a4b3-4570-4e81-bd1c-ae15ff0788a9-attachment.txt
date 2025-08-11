@@ -1,0 +1,11 @@
+2025-08-11 04:22:31,002 - INFO - Running locally with browser: chrome
+2025-08-11 04:22:31,339 - INFO - Chromedriver is already installed.
+2025-08-11 04:22:33,069 - INFO - Using standard UI Login method.
+2025-08-11 04:22:34,179 - INFO - Entering text 'standard_user' into element: ('id', 'user-name')
+2025-08-11 04:22:34,250 - INFO - Entering text 'secret_sauce' into element: ('id', 'password')
+2025-08-11 04:22:34,332 - INFO - Clicking element: ('id', 'login-button')
+(node:21212) ExperimentalWarning: Module._stat is an experimental feature and might change at any time
+(Use `core --trace-warnings ...` to show where the warning was created)
+(node:21212) ExperimentalWarning: Module._readPackage is an experimental feature and might change at any time
+2025-08-11 04:22:35,339 - INFO - Started Universal SDK server at 21078
+2025-08-11 04:22:35,349 - INFO - Logs saved in: C:\Users\USUARIO\AppData\Local\Temp\applitools-logs

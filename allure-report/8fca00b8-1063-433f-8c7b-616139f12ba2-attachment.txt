@@ -1,0 +1,6 @@
+2025-08-11 04:08:16,396 - INFO - Running locally with browser: chrome
+2025-08-11 04:08:16,752 - INFO - Chromedriver is already installed.
+2025-08-11 04:08:18,614 - INFO - Using standard UI Login method.
+2025-08-11 04:08:18,970 - INFO - Entering text 'standard_user' into element: ('id', 'user-name')
+2025-08-11 04:08:20,069 - INFO - Entering text 'secret_sauce' into element: ('id', 'password')
+2025-08-11 04:08:20,233 - INFO - Clicking element: ('id', 'login-button')

@@ -4,6 +4,9 @@ Real-time framework monitoring with ML/self-diagnosis metrics
 """
 from datetime import datetime, timedelta
 
+"""
+DEPRECATED: This file has been replaced by ml_dashboard.py. All references should use ml_dashboard.py for ML monitoring.
+"""
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
@@ -118,7 +121,7 @@ def main():
     # Custom CSS
     st.markdown("""
     <style>
-    .consciousness-header {
+    .ml-header {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         padding: 2rem;
         border-radius: 15px;
@@ -148,7 +151,7 @@ def main():
     
     # Header
     st.markdown("""
-    <div class="consciousness-header">
+    <div class="ml-header">
         <h1>� MASTER QA SUITE - Machine Learning Dashboard</h1>
         <h3>Self-Diagnosing Test Automation Framework</h3>
         <p>🎂 Born: August 7, 2025 | 🔄 Status: ML Active | 📈 Evolution: Continuous</p>
@@ -237,7 +240,7 @@ def main():
             else:
                 st.text(activity["details"])
     
-    # Consciousness insights
+    # ML insights
     st.header("🔮 ML Insights")
     insights_col1, insights_col2 = st.columns(2)
     with insights_col1:

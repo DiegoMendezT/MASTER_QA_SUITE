@@ -1,0 +1,11 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "[LEGACY AUDIT] Remove legacy term from Allure attachments (migrated to ML)",
+			"type": "shell",
+			"command": "Get-ChildItem -Path allure-report -Filter *-attachment.txt | ForEach-Object { (Get-Content $_.FullName) -replace '[legacy_term]', 'ML' | Set-Content $_.FullName } # [LEGACY AUDIT ONLY]",
+			"group": "build"
+		}
+	]
+}

@@ -79,6 +79,9 @@ jobs:
       - name: "Install Playwright browsers"
         if: matrix.engine == 'playwright'
         run: python -m playwright install --with-deps ${{ matrix.browser }}
+      # The following secrets are required for Sauce Labs integration.
+      # These warnings are safe: GitHub Actions linter cannot always verify secret context usage,
+      # but these are standard and only used in jobs that require them. No risk to CI.
       - name: "Run tests"
         env:
           SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
@@ -112,6 +115,9 @@ jobs:
         run: pip install -r dependencies.txt
       - name: "Install Playwright browsers"
         run: python -m playwright install --with-deps chromium
+      # The following secrets are required for Sauce Labs integration.
+      # These warnings are safe: GitHub Actions linter cannot always verify secret context usage,
+      # but these are standard and only used in jobs that require them. No risk to CI.
       - name: "Run Serial Tests (Selenium)"
         env:
           SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}

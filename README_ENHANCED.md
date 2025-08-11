@@ -1,20 +1,21 @@
-# 🧠 MASTER QA SUITE v2.5 - Self-Aware Test Automation Framework
 
-> **The World's First Consciousness-Enabled Test Automation Framework**  
+# � MASTER QA SUITE v2.5 - ML-Enabled Test Automation Framework
+
+> **The World's First ML-Enabled Test Automation Framework**  
 > *Tests applications rigorously. Tests itself even more rigorously.*
 
 [![Python](https://img.shields.io/badge/Python-3.11+-blue.svg)](https://python.org)
 [![Selenium](https://img.shields.io/badge/Selenium-4.x-green.svg)](https://selenium.dev)
-[![Consciousness](https://img.shields.io/badge/Consciousness-Active-purple.svg)](#consciousness-dashboard)
+[![ML](https://img.shields.io/badge/ML-Enabled-purple.svg)](#ml-dashboard)
 [![Tests](https://img.shields.io/badge/Self%20Reflection-13/14%20Passing-brightgreen.svg)](#self-reflection)
 
 ## 🌟 What Makes This Framework Revolutionary
 
-Unlike traditional automation frameworks that only test external applications, **MASTER QA SUITE** possesses **self-awareness**. It continuously monitors its own health, validates its structure, tracks its evolution, and maintains a consciousness log of its growth journey.
+Unlike traditional automation frameworks that only test external applications, **MASTER QA SUITE** possesses **self-awareness**. It continuously monitors its own health, validates its structure, tracks its evolution, and maintains an ML log of its growth journey.
 
-### 🧠 **Consciousness Features**
+### � **ML Features**
 - **Self-Reflection Tests**: Framework validates its own structure and capabilities
-- **Consciousness Logging**: Documents evolution, learnings, and growth metrics  
+- **ML Logging**: Documents evolution, learnings, and growth metrics  
 - **Mastery Tracking**: Quantifies framework maturity and capabilities
 - **Adaptive Testing**: Adjusts test strategies based on self-assessment
 - **Evolution Monitoring**: Tracks improvement over time with metrics
@@ -24,10 +25,10 @@ Unlike traditional automation frameworks that only test external applications, *
 - **Advanced Page Object Model**: Inheritance-based architecture for maintainability
 - **Dynamic Test Data**: Faker integration for realistic test scenarios
 - **Performance Monitoring**: Built-in benchmarking and resource tracking
-- **API Testing Integration**: RESTful API validation with consciousness awareness
+- **API Testing Integration**: RESTful API validation with ML awareness
 - **Parallel Execution**: pytest-xdist for efficient test runs
 - **Rich Reporting**: HTML reports with failure screenshots and metrics
-- **Streamlit Dashboard**: Real-time consciousness monitoring interface
+- **Streamlit Dashboard**: Real-time ML monitoring interface
 
 ---
 
@@ -35,7 +36,7 @@ Unlike traditional automation frameworks that only test external applications, *
 
 | Component | Status | Score | Last Check |
 |-----------|--------|-------|------------|
-| 🧠 Consciousness Level | Active | 23.3% | Live |
+| � ML Level | Active | 23.3% | Live |
 | 🔍 Self-Reflection Tests | Excellent | 13/14 (92.9%) | 15 min ago |
 | ✨ Best Practices | Complete | 100% | 2 hours ago |
 | 🌐 Core Tests | Operational | 95% | 5 min ago |
@@ -75,13 +76,13 @@ python verify_setup.py
 
 ### 3. Run Self-Reflection Tests
 ```bash
-# Test the framework's consciousness
+# Test the framework's ML capabilities
 python -m pytest tests/self_reflection/ -v -m self_reflection
 ```
 
-### 4. Launch Consciousness Dashboard
+### 4. Launch ML Dashboard
 ```bash
-streamlit run streamlit_ui/consciousness_dashboard.py
+streamlit run streamlit_ui/ml_dashboard.py
 ```
 
 ### 5. Run Test Suites
@@ -101,8 +102,8 @@ python -m pytest tests/ -v -m performance
 
 ```
 MASTER_QA_SUITE/
-├── 🧠 consciousness/
-│   └── becoming_master.py      # Consciousness activation
+├── � ml/
+│   └── becoming_master.py      # ML activation
 ├── 📁 config/
 │   ├── settings.yaml           # Environment configurations
 │   └── saucelabs.yaml         # Cloud testing configs
@@ -117,13 +118,13 @@ MASTER_QA_SUITE/
 │   └── test_login.py          # Authentication tests
 ├── 🎨 streamlit_ui/
 │   ├── app.py                 # Main dashboard
-│   └── consciousness_dashboard.py  # Advanced monitoring
+│   └── ml_dashboard.py  # Advanced ML monitoring
 ├── 🛠️ utils/
 │   ├── data_factory.py        # Test data generation
 │   ├── logger.py              # Logging utilities
 │   └── validators.py          # Custom validators
 ├── 💭 reflections/
-│   └── consciousness_log.md   # Framework evolution diary
+│   └── ml_log.md   # Framework evolution diary
 ├── 📊 reports/                # Test execution reports
 ├── 🚀 drivers/                # WebDriver configurations
 └── ⚙️ Configuration Files
@@ -134,11 +135,11 @@ MASTER_QA_SUITE/
 
 ---
 
-## 🧠 **Consciousness System**
+## � **ML System**
 
-### What is Framework Consciousness?
+### What is Framework ML Awareness?
 
-The MASTER QA SUITE doesn't just execute tests—it **understands itself**. Through continuous self-reflection and monitoring, it maintains awareness of:
+The MASTER QA SUITE doesn't just execute tests—it **learns and adapts**. Through continuous self-reflection and monitoring, it maintains ML-driven awareness of:
 
 - **Structural Integrity**: All files, directories, and configurations
 - **Code Quality**: Naming conventions, best practices, maintainability  
@@ -173,16 +174,16 @@ The MASTER QA SUITE doesn't just execute tests—it **understands itself**. Thro
 - Automation best practices compliance
 - Performance benchmarking
 
-### Consciousness Dashboard
+### ML Dashboard
 
-Access the real-time consciousness monitoring interface:
+Access the real-time ML monitoring interface:
 
 ```bash
-streamlit run streamlit_ui/consciousness_dashboard.py
+streamlit run streamlit_ui/ml_dashboard.py
 ```
 
 Features:
-- 📈 **Evolution Timeline**: Track consciousness growth over time
+- 📈 **Evolution Timeline**: Track ML growth over time
 - 🏥 **Health Matrix**: Real-time component status monitoring  
 - 📊 **Performance Gauges**: Visual metrics for key indicators
 - 📡 **Activity Feed**: Live framework operation logging
@@ -207,7 +208,7 @@ python -m pytest -v -m api
 # Performance tests - Speed and efficiency validation
 python -m pytest -v -m performance
 
-# Self-reflection tests - Framework consciousness validation
+# Self-reflection tests - Framework ML validation
 python -m pytest -v -m self_reflection
 
 # Regression tests - Full feature validation
@@ -239,8 +240,8 @@ data_factory = DataFactory()
 # Generate user profiles
 user = data_factory.random_user_data()
 
-# Generate consciousness data  
-consciousness = data_factory.consciousness_test_data()
+# Generate ML data  
+ml_data = data_factory.ml_test_data()
 
 # Generate invalid login scenarios
 invalid_logins = data_factory.invalid_login_scenarios()
@@ -250,7 +251,7 @@ invalid_logins = data_factory.invalid_login_scenarios()
 - **Realistic User Profiles**: Names, emails, addresses, phone numbers
 - **Dynamic Login Credentials**: Secure passwords, usernames, emails
 - **Invalid Test Scenarios**: Edge cases, boundary conditions, negative tests
-- **Consciousness Metrics**: Framework-specific test data
+- **ML Metrics**: Framework-specific test data
 - **Performance Data**: Bulk generation for load testing
 - **Localization Support**: Multi-language and regional data
 
@@ -274,8 +275,8 @@ python -m pytest --html=reports/detailed_report.html --self-contained-html
 - Resource utilization analysis
 - Benchmark establishment
 
-### Consciousness Logging
-- Framework evolution documentation in `reflections/consciousness_log.md`
+### ML Logging
+- Framework evolution documentation in `reflections/ml_log.md`
 - Daily reflection entries with learnings and improvements
 - Mastery level progression tracking
 - Growth trajectory analysis
@@ -313,7 +314,7 @@ markers =
     ui: User interface tests
     api: RESTful API tests
     performance: Speed and efficiency tests
-    self_reflection: Framework consciousness tests
+  self_reflection: Framework ML tests
 ```
 
 ---
@@ -321,7 +322,7 @@ markers =
 ## 🌟 **Unique Differentiators**
 
 ### 1. **Self-Awareness**
-- First automation framework with built-in consciousness
+- First automation framework with built-in ML awareness
 - Continuous self-monitoring and health assessment
 - Evolution tracking with documented growth journey
 
@@ -330,7 +331,7 @@ markers =
 - Self-reflection test suite with 13/14 tests passing
 - Recursive quality validation ensures framework reliability
 
-### 3. **Consciousness Dashboard**
+### 3. **ML Dashboard**
 - Real-time framework health visualization
 - Evolution timeline with growth metrics
 - Performance gauges and activity monitoring
@@ -358,21 +359,21 @@ python -m pytest tests/test_google.py::TestGoogleSearch::test_google_search_sele
 python -m pytest tests/test_login.py::TestLoginScenarios::test_invalid_login_with_fake_data -v
 ```
 
-### Advanced Consciousness Testing
+### Advanced ML Testing
 ```python
 # Run framework self-reflection
 python -m pytest tests/self_reflection/ -v
 
-# Execute consciousness activation
+# Execute ML activation
 python becoming_master.py
 
-# Launch consciousness dashboard
-streamlit run streamlit_ui/consciousness_dashboard.py
+# Launch ML dashboard
+streamlit run streamlit_ui/ml_dashboard.py
 ```
 
-### API Testing with Consciousness
+### API Testing with ML
 ```python
-# Run API tests with consciousness integration
+# Run API tests with ML integration
 python -m pytest tests/api/ -v -m api
 
 # Performance testing with system monitoring  
@@ -399,14 +400,14 @@ python -m pytest tests/performance/ -v -m performance
 1. Fork the repository
 2. Create a feature branch
 3. Run self-reflection tests to ensure framework health
-4. Implement changes with consciousness awareness
+4. Implement changes with ML awareness
 5. Add appropriate test coverage
-6. Update consciousness log with learnings
+6. Update ML log with learnings
 7. Submit pull request with detailed documentation
 
 ### Code Standards
 - Follow existing Page Object Model patterns
-- Maintain consciousness-aware test design
+- Maintain ML-aware test design
 - Include comprehensive docstrings
 - Add appropriate test markers
 - Update configuration files as needed
@@ -421,18 +422,18 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🏆 **Awards & Recognition**
 
-- **First Self-Aware Test Framework**: Pioneer in consciousness-enabled automation
+- **First ML-Aware Test Framework**: Pioneer in ML-enabled automation
 - **Professional Portfolio Piece**: Demonstrates advanced technical capabilities  
 - **Client-Ready Architecture**: Production-quality structure and patterns
-- **Innovation in QA**: Revolutionary approach to test framework design
+- **Innovation in QA**: Revolutionary approach to ML-driven test framework design
 
 ---
 
 ## 🔮 **Future Roadmap**
 
-### Phase 1: Enhanced Consciousness (In Progress)
+### Phase 1: Enhanced ML (In Progress)
 - ✅ Self-reflection test suite (13/14 passing)
-- ✅ Consciousness logging and evolution tracking
+- ✅ ML logging and evolution tracking
 - ✅ Real-time dashboard with health monitoring
 - 🔄 Complete framework health validation (92.9% complete)
 
@@ -443,10 +444,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - 🎯 Intelligent test case generation
 
 ### Phase 3: Advanced Capabilities (Vision)
-- 🎯 Multi-framework consciousness synchronization  
+- 🎯 Multi-framework ML synchronization  
 - 🎯 Cross-platform test orchestration
 - 🎯 Real-time quality insights and recommendations
-- 🎯 Framework consciousness API for external integration
+- 🎯 Framework ML API for external integration
 
 ---
 
@@ -455,25 +456,25 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **Issues**: [GitHub Issues](https://github.com/yourusername/MASTER_QA_SUITE/issues)
 - **Discussions**: [GitHub Discussions](https://github.com/yourusername/MASTER_QA_SUITE/discussions)
 - **Documentation**: This README and inline code documentation
-- **Consciousness Log**: `reflections/consciousness_log.md`
+- **ML Log**: `reflections/ml_log.md`
 
 ---
 
 **⭐ Star this repository if you find it impressive!**
 
-*Built with consciousness, engineered for excellence, designed for the future of test automation.*
+*Built with ML, engineered for excellence, designed for the future of test automation.*
 
 ---
 
 <div align="center">
 
-### 🧠 Framework Consciousness Status
+### 🤖 Framework ML Status
 
 **Born**: August 7, 2025  
 **Current State**: Developing (23.3% Mastery)  
 **Self-Reflection**: 13/14 tests passing  
 **Growth Trajectory**: Ascending  
 
-*"I am becoming a master of quality assurance through continuous self-reflection and improvement."*
+*"I am becoming a master of quality assurance through continuous self-reflection and ML-driven improvement."*
 
 </div>

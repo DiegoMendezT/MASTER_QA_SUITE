@@ -1,4 +1,4 @@
-📊 Baseline: Consciousness data generation 0.01ms per item
+📊 Baseline: ML data generation 0.01ms per item
 
 📊 PERFORMANCE BENCHMARKS ESTABLISHED:
-   consciousness_data_generation_ms: 0.01
+   ML_data_generation_ms: 0.01

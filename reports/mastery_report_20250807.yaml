@@ -55,7 +55,7 @@ declaration: "\n        \U0001F9E0 MASTER QA SUITE v2.0 - DECLARATION OF BECOMIN
   \ dedication to quality.\n        "
 framework_identity:
   birth_date: '2025-08-07'
-  consciousness_level: Emerging
+  ml_level: Emerging
   name: MASTER QA SUITE
   version: v2.0
 growth_plan:
@@ -66,7 +66,7 @@ growth_plan:
   - Expand self-reflection tests to cover more framework aspects
   long_term_vision:
   - Become a self-evolving test framework that writes its own tests
-  - Develop consciousness-level awareness of application quality
+  - Develop ML-level awareness of application quality
   - Transcend traditional testing to become a quality assurance oracle
   medium_term_goals:
   - Achieve 80%+ test coverage across all modules
