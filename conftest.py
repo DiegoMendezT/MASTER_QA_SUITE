@@ -1,11 +1,17 @@
 """
-Pytest configuration and fixtures for MASTER QA SUITE v2.0
+Project: MASTER_QA_SUITE
+Module: conftest.py
+Purpose: Pytest configuration, fixtures, and engine toggles for MASTER_QA_SUITE.
+Voices: Architect, Engineer, QA, Gatekeeper, Release Captain, Product Owner, Shadow QA, Copilot
+Traceability: decision_log.md:2025-08-10 entry; roadmap.md:PytestConfig; requirements:conf-001
+Notes: Freeze-safe; no behavior change. [Kintsugi]
 """
 import logging
 import os
 import shutil
 import tempfile
 import threading
+import datetime
 
 import allure
 import pytest
@@ -311,25 +317,83 @@ def pytest_runtest_makereport(item, call):
     if rep.when == "call" and rep.failed:
         try:
             # --- Screenshot and Allure attachment on failure ---
-            if "driver" in item.fixturenames:
-                web_driver = item.funcargs['driver']
-                
-                # Create a valid filename for the screenshot
+            web_driver = None
+            # Try to get driver from known fixture names
+            for drv_name in ("driver", "page", "browser", "web_driver"):
+                if drv_name in item.funcargs:
+                    web_driver = item.funcargs[drv_name]
+                    break
+            # If not found, try to get from parent (for class-based tests)
+            if not web_driver and hasattr(item, 'parent') and hasattr(item.parent, 'funcargs'):
+                for drv_name in ("driver", "page", "browser", "web_driver"):
+                    if drv_name in item.parent.funcargs:
+                        web_driver = item.parent.funcargs[drv_name]
+                        break
+            # Only proceed if we have a driver with save_screenshot
+            if web_driver and hasattr(web_driver, 'save_screenshot'):
+                from datetime import datetime
                 test_name = item.name.encode('ascii', 'ignore').decode('ascii').replace('[', '_').replace(']', '')
+                now_str = datetime.now().strftime('%Y%m%d_%H%M%S')
+                # Determine test type (marker)
+                test_type = None
+                marker_priority = ["ui", "api", "integration", "a11y", "perf", "auth", "security"]
+                for m in marker_priority:
+                    if item.get_closest_marker(m):
+                        test_type = m
+                        break
+                if not test_type:
+                    test_type = "other"
                 screenshot_dir = os.path.join(os.path.dirname(__file__), 'artifacts', 'screenshots')
                 os.makedirs(screenshot_dir, exist_ok=True)
-                screenshot_path = os.path.join(screenshot_dir, f"{test_name}_failed.png")
-                
+                screenshot_path = os.path.join(
+                    screenshot_dir,
+                    f"{now_str}_{test_name}_{test_type}_failed.png"
+                )
                 # Save screenshot
                 web_driver.save_screenshot(screenshot_path)
                 logging.info(f"Screenshot saved: {screenshot_path}")
-
                 # Attach to Allure report
-                allure.attach(
-                    web_driver.get_screenshot_as_png(),
-                    name="failure_screenshot",
-                    attachment_type=AttachmentType.PNG
-                )
+                try:
+                    allure.attach(
+                        web_driver.get_screenshot_as_png(),
+                        name="failure_screenshot",
+                        attachment_type=AttachmentType.PNG
+                    )
+                except Exception as e:
+                    logging.warning(f"Could not attach screenshot to Allure: {e}")
+            else:
+                logging.warning("No web driver found for screenshot capture on failure.")
         except Exception as e:
             logging.error(f"Failed to capture screenshot or attach to Allure: {e}")
+
+def save_screenshot_on_failure(driver, test_name, test_type, status, bug_id=None, is_manual_bug=False):
+    timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+    browser = getattr(driver, 'name', 'unknownbrowser')
+    bug_type = 'manual' if is_manual_bug else 'aut'
+    base_filename = f"{timestamp}_{browser}_{test_name}_{test_type}_{bug_type}_{status}"
+    ext = ".png"
+    if is_manual_bug and bug_id:
+        # Manual/symbolic bug evidence for Jira
+        bug_dir = os.path.join(os.getcwd(), "artifacts", "jira_bugs", bug_id)
+        os.makedirs(bug_dir, exist_ok=True)
+        # Ensure unique filename (evidenceA, evidenceB, ...)
+        letter = 'A'
+        while True:
+            filename = f"{base_filename}_evidence{letter}{ext}"
+            filepath = os.path.join(bug_dir, filename)
+            if not os.path.exists(filepath):
+                break
+            letter = chr(ord(letter) + 1)
+        driver.save_screenshot(filepath)
+        print(f"Screenshot saved: {filepath}")
+        return filepath
+    else:
+        # AUT failure evidence
+        screenshot_dir = os.path.join(os.getcwd(), "artifacts", "aut_failures")
+        os.makedirs(screenshot_dir, exist_ok=True)
+        filename = f"{base_filename}{ext}"
+        filepath = os.path.join(screenshot_dir, filename)
+        driver.save_screenshot(filepath)
+        print(f"Screenshot saved: {filepath}")
+        return filepath
 

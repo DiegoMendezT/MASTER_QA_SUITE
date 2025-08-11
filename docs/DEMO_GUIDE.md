@@ -1,4 +1,15 @@
+# MASTER_QA_SUITE
+# Project: MASTER_QA_SUITE
+# File: DEMO_GUIDE.md
+# Purpose: Demo script and guide for the MASTER_QA_SUITE project.
+# Maintainer: DiegoMendezT / InnerCouncil
+# Last updated: 2025-08-10 13:45 UTC
+#
+# This file is part of the Akashic Records. All changes must be attributed and timestamped.
+
 # Demo Guide
+
+**Date:** 2025-08-10 13:45 UTC
 
 ## 5-Minute Demo Script
 
@@ -30,4 +41,4 @@
 
 ## Notes
 - CI installs Playwright browsers via `python -m playwright install --with-deps`.
-- Visual tests are excluded in CI during freeze: `-m "not visual"`. 
+- Visual tests are excluded in CI during freeze: `-m "not visual"`.

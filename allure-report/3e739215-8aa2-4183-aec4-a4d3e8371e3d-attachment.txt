@@ -1,0 +1,4 @@
+2025-08-10 22:37:55,981 - INFO - Running locally with browser: chrome
+2025-08-10 22:37:56,280 - INFO - Chromedriver is already installed.
+2025-08-10 22:37:58,242 - INFO - Opening page: https://www.google.com/ncr
+2025-08-10 22:38:08,759 - INFO - Current page title: Google

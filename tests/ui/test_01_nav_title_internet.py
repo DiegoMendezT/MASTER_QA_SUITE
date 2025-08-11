@@ -11,15 +11,12 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 
 @pytest.mark.ui
-def test_01_navigate_and_assert_title(driver, config):
+def test_01_navigate_and_assert_title(driver):
     """
     Tests navigation to The Internet homepage and asserts the title.
     """
-    # Arrange: Get the URL from the config file
-    the_internet_url = config['urls']['the_internet']
-    
     # Act: Navigate to the URL
-    driver.get(the_internet_url)
+    driver.get("https://the-internet.herokuapp.com/")
     
     # Assert: Check that the page title is correct
     expected_title = "The Internet"

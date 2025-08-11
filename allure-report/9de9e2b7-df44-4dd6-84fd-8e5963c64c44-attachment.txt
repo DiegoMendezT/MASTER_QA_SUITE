@@ -1,0 +1,6 @@
+2025-08-10 15:04:35,146 - INFO - Running locally with browser: chrome
+2025-08-10 15:04:35,631 - INFO - Chromedriver is already installed.
+2025-08-10 15:04:37,323 - INFO - Navigating to URL: https://www.saucedemo.com
+2025-08-10 15:04:43,935 - INFO - Entering text 'performance_glitch_user' into element: ('id', 'user-name')
+2025-08-10 15:04:44,104 - INFO - Entering text 'secret_sauce' into element: ('id', 'password')
+2025-08-10 15:04:44,188 - INFO - Clicking element: ('id', 'login-button')

@@ -1,0 +1,30 @@
+2025-08-10 15:59:52,034 - INFO - Running locally with browser: chrome
+2025-08-10 15:59:52,392 - INFO - Chromedriver is already installed.
+2025-08-10 15:59:53,962 - INFO - Opening page: https://www.google.com/ncr
+2025-08-10 16:00:04,467 - INFO - Entering text 'selenium webdriver' into element: ('name', 'q')
+2025-08-10 16:00:04,723 - INFO - Waiting for URL to contain: 'search?'
+2025-08-10 16:00:05,253 - ERROR - Failed to capture screenshot or attach to Allure: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=138.0.7204.101)
+Stacktrace:
+	GetHandleVerifier [0x0x11cba83+63395]
+	GetHandleVerifier [0x0x11cbac4+63460]
+	(No symbol) [0x0x1012113]
+	(No symbol) [0x0xff0fb9]
+	(No symbol) [0x0x1085ace]
+	(No symbol) [0x0x10a0099]
+	(No symbol) [0x0x107f1a6]
+	(No symbol) [0x0x104e7b2]
+	(No symbol) [0x0x104f654]
+	GetHandleVerifier [0x0x1448883+2672035]
+	GetHandleVerifier [0x0x1443cba+2652634]
+	GetHandleVerifier [0x0x11f2bca+223466]
+	GetHandleVerifier [0x0x11e2cb8+158168]
+	GetHandleVerifier [0x0x11e978d+185517]
+	GetHandleVerifier [0x0x11d3b78+96408]
+	GetHandleVerifier [0x0x11d3d02+96802]
+	GetHandleVerifier [0x0x11be90a+9770]
+	BaseThreadInitThunk [0x0x761a5d49+25]
+	RtlInitializeExceptionChain [0x0x77dfd2fb+107]
+	RtlGetAppContainerNamedObjectPath [0x0x77dfd281+561]
+

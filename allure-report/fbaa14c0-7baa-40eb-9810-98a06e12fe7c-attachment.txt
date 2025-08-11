@@ -1,0 +1,1 @@
+2025-08-10 15:46:57,907 - WARNING - No web driver found for screenshot capture on failure.

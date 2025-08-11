@@ -1,3 +1,17 @@
+# MASTER_QA_SUITE
+# Project: MASTER_QA_SUITE
+# File: selenium_guard.py
+# Purpose: Selenium-specific wait and guard utilities for robust UI automation.
+# Maintainer: DiegoMendezT / InnerCouncil
+# Last updated: 2025-08-10 14:00 UTC
+#
+# Agile Voice Attribution (Full Team):
+# - Product Owner, Scrum Master, Development Team, Stakeholders, Subject Matter Experts
+# - QA Voice: [Diego Alejandro], Shadow QA: [Diego's Shadow]
+# - Teacher as Copilot, Gatekeeper as Copilot, Release Captain
+#
+# All major changes must be attributed in docs/decision_log.md.
+
 from __future__ import annotations
 
 from selenium.common.exceptions import (ElementClickInterceptedException,

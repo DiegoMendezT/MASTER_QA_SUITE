@@ -1,3 +1,17 @@
+# MASTER_QA_SUITE
+# Project: MASTER_QA_SUITE
+# File: flaky_guard.py
+# Purpose: Retry system for transient errors, used for robust automation and test reliability.
+# Maintainer: DiegoMendezT / InnerCouncil
+# Last updated: 2025-08-10 14:00 UTC
+#
+# Agile Voice Attribution (Full Team):
+# - Product Owner, Scrum Master, Development Team, Stakeholders, Subject Matter Experts
+# - QA Voice: [Diego Alejandro], Shadow QA: [Diego's Shadow]
+# - Teacher as Copilot, Gatekeeper as Copilot, Release Captain
+#
+# All major changes must be attributed in docs/decision_log.md.
+
 # utils/flaky_guard.py
 """
 A robust decorator-based retry system to handle transient errors,

@@ -1,3 +1,13 @@
+# MASTER_QA_SUITE
+# Project: MASTER_QA_SUITE
+# File: verify_setup_clean.py
+# Purpose: Clean system verification (ASCII only) for Windows compatibility.
+# Maintainer: DiegoMendezT / InnerCouncil
+# Last updated: 2025-08-10 13:55 UTC
+#
+# This file is part of the Akashic Records. All changes must be attributed and timestamped.
+# Agile Voice Attribution: [Engineer as Copilot]
+
 """
 MASTER QA SUITE v2.5 - Clean System Verification (ASCII only)
 No Unicode characters - Windows compatible
@@ -93,3 +103,15 @@ def main():
 
 if __name__ == "__main__":
     sys.exit(main())
+
+# Agile Voice Attribution (Full Team):
+# - Product Owner: Guides product vision and backlog priorities.
+# - Scrum Master: Facilitates process, removes impediments, ensures agile adherence.
+# - Development Team: Designers, developers, testers, and specialists responsible for delivery.
+# - Stakeholders: Provide input and feedback on product direction and features.
+# - Subject Matter Experts: Offer specialized technical or domain knowledge.
+# - QA Voice: [Diego Alejandro] — Ensures quality, test coverage, and user advocacy.
+# - Shadow QA: [Diego's Shadow] — Represents blindspots, risks, and unspoken challenges.
+# - Teacher as Copilot, Gatekeeper as Copilot, Release Captain: AI/InnerCouncil voices for governance, traceability, and decision synthesis.
+#
+# All major decisions, changes, and logic evolutions must be attributed to one or more of these voices in docs/decision_log.md.

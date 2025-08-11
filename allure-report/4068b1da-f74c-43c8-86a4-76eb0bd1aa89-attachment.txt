@@ -1,0 +1,3 @@
+2025-08-10 15:54:29,103 - INFO - Running locally with browser: chrome
+2025-08-10 15:54:29,471 - INFO - Chromedriver is already installed.
+2025-08-10 15:54:34,129 - INFO - Screenshot saved: C:\Users\USUARIO\Projects\MASTER_QA_SUITE\artifacts\screenshots\test_02_locators_and_clicks_ui_20250810_155432_failed.png

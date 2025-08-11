@@ -1,0 +1,63 @@
+# MASTER_QA_SUITE
+# Project: MASTER_QA_SUITE
+# File: test_03_complete_e2e_flow.py.template
+# Purpose: Template for a complete end-to-end (E2E) user flow test in the MASTER_QA_SUITE framework.
+# Maintainer: DiegoMendezT / InnerCouncil
+# Last updated: 2025-08-10 13:45 UTC
+#
+# This template is part of the Akashic Records. All changes must be attributed and timestamped.
+
+"""
+Template for a complete, end-to-end (E2E) user flow test.
+
+An E2E test simulates a full user journey through the application,
+touching multiple pages and features to validate a complete business process.
+"""
+import pytest
+from pages.cart_page import CartPage
+from pages.checkout_page_one import CheckoutPageOne
+from pages.checkout_page_two import CheckoutPageTwo
+from pages.inventory_page import InventoryPage
+from pages.sauce_login_page import SauceLoginPage
+from pages.confirmation_page import ConfirmationPage
+
+@pytest.mark.e2e
+@pytest.mark.ui
+def test_full_checkout_flow(driver):
+    """
+    REQ-ID: F-E2E-001
+    Description: Verifies the complete user journey of logging in, adding an item,
+                 checking out, and receiving an order confirmation.
+    """
+    # --- Arrange: Login ---
+    login_page = SauceLoginPage(driver)
+    login_page.load()
+    login_page.login("standard_user", "secret_sauce")
+
+    # --- Act 1: Add item to cart ---
+    inventory_page = InventoryPage(driver)
+    assert inventory_page.is_on_page(), "Should be on inventory page after login"
+    inventory_page.add_item_to_cart("Sauce Labs Backpack")
+    inventory_page.go_to_cart()
+
+    # --- Act 2: Proceed to checkout ---
+    cart_page = CartPage(driver)
+    assert cart_page.is_on_page(), "Should be on the cart page"
+    cart_page.click_checkout()
+
+    # --- Act 3: Fill checkout information ---
+    checkout_one = CheckoutPageOne(driver)
+    assert checkout_one.is_on_page(), "Should be on the first checkout page"
+    checkout_one.fill_form("Test", "User", "12345")
+    checkout_one.click_continue()
+
+    # --- Act 4: Confirm and finish order ---
+    checkout_two = CheckoutPageTwo(driver)
+    assert checkout_two.is_on_page(), "Should be on the second checkout page"
+    checkout_two.click_finish()
+
+    # --- Assert: Verify confirmation ---
+    confirmation_page = ConfirmationPage(driver)
+    assert confirmation_page.is_on_page(), "Should be on the confirmation page"
+    assert "Thank you for your order!" in confirmation_page.get_confirmation_text(), \
+        "Confirmation message should be displayed"

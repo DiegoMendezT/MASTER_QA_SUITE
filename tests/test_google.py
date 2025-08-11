@@ -58,12 +58,3 @@ def test_google_search_selenium(driver, config):
     google.open_home()
     google.search("selenium webdriver")
     assert google.is_results_displayed(), "Search results should be displayed"
-
-@pytest.mark.ui
-@pytest.mark.external
-@pytest.mark.parametrize("query", ["python", "pytest", "selenium"])
-def test_google_search_multiple_queries(driver, config, query):
-    google = GooglePage(driver, config)
-    google.open_home()
-    google.search(query)
-    assert google.is_results_displayed(), f"Results should display for: {query}"

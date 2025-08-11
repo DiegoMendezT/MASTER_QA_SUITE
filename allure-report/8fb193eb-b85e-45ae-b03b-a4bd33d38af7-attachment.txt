@@ -1,0 +1,2 @@
+2025-08-10 14:06:38,068 - INFO - Running locally with browser: chrome
+2025-08-10 14:06:38,423 - INFO - Chromedriver is already installed.

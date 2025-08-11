@@ -10,10 +10,11 @@ from selenium.webdriver.common.by import By
 
 
 @pytest.mark.ui
-def test_02_locators_and_clicks(driver, config):
+def test_02_locators_and_clicks(driver):
     """
     Tests finding elements by various locators and clicking on them.
     """
+    driver.get("https://the-internet.herokuapp.com/add_remove_elements/")
     # Arrange: Navigate to the "Add/Remove Elements" page
     driver.get(config['urls']['the_internet'] + "/add_remove_elements/")
 
