@@ -90,7 +90,7 @@ For a more detailed breakdown of each component and the execution flow, please s
     pip install -r requirements/visual.txt
     pip install -r requirements/data.txt
     ```
-    **DO NOT** use a single `requirements.txt` file from the root directory.
+    **DO NOT** use a single `dependencies.txt` file from the root directory.
 
 
 4.  **(Optional) Set up environment variables:**
@@ -130,7 +130,7 @@ pytest tests/playwright --engine playwright --browser chromium --headed  # visib
 ### One-time setup (per machine/runner):
 
 ```bash
-python -m pip install -r requirements.txt
+    python -m pip install -r dependencies.txt
 python -m playwright install   # add --with-deps on Linux containers if needed
 ```
 

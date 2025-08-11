@@ -1,0 +1,2 @@
+# Libraries that are often transitive dependencies or low-level utilities.
+# (formerly requirements-base.in)

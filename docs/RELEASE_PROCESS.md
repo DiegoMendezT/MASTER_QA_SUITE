@@ -59,9 +59,9 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          key: ${{ runner.os }}-pip-${{ hashFiles('dependencies.txt') }}
       - name: Install deps (locked)
-        run: pip install -r requirements.txt
+        run: pip install -r dependencies.txt
       - name: Install Playwright browsers
         run: python -m playwright install --with-deps chromium firefox webkit
       - name: Consistency gate

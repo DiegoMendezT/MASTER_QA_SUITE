@@ -65,7 +65,7 @@ python -m venv .venv
 source .venv/bin/activate
 
 # Install dependencies
-pip install -r requirements.txt
+pip install -r dependencies.txt
 ```
 
 ### 2. Verify Installation
@@ -129,7 +129,7 @@ MASTER_QA_SUITE/
 └── ⚙️ Configuration Files
     ├── conftest.py            # Pytest fixtures
     ├── pytest.ini             # Test configuration
-    └── requirements.txt        # Dependencies
+  └── dependencies.txt        # Dependencies
 ```
 
 ---

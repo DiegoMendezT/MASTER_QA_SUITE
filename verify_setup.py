@@ -40,7 +40,7 @@ def verify_file_structure():
     required_files = [
         'conftest.py',
         'pytest.ini',
-        'requirements.txt',
+        'dependencies.txt',
         'README.md',
         '.gitignore',
         'config/settings.yaml',
