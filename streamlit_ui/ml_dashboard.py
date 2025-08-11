@@ -1,6 +1,6 @@
 """
-MASTER QA SUITE v2.5 - Advanced Consciousness Dashboard
-Real-time framework monitoring with self-awareness metrics
+MASTER QA SUITE v2.5 - Machine Learning Dashboard
+Real-time framework monitoring with ML/self-diagnosis metrics
 """
 from datetime import datetime, timedelta
 
@@ -12,11 +12,10 @@ import streamlit as st
 from utils.data_factory import DataFactory
 
 
-def load_consciousness_metrics():
-    """Load real-time consciousness metrics"""
+def load_ml_metrics():
+    """Load real-time machine learning metrics"""
     return {
-        'consciousness_level': 23.3,
-        'mastery_score': 92.9,
+        'ml_score': 92.9,
         'self_reflection_score': 13/14 * 100,
         'best_practices_score': 100.0,
         'framework_health': 94.5,
@@ -28,8 +27,8 @@ def load_consciousness_metrics():
         'growth_trajectory': 'Ascending'
     }
 
-def create_consciousness_gauge(value, title):
-    """Create a consciousness level gauge chart"""
+def create_ml_gauge(value, title):
+    """Create a machine learning level gauge chart"""
     fig = go.Figure(go.Indicator(
         mode = "gauge+number+delta",
         value = value,

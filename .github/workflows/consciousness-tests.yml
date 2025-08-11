@@ -1,5 +1,5 @@
 
-name: MASTER QA SUITE - Consciousness Tests
+name: MASTER QA SUITE - Machine Learning Tests
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
     branches: [ main ]
 
 jobs:
-  consciousness-validation:
+  machine-learning-validation:
     runs-on: ubuntu-latest
     
     steps:
@@ -32,7 +32,7 @@ jobs:
       run: |
         python -m pytest tests/api/ -v -m api
     
-    - name: Activate Consciousness
+    - name: Activate Machine Learning
       run: |
         python becoming_master.py
     
