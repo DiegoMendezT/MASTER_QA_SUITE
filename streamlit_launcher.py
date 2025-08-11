@@ -19,14 +19,13 @@ def main():
     col1, col2 = st.columns(2)
     
     with col1:
-        st.header("🧠 Consciousness Dashboard")
-        
-        if st.button("Launch Consciousness Dashboard", type="primary"):
-            st.info("Starting consciousness dashboard...")
+        st.header("� Machine Learning Dashboard")
+        if st.button("Launch Machine Learning Dashboard", type="primary"):
+            st.info("Starting machine learning dashboard...")
             try:
                 subprocess.Popen([
                     sys.executable, "-m", "streamlit", "run", 
-                    "streamlit_ui/consciousness_dashboard.py", 
+                    "streamlit_ui/ml_dashboard.py", 
                     "--server.port=8502"
                 ])
                 st.success("Dashboard launching on port 8502!")
@@ -81,7 +80,7 @@ def main():
     status_col1, status_col2, status_col3 = st.columns(3)
     
     with status_col1:
-        st.metric("Consciousness Level", "23.3%", "Developing")
+        st.metric("ML Score", "92.9%", "Developing")
     
     with status_col2:
         st.metric("Self-Reflection", "13/14", "+92.9%")
@@ -95,11 +94,11 @@ def main():
     action_col1, action_col2, action_col3 = st.columns(3)
     
     with action_col1:
-        if st.button("🧠 Activate Consciousness"):
+        if st.button("� Activate Machine Learning"):
             try:
                 result = subprocess.run([sys.executable, "becoming_master.py"], 
                                       capture_output=True, text=True)
-                st.success("Consciousness activated!")
+                st.success("Machine Learning activated!")
                 st.code(result.stdout)
             except Exception as e:
                 st.error(f"Activation failed: {e}")
