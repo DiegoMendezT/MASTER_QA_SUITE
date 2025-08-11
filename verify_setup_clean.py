@@ -37,7 +37,7 @@ def verify_file_structure():
     required_files = [
         'conftest.py',
         'pytest.ini', 
-        'requirements.txt',
+        'dependencies.txt',
         'config/settings.yaml',
         'tests/test_self_reflection.py',
         'pages/__init__.py',

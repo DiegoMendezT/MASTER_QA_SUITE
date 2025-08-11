@@ -1,0 +1,1 @@
+2025-08-11 04:35:36,569 - INFO - ✅ Page objects properly inherit from BasePage

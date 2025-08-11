@@ -34,8 +34,8 @@ except ImportError:
             return {'username': 'test_user', 'email': 'test@example.com', 'password': 'test_pass'}
         
         @staticmethod
-        def consciousness_test_data():
-            return {'framework_name': 'MASTER_QA_SUITE', 'consciousness_level': 23.3}
+        def ml_test_data():
+            return {'framework_name': 'MASTER_QA_SUITE', 'ml_level': 23.3}
 
 @pytest.mark.perf
 @pytest.mark.self_reflection
@@ -103,26 +103,26 @@ class TestFrameworkPerformance:
         
         print(f"✅ Generated 100 profiles in parallel in {parallel_time:.2f}s")
     
-    def test_consciousness_data_performance(self):
-        """Test consciousness data generation performance"""
+    def test_ml_data_performance(self):
+        """Test ML data generation performance"""
         start_time = time.time()
         
-        consciousness_data = []
+        ml_data = []
         for _ in range(50):
-            consciousness_data.append(self.data_factory.consciousness_test_data())
+            ml_data.append(self.data_factory.ml_test_data())
         
         generation_time = time.time() - start_time
         
-        assert len(consciousness_data) == 50
-        assert generation_time < 2.0, f"Consciousness data generation too slow: {generation_time:.2f}s"
+        assert len(ml_data) == 50
+        assert generation_time < 2.0, f"ML data generation too slow: {generation_time:.2f}s"
         
-        # Verify consciousness data structure
-        sample = consciousness_data[0]
+        # Verify ML data structure
+        sample = ml_data[0]
         assert 'framework_name' in sample
-        assert 'consciousness_level' in sample
+        assert 'ml_level' in sample
         assert 'mastery_metrics' in sample
         
-        print(f"✅ Generated 50 consciousness datasets in {generation_time:.2f}s")
+        print(f"✅ Generated 50 ML datasets in {generation_time:.2f}s")
     
     def test_memory_usage_under_load(self):
         """Test memory usage during intensive operations"""
@@ -227,7 +227,7 @@ class TestFrameworkStress:
             if i % 2 == 0:
                 data = self.data_factory.random_user_data()
             else:
-                data = self.data_factory.consciousness_test_data()
+                data = self.data_factory.ml_test_data()
             results.append(data)
         
         execution_time = time.time() - start_time
@@ -263,22 +263,22 @@ class TestFrameworkBenchmarks:
         
         print(f"📊 Baseline: User data generation {avg_time:.2f}ms per item")
     
-    def test_baseline_consciousness_data_generation(self):
-        """Establish baseline for consciousness data generation"""
+    def test_baseline_ml_data_generation(self):
+        """Establish baseline for ML data generation"""
         iterations = 100
         
         start_time = time.time()
         for _ in range(iterations):
-            self.data_factory.consciousness_test_data()
+            self.data_factory.ml_test_data()
         end_time = time.time()
         
         avg_time = (end_time - start_time) / iterations * 1000
         
-        self.benchmarks['consciousness_data_generation_ms'] = avg_time
+        self.benchmarks['ml_data_generation_ms'] = avg_time
         
-        assert avg_time < 30.0, f"Consciousness data generation too slow: {avg_time:.2f}ms"
+        assert avg_time < 30.0, f"ML data generation too slow: {avg_time:.2f}ms"
         
-        print(f"📊 Baseline: Consciousness data generation {avg_time:.2f}ms per item")
+        print(f"📊 Baseline: ML data generation {avg_time:.2f}ms per item")
     
     def test_baseline_invalid_login_scenarios(self):
         """Establish baseline for invalid login scenario generation"""
@@ -294,7 +294,7 @@ class TestFrameworkBenchmarks:
         print(f"📊 Baseline: Invalid login scenarios {generation_time:.2f}ms for {len(scenarios)} scenarios")
     
     def teardown_method(self):
-        """Log all benchmarks for consciousness tracking"""
+        """Log all benchmarks for ML tracking"""
         if self.benchmarks:
             print("\n📊 PERFORMANCE BENCHMARKS ESTABLISHED:")
             for metric, value in self.benchmarks.items():

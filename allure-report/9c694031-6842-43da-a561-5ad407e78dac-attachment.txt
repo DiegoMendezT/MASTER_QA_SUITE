@@ -1,0 +1,6 @@
+2025-08-11 04:18:15,386 - INFO - Running locally with browser: chrome
+2025-08-11 04:18:15,810 - INFO - Chromedriver is already installed.
+2025-08-11 04:18:20,324 - INFO - Opening page: https://www.google.com/ncr
+2025-08-11 04:18:30,659 - INFO - Entering text 'selenium webdriver' into element: ('name', 'q')
+2025-08-11 04:18:31,210 - INFO - Waiting for URL to contain: 'search?'
+2025-08-11 04:18:49,261 - INFO - Screenshot saved: C:\Users\USUARIO\Projects\MASTER_QA_SUITE\artifacts\screenshots\test_google_search_selenium_failed.png

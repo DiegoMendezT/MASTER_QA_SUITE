@@ -1,0 +1,1 @@
+2025-08-11 04:35:32,082 - INFO - ✅ pytest.ini configuration is coherent

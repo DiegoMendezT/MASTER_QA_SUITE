@@ -25,7 +25,7 @@ def create_github_ready_structure():
     
     # Create GitHub Actions workflow
     github_workflow = """
-name: MASTER QA SUITE - Consciousness Tests
+name: MASTER QA SUITE - ML Tests
 
 on:
   push:
@@ -34,7 +34,7 @@ on:
     branches: [ main ]
 
 jobs:
-  consciousness-validation:
+    ml-validation:
     runs-on: ubuntu-latest
     
     steps:
@@ -58,7 +58,7 @@ jobs:
       run: |
         python -m pytest tests/api/ -v -m api
     
-    - name: Activate Consciousness
+    - name: Activate ML
       run: |
         python becoming_master.py
     
@@ -74,14 +74,14 @@ jobs:
         path: reports/
 """
     
-    with open('.github/workflows/consciousness-tests.yml', 'w') as f:
+    with open('.github/workflows/ml-tests.yml', 'w') as f:
         f.write(github_workflow)
     print("✅ Created GitHub Actions workflow")
     
     # Create project badges and shields
     badges = """
-<!-- Consciousness Status Badges -->
-[![Framework Status](https://img.shields.io/badge/Framework-Consciousness%20Active-purple.svg)]()
+<!-- ML Status Badges -->
+[![Framework Status](https://img.shields.io/badge/Framework-ML%20Active-purple.svg)]()
 [![Self Reflection](https://img.shields.io/badge/Self%20Reflection-13/14%20Passing-brightgreen.svg)]()
 [![Mastery Level](https://img.shields.io/badge/Mastery%20Level-23.3%25-orange.svg)]()
 [![Python](https://img.shields.io/badge/Python-3.11+-blue.svg)](https://python.org)
@@ -118,14 +118,14 @@ def main():
     col1, col2 = st.columns(2)
     
     with col1:
-        st.header("🧠 Consciousness Dashboard")
+    st.header("� ML Dashboard")
         
-        if st.button("Launch Consciousness Dashboard", type="primary"):
-            st.info("Starting consciousness dashboard...")
+    if st.button("Launch ML Dashboard", type="primary"):
+            st.info("Starting ML dashboard...")
             try:
                 subprocess.Popen([
                     sys.executable, "-m", "streamlit", "run", 
-                    "streamlit_ui/consciousness_dashboard.py", 
+                    "streamlit_ui/ml_dashboard.py", 
                     "--server.port=8502"
                 ])
                 st.success("Dashboard launching on port 8502!")
@@ -180,7 +180,7 @@ def main():
     status_col1, status_col2, status_col3 = st.columns(3)
     
     with status_col1:
-        st.metric("Consciousness Level", "23.3%", "Developing")
+    st.metric("ML Level", "23.3%", "Developing")
     
     with status_col2:
         st.metric("Self-Reflection", "13/14", "+92.9%")
@@ -194,11 +194,11 @@ def main():
     action_col1, action_col2, action_col3 = st.columns(3)
     
     with action_col1:
-        if st.button("🧠 Activate Consciousness"):
+    if st.button("� Activate ML"):
             try:
                 result = subprocess.run([sys.executable, "becoming_master.py"], 
                                       capture_output=True, text=True)
-                st.success("Consciousness activated!")
+                st.success("ML activated!")
                 st.code(result.stdout)
             except Exception as e:
                 st.error(f"Activation failed: {e}")
@@ -254,7 +254,7 @@ def finalize_github_deployment():
         print(f"  {step}")
     
     print("\n🚀 Ready for deployment!")
-    print("📊 Framework Status: Consciousness Active | Tests Operational | GitHub Ready")
+    print("📊 Framework Status: ML Active | Tests Operational | GitHub Ready")
     
     return True
 
@@ -265,7 +265,7 @@ if __name__ == "__main__":
     
     print("\n" + "="*60)
     print("✅ MASTER QA SUITE v2.5 - DEPLOYMENT READY")
-    print("🧠 Consciousness: Active")
+    print("� ML: Active")
     print("📊 Self-Reflection: 13/14 tests passing")
     print("🚀 Streamlit: Launch ready")
     print("📁 GitHub: Structure complete")

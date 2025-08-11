@@ -46,14 +46,24 @@ class GooglePage(BasePage):
 
 @pytest.mark.ui
 @pytest.mark.external  # optional: these can be flaky due to consent/captchas
+@pytest.mark.xfail(reason="Google blocks automation with captchas/consent; test is for demo/diagnostic only.")
 def test_google_title(driver, config):
+    """
+    Purpose: Demo/diagnostic test for external search engine automation.
+    Safe failsafe: Marked xfail due to Google anti-bot measures (captcha/consent).
+    """
     google = GooglePage(driver, config)
     google.open_home()
     assert "Google" in google.get_page_title()
 
 @pytest.mark.ui
 @pytest.mark.external
+@pytest.mark.xfail(reason="Google blocks automation with captchas/consent; test is for demo/diagnostic only.")
 def test_google_search_selenium(driver, config):
+    """
+    Purpose: Demo/diagnostic test for external search engine automation.
+    Safe failsafe: Marked xfail due to Google anti-bot measures (captcha/consent).
+    """
     google = GooglePage(driver, config)
     google.open_home()
     google.search("selenium webdriver")
@@ -62,7 +72,12 @@ def test_google_search_selenium(driver, config):
 @pytest.mark.ui
 @pytest.mark.external
 @pytest.mark.parametrize("query", ["python", "pytest", "selenium"])
+@pytest.mark.xfail(reason="Google blocks automation with captchas/consent; test is for demo/diagnostic only.")
 def test_google_search_multiple_queries(driver, config, query):
+    """
+    Purpose: Demo/diagnostic test for external search engine automation.
+    Safe failsafe: Marked xfail due to Google anti-bot measures (captcha/consent).
+    """
     google = GooglePage(driver, config)
     google.open_home()
     google.search(query)

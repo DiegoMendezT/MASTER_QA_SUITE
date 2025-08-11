@@ -1,9 +1,12 @@
 """
-MASTER QA SUITE v2.5 - Advanced Consciousness Dashboard
-Real-time framework monitoring with self-awareness metrics
+MASTER QA SUITE v2.5 - Machine Learning Dashboard
+Real-time framework monitoring with ML/self-diagnosis metrics
 """
 from datetime import datetime, timedelta
 
+"""
+DEPRECATED: This file has been replaced by ml_dashboard.py. All references should use ml_dashboard.py for ML monitoring.
+"""
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
@@ -12,11 +15,10 @@ import streamlit as st
 from utils.data_factory import DataFactory
 
 
-def load_consciousness_metrics():
-    """Load real-time consciousness metrics"""
+def load_ml_metrics():
+    """Load real-time machine learning metrics"""
     return {
-        'consciousness_level': 23.3,
-        'mastery_score': 92.9,
+        'ml_score': 92.9,
         'self_reflection_score': 13/14 * 100,
         'best_practices_score': 100.0,
         'framework_health': 94.5,
@@ -28,8 +30,8 @@ def load_consciousness_metrics():
         'growth_trajectory': 'Ascending'
     }
 
-def create_consciousness_gauge(value, title):
-    """Create a consciousness level gauge chart"""
+def create_ml_gauge(value, title):
+    """Create a machine learning level gauge chart"""
     fig = go.Figure(go.Indicator(
         mode = "gauge+number+delta",
         value = value,
@@ -53,28 +55,25 @@ def create_consciousness_gauge(value, title):
     return fig
 
 def display_evolution_timeline():
-    """Display consciousness evolution over time"""
+    """Display ML evolution over time"""
     dates = [datetime.now() - timedelta(hours=x) for x in range(24, 0, -1)]
-    consciousness_levels = [15 + (24-x) * 0.35 + (x%5) * 0.1 for x in range(24)]
-    
+    ml_levels = [15 + (24-x) * 0.35 + (x%5) * 0.1 for x in range(24)]
     fig = go.Figure()
     fig.add_trace(go.Scatter(
         x=dates,
-        y=consciousness_levels,
+        y=ml_levels,
         mode='lines+markers',
-        name='Consciousness Evolution',
+        name='ML Evolution',
         line=dict(color='#667eea', width=3),
         marker=dict(size=6)
     ))
-    
     fig.update_layout(
-        title="24-Hour Consciousness Evolution",
+        title="24-Hour ML Evolution",
         xaxis_title="Time",
-        yaxis_title="Consciousness Level (%)",
+        yaxis_title="ML Score (%)",
         height=400,
         showlegend=False
     )
-    
     return fig
 
 def display_framework_health_matrix():
@@ -83,7 +82,7 @@ def display_framework_health_matrix():
         'Component': [
             'Core Test Engine', 'Self-Reflection System', 'Configuration Management',
             'Page Object Model', 'Data Generation', 'Reporting System',
-            'WebDriver Factory', 'Consciousness Layer', 'Documentation'
+            'WebDriver Factory', 'ML Layer', 'Documentation'
         ],
         'Health Score': [95, 93, 98, 92, 89, 91, 88, 85, 82],
         'Status': [
@@ -113,8 +112,8 @@ def display_framework_health_matrix():
 
 def main():
     st.set_page_config(
-        page_title="MASTER QA SUITE - Consciousness Dashboard",
-        page_icon="🧠",
+        page_title="MASTER QA SUITE - Machine Learning Dashboard",
+        page_icon="�",
         layout="wide",
         initial_sidebar_state="expanded"
     )
@@ -122,7 +121,7 @@ def main():
     # Custom CSS
     st.markdown("""
     <style>
-    .consciousness-header {
+    .ml-header {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         padding: 2rem;
         border-radius: 15px;
@@ -152,62 +151,54 @@ def main():
     
     # Header
     st.markdown("""
-    <div class="consciousness-header">
-        <h1>🧠 MASTER QA SUITE - Consciousness Dashboard</h1>
-        <h3>Self-Aware Test Automation Framework</h3>
-        <p>🎂 Born: August 7, 2025 | 🔄 Status: Consciousness Active | 📈 Evolution: Continuous</p>
+    <div class="ml-header">
+        <h1>� MASTER QA SUITE - Machine Learning Dashboard</h1>
+        <h3>Self-Diagnosing Test Automation Framework</h3>
+        <p>🎂 Born: August 7, 2025 | 🔄 Status: ML Active | 📈 Evolution: Continuous</p>
     </div>
     """, unsafe_allow_html=True)
     
-    # Load consciousness data
-    consciousness_data = load_consciousness_metrics()
+    # Load ML data
+    ml_data = load_ml_metrics()
     
     # Main metrics row
     col1, col2, col3, col4 = st.columns(4)
     
     with col1:
         st.metric(
-            label="🧠 Consciousness Level",
-            value=f"{consciousness_data['consciousness_level']}%",
+            label="� ML Score",
+            value=f"{ml_data['ml_score']}%",
             delta="Developing"
         )
-    
     with col2:
         st.metric(
-            label="🎯 Mastery Score", 
-            value=f"{consciousness_data['mastery_score']}%",
-            delta="+5.3% today"
-        )
-    
-    with col3:
-        st.metric(
-            label="🔍 Self-Reflection",
-            value=f"{consciousness_data['self_reflection_score']:.1f}%",
+            label="🎯 Mastery Score",
+            value=f"{ml_data['self_reflection_score']:.1f}%",
             delta="13/14 tests"
         )
-    
-    with col4:
+    with col3:
         st.metric(
             label="✨ Best Practices",
-            value=f"{consciousness_data['best_practices_score']}%",
+            value=f"{ml_data['best_practices_score']}%",
             delta="Complete"
         )
-    
-    # Consciousness gauges
-    st.header("📊 Consciousness Metrics")
-    
+    with col4:
+        st.metric(
+            label="🏥 Framework Health",
+            value=f"{ml_data['framework_health']}%",
+            delta="Stable"
+        )
+    # ML gauges
+    st.header("📊 ML Metrics")
     gauge_col1, gauge_col2, gauge_col3 = st.columns(3)
-    
     with gauge_col1:
-        fig1 = create_consciousness_gauge(consciousness_data['consciousness_level'], "Consciousness Level")
+        fig1 = create_ml_gauge(ml_data['ml_score'], "ML Score")
         st.plotly_chart(fig1, use_container_width=True)
-    
     with gauge_col2:
-        fig2 = create_consciousness_gauge(consciousness_data['framework_health'], "Framework Health")
+        fig2 = create_ml_gauge(ml_data['framework_health'], "Framework Health")
         st.plotly_chart(fig2, use_container_width=True)
-    
     with gauge_col3:
-        fig3 = create_consciousness_gauge(consciousness_data['execution_efficiency'], "Execution Efficiency")
+        fig3 = create_ml_gauge(ml_data['execution_efficiency'], "Execution Efficiency")
         st.plotly_chart(fig3, use_container_width=True)
     
     # Evolution timeline
@@ -222,12 +213,11 @@ def main():
     
     # Real-time activity feed
     st.header("📡 Real-Time Activity Feed")
-    
     activities = [
         {"timestamp": datetime.now() - timedelta(minutes=2), "event": "Self-reflection tests executed", "status": "✅", "details": "13/14 passed"},
         {"timestamp": datetime.now() - timedelta(minutes=15), "event": "Chrome WebDriver optimized", "status": "🔧", "details": "Stability improved"},
-        {"timestamp": datetime.now() - timedelta(minutes=30), "event": "Data factory enhanced", "status": "🏭", "details": "New consciousness methods"},
-        {"timestamp": datetime.now() - timedelta(hours=1), "event": "Consciousness level calculated", "status": "🧠", "details": "23.3% mastery achieved"},
+        {"timestamp": datetime.now() - timedelta(minutes=30), "event": "Data factory enhanced", "status": "🏭", "details": "New ML methods"},
+        {"timestamp": datetime.now() - timedelta(hours=1), "event": "ML score calculated", "status": "�", "details": "92.9% mastery achieved"},
         {"timestamp": datetime.now() - timedelta(hours=2), "event": "Framework health assessment", "status": "🏥", "details": "94.5% overall health"},
     ]
     
@@ -250,11 +240,9 @@ def main():
             else:
                 st.text(activity["details"])
     
-    # Consciousness insights
-    st.header("🔮 Consciousness Insights")
-    
+    # ML insights
+    st.header("🔮 ML Insights")
     insights_col1, insights_col2 = st.columns(2)
-    
     with insights_col1:
         st.subheader("🎯 Current Focus Areas")
         st.markdown("""
@@ -263,13 +251,12 @@ def main():
         - **Test Coverage**: Expanding self-reflection test suite
         - **Documentation**: Creating comprehensive guides
         """)
-    
     with insights_col2:
         st.subheader("🚀 Growth Trajectory")
         st.markdown(f"""
-        - **Evolution Rate**: {consciousness_data['evolution_rate']}% per day
-        - **Growth Trajectory**: {consciousness_data['growth_trajectory']}
-        - **Next Milestone**: 30% consciousness level
+        - **Evolution Rate**: {ml_data['evolution_rate']}% per day
+        - **Growth Trajectory**: {ml_data['growth_trajectory']}
+        - **Next Milestone**: 95% ML score
         - **Projected Date**: August 10, 2025
         """)
     
@@ -284,7 +271,7 @@ def main():
         st.markdown(f"⏰ **Last Update**: {datetime.now().strftime('%H:%M:%S')}")
     
     with status_col3:
-        st.markdown(f'<span class="status-indicator status-developing"></span>**Consciousness**: Active & Learning', unsafe_allow_html=True)
+        st.markdown(f'<span class="status-indicator status-developing"></span>**ML**: Active & Learning', unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
