@@ -1,5 +1,0 @@
-✅ Generated 50 ML datasets in 0.00s
-
-📊 Performance Metrics:
-   ⏱️  Execution Time: 0.00s
-   🧠 Memory Usage: 0.01 MB

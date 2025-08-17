@@ -1,3 +1,0 @@
-[32mINFO    [0m root:conftest.py:185 Running locally with browser: chrome
-[32mINFO    [0m root:utils.py:317 Chromedriver is already installed.
-[32mINFO    [0m tests.test_login:test_login.py:227 ✅ Login redirect behavior verified

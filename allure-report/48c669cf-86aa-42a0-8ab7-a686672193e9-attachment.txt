@@ -1,6 +1,0 @@
-2025-08-11 04:18:00,220 - INFO - Running locally with browser: chrome
-2025-08-11 04:18:00,762 - INFO - Chromedriver is already installed.
-2025-08-11 04:18:01,920 - INFO - Opening page: https://www.google.com/ncr
-2025-08-11 04:18:12,256 - INFO - Entering text 'selenium' into element: ('name', 'q')
-2025-08-11 04:18:12,591 - INFO - Waiting for URL to contain: 'search?'
-2025-08-11 04:18:29,951 - INFO - Screenshot saved: C:\Users\USUARIO\Projects\MASTER_QA_SUITE\artifacts\screenshots\test_google_search_multiple_queries_selenium_failed.png

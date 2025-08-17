@@ -1,3 +1,0 @@
-2025-08-10 15:50:42,488 - INFO - Running locally with browser: chrome
-2025-08-10 15:50:42,875 - INFO - Chromedriver is already installed.
-2025-08-10 15:50:45,994 - INFO - Screenshot saved: C:\Users\USUARIO\Projects\MASTER_QA_SUITE\artifacts\screenshots\test_forced_failure_5_other_20250810_155045_failed.png

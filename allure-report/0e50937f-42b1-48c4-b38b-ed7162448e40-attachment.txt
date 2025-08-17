@@ -1,6 +1,0 @@
-2025-08-11 05:52:29,439 - INFO - Running locally with browser: chrome
-2025-08-11 05:52:29,812 - INFO - Chromedriver is already installed.
-2025-08-11 05:52:31,332 - INFO - Opening page: https://www.google.com/ncr
-2025-08-11 05:52:42,414 - INFO - Entering text 'python' into element: ('name', 'q')
-2025-08-11 05:52:42,559 - INFO - Waiting for URL to contain: 'search?'
-2025-08-11 05:52:47,956 - WARNING - Timeout waiting for URL to contain 'search?'. Current URL: https://www.google.com/sorry/index?continue=https://www.google.com/search%3Fq%3Dpython%26sca_esv%3Df5680b47e71e92a2%26source%3Dhp%26ei%3Df9mZaMrJHZWSwbkPy5yZ2AE%26iflsig%3DAOw8s4IAAAAAaJnnj1tWvVYQ1RIYLXaWR9gOWrBNKRY3%26ved%3D0ahUKEwiKhYb42IKPAxUVSTABHUtOBhsQ4dUDCA0%26uact%3D5%26oq%3Dpython%26gs_lp%3DEgdnd3Mtd2l6IgZweXRob25IIFAAWApwAHgAkAEAmAEAoAEAqgEAuAEDyAEA-AEBmAIAoAIAmAMAkgcAoAcAsgcAuAcAwgcAyAcA%26sclient%3Dgws-wiz%26sei%3DitmZaOuWG8XM5OUPnKmu0Qk&q=EgS6n-9yGIqz58QGIjCcmbbbWWxvwmzHCE1eLkXt5X6qe7Z1ex49NyvmQHDPaO269YhBFi8_XoSlnxAfjxEyAVJaAUM

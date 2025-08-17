@@ -1,3 +1,0 @@
-2025-08-10 15:54:10,328 - INFO - Running locally with browser: chrome
-2025-08-10 15:54:13,195 - INFO - Chromedriver is already installed.
-2025-08-10 15:54:20,141 - INFO - ✅ Valid login successful - redirected to secure area

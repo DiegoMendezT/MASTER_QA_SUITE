@@ -1,6 +1,0 @@
-2025-08-10 14:40:29,321 - INFO - Running locally with browser: chrome
-2025-08-10 14:40:29,671 - INFO - Chromedriver is already installed.
-2025-08-10 14:40:33,636 - INFO - ✅ Invalid attempt properly rejected: admin
-2025-08-10 14:40:34,084 - INFO - ✅ Invalid attempt properly rejected: user
-2025-08-10 14:40:34,653 - INFO - ✅ Invalid attempt properly rejected: test
-2025-08-10 14:40:35,477 - INFO - ✅ Invalid attempt properly rejected: ngdbbipy@test.com

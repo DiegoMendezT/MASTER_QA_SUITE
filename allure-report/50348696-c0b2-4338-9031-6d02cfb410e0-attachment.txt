@@ -1,3 +1,0 @@
-2025-08-09 12:13:01,428 - INFO - Running locally with browser: chrome
-2025-08-09 12:13:01,762 - INFO - Downloading chromedriver (138.0.7204.183)...
-2025-08-09 12:13:09,188 - ERROR - Error installing ChromeDriver: [Errno 13] Permission denied: 'C:\\Users\\USUARIO\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\chromedriver_autoinstaller\\138\\chromedriver.exe'

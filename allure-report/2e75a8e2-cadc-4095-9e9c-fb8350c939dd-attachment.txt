@@ -1,5 +1,0 @@
-UI: Added 'Sauce Labs Backpack' to cart.
-UI localStorage 'cart-contents': [4]
-SIMULATED: Fetching cart for token: dummy-auth...
-Simulated API response for cart: [{'productId': 'sauce-labs-backpack', 'quantity': 1}]
-SUCCESS: UI cart count (1) matches API cart count (1).

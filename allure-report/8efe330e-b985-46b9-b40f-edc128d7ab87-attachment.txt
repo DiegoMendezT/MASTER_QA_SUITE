@@ -1,3 +1,0 @@
-2025-08-10 17:05:01,265 - INFO - Running locally with browser: chrome
-2025-08-10 17:05:01,610 - INFO - Chromedriver is already installed.
-2025-08-10 17:05:04,569 - INFO - ✅ All login page elements present and functional

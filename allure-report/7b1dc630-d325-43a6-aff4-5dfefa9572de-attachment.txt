@@ -1,1 +1,0 @@
-2025-08-10 14:25:27,743 - INFO - ✅ 4 test files follow naming convention

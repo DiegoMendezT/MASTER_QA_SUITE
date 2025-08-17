@@ -1,8 +1,0 @@
-[32mINFO    [0m root:conftest.py:186 Running locally with browser: chrome
-[32mINFO    [0m root:utils.py:317 Chromedriver is already installed.
-[32mINFO    [0m root:conftest.py:295 Using standard UI Login method.
-[32mINFO    [0m pages.base_page:base_page.py:141 Entering text 'standard_user' into element: ('id', 'user-name')
-[32mINFO    [0m pages.base_page:base_page.py:141 Entering text 'secret_sauce' into element: ('id', 'password')
-[32mINFO    [0m pages.base_page:base_page.py:117 Clicking element: ('id', 'login-button')
-[32mINFO    [0m pages.base_page:base_page.py:117 Clicking element: ('class name', 'shopping_cart_link')
-[32mINFO    [0m pages.base_page:base_page.py:211 Waiting for URL to contain: 'cart.html'

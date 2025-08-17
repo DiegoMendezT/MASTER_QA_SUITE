@@ -1,3 +1,0 @@
-2025-08-10 15:18:21,071 - INFO - Running locally with browser: chrome
-2025-08-10 15:18:21,408 - INFO - Chromedriver is already installed.
-2025-08-10 15:18:24,364 - INFO - ✅ Missing password properly handled

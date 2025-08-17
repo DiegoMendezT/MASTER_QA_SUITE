@@ -1,6 +1,0 @@
-2025-08-16 23:50:45,001 - INFO - Running locally with browser: chrome
-2025-08-16 23:50:45,346 - INFO - Chromedriver is already installed.
-2025-08-16 23:50:49,619 - INFO - ✅ Invalid attempt properly rejected: admin
-2025-08-16 23:50:50,096 - INFO - ✅ Invalid attempt properly rejected: user
-2025-08-16 23:50:51,066 - INFO - ✅ Invalid attempt properly rejected: test
-2025-08-16 23:50:51,672 - INFO - ✅ Invalid attempt properly rejected: jsopftch@gmail.com

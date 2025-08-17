@@ -1,1 +1,0 @@
-2025-08-10 15:51:06,529 - INFO - ✅ Framework successfully self-executes verification

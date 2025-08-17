@@ -1,4 +1,0 @@
-2025-08-11 04:44:05,720 - INFO - Running locally with browser: chrome
-2025-08-11 04:44:05,991 - INFO - Chromedriver is already installed.
-2025-08-11 04:44:08,840 - INFO - Testing with fake username: djMuFAIh
-2025-08-11 04:44:09,267 - INFO - Screenshot saved: C:\Users\USUARIO\Projects\MASTER_QA_SUITE\artifacts\screenshots\test_invalid_login_with_fake_data_failed.png

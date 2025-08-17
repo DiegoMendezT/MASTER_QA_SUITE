@@ -1,4 +1,0 @@
-📊 Baseline: Consciousness data generation 0.00ms per item
-
-📊 PERFORMANCE BENCHMARKS ESTABLISHED:
-   consciousness_data_generation_ms: 0.00

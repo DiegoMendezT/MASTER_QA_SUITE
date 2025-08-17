@@ -1,5 +1,0 @@
-✅ 20 concurrent tests completed in 0.36s
-
-📊 Performance Metrics:
-   ⏱️  Execution Time: 0.36s
-   🧠 Memory Usage: 0.32 MB

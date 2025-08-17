@@ -1,2 +1,0 @@
-[32mINFO    [0m root:conftest.py:198 Running locally with browser: chrome
-[32mINFO    [0m root:utils.py:317 Chromedriver is already installed.

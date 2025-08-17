@@ -1,1 +1,0 @@
-2025-08-10 16:23:38,470 - INFO - ✅ Configuration structure supports resilience

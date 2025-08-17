@@ -1,1 +1,0 @@
-[32mINFO    [0m tests.test_self_reflection:test_self_reflection.py:103 ✅ Page objects properly inherit from BasePage

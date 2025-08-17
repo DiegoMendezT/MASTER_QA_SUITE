@@ -1,6 +1,0 @@
-[32mINFO    [0m root:conftest.py:180 Running locally with browser: chrome
-[32mINFO    [0m root:utils.py:317 Chromedriver is already installed.
-[32mINFO    [0m pages.base_page:base_page.py:56 Opening page: https://www.google.com/ncr
-[32mINFO    [0m pages.base_page:base_page.py:141 Entering text 'python' into element: ('name', 'q')
-[32mINFO    [0m pages.base_page:base_page.py:211 Waiting for URL to contain: 'search?'
-[33mWARNING [0m pages.base_page:base_page.py:217 Timeout waiting for URL to contain 'search?'. Current URL: https://www.google.com/sorry/index?continue=https://www.google.com/search%3Fq%3Dpython%26sca_esv%3Df5680b47e71e92a2%26source%3Dhp%26ei%3DZMeZaN-8Io2SwbkP25fdwQQ%26iflsig%3DAOw8s4IAAAAAaJnVdOJ5M-Nm2KEodv25wMJsfZjUWNxk%26ved%3D0ahUKEwjf_vjVx4KPAxUNSTABHdtLN0gQ4dUDCA0%26uact%3D5%26oq%3Dpython%26gs_lp%3DEgdnd3Mtd2l6IgZweXRob25INFAAWApwAHgAkAEAmAEAoAEAqgEAuAEDyAEA-AEBmAIAoAIAmAMAkgcAoAcAsgcAuAcAwgcAyAcA%26sclient%3Dgws-wiz%26sei%3Db8eZaMGaC9PQ1sQPiMmBuQ8&q=EgS6n-9yGO-O58QGIjDv2_8hOhCH0v2TNjW0FQRcknb9iND6vZyjHfHq0Xnsh8WdSTnRYhd4xlFBT9BZv4gyAVJaAUM

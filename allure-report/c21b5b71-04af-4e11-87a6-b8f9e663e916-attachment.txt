@@ -1,3 +1,0 @@
-2025-08-09 15:54:27,016 - INFO - Running locally with browser: chrome
-2025-08-09 15:54:27,363 - INFO - Chromedriver is already installed.
-2025-08-09 15:54:30,554 - INFO - ✅ Empty credentials properly rejected

@@ -1,1 +1,0 @@
-✅ Page Object Model structure follows proper patterns
