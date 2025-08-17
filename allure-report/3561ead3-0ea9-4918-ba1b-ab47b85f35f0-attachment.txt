@@ -1,0 +1,3 @@
+2025-08-10 14:34:55,899 - INFO - Running locally with browser: chrome
+2025-08-10 14:34:56,460 - INFO - Chromedriver is already installed.
+2025-08-10 14:34:59,799 - INFO - ✅ Password field properly masks input

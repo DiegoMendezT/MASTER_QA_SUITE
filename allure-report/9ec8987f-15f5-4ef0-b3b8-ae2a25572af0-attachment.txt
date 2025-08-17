@@ -1,0 +1,3 @@
+2025-08-10 15:50:43,390 - INFO - Running locally with browser: chrome
+2025-08-10 15:50:43,769 - INFO - Chromedriver is already installed.
+2025-08-10 15:50:49,996 - INFO - Screenshot saved: C:\Users\USUARIO\Projects\MASTER_QA_SUITE\artifacts\screenshots\test_navigation_timing_budget_ui_20250810_155049_failed.png

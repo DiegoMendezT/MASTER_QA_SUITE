@@ -1,0 +1,26 @@
+# MASTER_QA_SUITE
+# Project: MASTER_QA_SUITE
+# File: DECISION_LOG.md.template
+# Purpose: Template for a decision log in the MASTER_QA_SUITE framework.
+# Maintainer: DiegoMendezT / InnerCouncil
+# Last updated: 2025-08-10 13:45 UTC
+#
+# This template is part of the Akashic Records. All changes must be attributed and timestamped.
+
+# Template: Decision Log
+
+**Version:** 1.0
+**Author:** {YOUR_TEAM_NAME}
+
+This document is the official, immutable log of all major architectural and testing decisions made for the `{CLIENT_NAME}` QA project.
+
+---
+
+### **DECISION-LOG: {YYYY-MM-DD-01}**
+
+*   **Subject:**
+*   **Voices Consulted:** (e.g., Lead QA, Dev Lead)
+*   **Decision:**
+*   **Intent:**
+*   **Alternatives Considered:**
+*   **Consequences:**

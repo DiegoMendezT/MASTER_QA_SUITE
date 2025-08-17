@@ -1,6 +1,10 @@
 """
-Test data factory for MASTER QA SUITE v2.0
-Generate randomized test data for various test scenarios
+Project: MASTER_QA_SUITE
+Module: utils/data_factory.py
+Purpose: Test data factory for generating randomized data for test scenarios.
+Voices: Architect, Engineer, QA, Gatekeeper, Release Captain, Product Owner, Shadow QA, Copilot
+Traceability: decision_log.md:2025-08-10 entry; roadmap.md:TestData; requirements:data-001
+Notes: Freeze-safe; no behavior change. [Kintsugi]
 """
 import random
 import string

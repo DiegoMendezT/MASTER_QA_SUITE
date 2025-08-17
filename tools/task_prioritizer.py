@@ -1,3 +1,26 @@
+# MASTER_QA_SUITE
+# Project: MASTER_QA_SUITE
+# File: task_prioritizer.py
+# Purpose: The InnerCouncil's decision engine for task prioritization, governance, and project state management.
+# Maintainer: DiegoMendezT / InnerCouncil
+# Last updated: 2025-08-10 13:55 UTC
+#
+# This file is part of the Akashic Records. All changes must be attributed and timestamped.
+#
+# Agile Voice Attribution (Full Team):
+# - Product Owner: Guides product vision and backlog priorities.
+# - Scrum Master: Facilitates process, removes impediments, ensures agile adherence.
+# - Development Team: Designers, developers, testers, and specialists responsible for delivery.
+# - Stakeholders: Provide input and feedback on product direction and features.
+# - Subject Matter Experts: Offer specialized technical or domain knowledge.
+# - QA Voice: [Diego Alejandro] — Ensures quality, test coverage, and user advocacy.
+# - Shadow QA: [Diego's Shadow] — Represents blindspots, risks, and unspoken challenges.
+# - Teacher as Copilot, Gatekeeper as Copilot, Release Captain: AI/InnerCouncil voices for governance, traceability, and decision synthesis.
+#
+# All major decisions, changes, and logic evolutions must be attributed to one or more of these voices in docs/decision_log.md.
+#
+# Kintsugi Traceability: All major logic changes are snapshotted to tools/history/ before editing. See docs/decision_log.md for decision history.
+
 from __future__ import annotations
 
 import argparse
@@ -184,6 +207,7 @@ def _parse_args():
     p.add_argument("--weights", type=str, help='JSON like {"roi":0.5,"complexity":-0.2,"learning":0.3}')
     p.add_argument("--mark-done", dest="mark_done", type=str)
     p.add_argument("--explain", action="store_true")
+    p.add_argument("--next-action", dest="next_action", action="store_true", help="Show the single most critical action to unblock the project.")
     return p.parse_args()
 
 def _persist(tasks: List[Task]) -> None:
@@ -195,9 +219,37 @@ def _persist(tasks: List[Task]) -> None:
         task_list.append(task_dict)
     BACKLOG.write_text(yaml.safe_dump({"tasks": task_list}, sort_keys=False), encoding="utf-8")
 
+# --- EVOLUTION LOG: 2025-08-10 ---
+# [Architect as Copilot] The Council's first decision introduced state-awareness.
+# The system now understands not just "what's important" but "what's blocking us NOW."
+# This function is the seed of the "Pathfinder" voice. Its logic will grow to become
+# the core of the AI-Clocked Governance engine.
+def get_next_gated_action(current_stage="CI_VERIFICATION"):
+    """
+    Determines the single most critical action to unblock the current project stage.
+    This represents the voice of the Pathfinder.
+    """
+    if current_stage == "CI_VERIFICATION":
+        return {
+            "action": "Push hotfix to remote",
+            "intent": "To validate the applied CI fix and get a GREEN pipeline.",
+            "blocker": "Local changes not yet validated in the CI environment.",
+            "next_stage": "RELEASE_TAGGING",
+        }
+    # Future stages (e.g., "RELEASE_TAGGING", "CLIENT_ONBOARDING") will be added here.
+    return {"action": "No critical action defined for this stage.", "intent": "Observe and report."}
+
 def main():
     args = _parse_args()
     tasks = _load_tasks()
+
+    if args.next_action:
+        # This is the new entry point for the Pathfinder voice
+        action = get_next_gated_action() # In the future, stage will be determined automatically
+        print("Pathfinder recommends the next critical action:")
+        for key, value in action.items():
+            print(f"- {key.capitalize()}: {value}")
+        return
 
     if args.mark_done:
         found = False

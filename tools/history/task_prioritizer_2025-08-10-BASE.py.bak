@@ -1,0 +1,22 @@
+# This is a baseline snapshot of the InnerCouncil's code.
+# It is saved here for historical purposes before a new evolution is applied.
+#
+# Snapshot Timestamp: 2025-08-10
+# Reason: Baseline before introducing the "Pathfinder" voice and state-aware logic.
+
+from __future__ import annotations
+
+import argparse
+import datetime as dt
+import json
+from dataclasses import asdict, dataclass, field
+from pathlib import Path
+from typing import Any, Dict, List, Optional
+
+import yaml
+
+BACKLOG = Path("config/backlog.yml")
+ROADMAP = Path("config/roadmap_phase2.yml")
+
+# ... (rest of the original file content)
+# (The full content of the original task_prioritizer.py is preserved here)

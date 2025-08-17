@@ -1,10 +1,10 @@
-# pages/base_page.py
 """
-Base Page for all Page Objects
-
-This class contains common methods that are used across multiple pages,
-such as navigating to a URL, finding elements, and interacting with them.
-All other page object classes will inherit from this class.
+Project: MASTER_QA_SUITE
+Module: pages/base_page.py
+Purpose: Base class for all Page Objects; provides navigation, element finding, and robust error handling.
+Voices: Architect, Engineer, QA, Gatekeeper, Release Captain, Product Owner, Shadow QA, Copilot
+Traceability: decision_log.md:2025-08-10 entry; roadmap.md:PageObjects; requirements:po-001
+Notes: Freeze-safe; no behavior change. [Kintsugi]
 """
 import logging
 

@@ -1,6 +1,9 @@
+# MASTER_QA_SUITE Roadmap
+
 ## Vision Log - August 11, 2025
 
 Dream: Package the system (tested Alpha), enable extension/cloning, download in a VM with VS Code and Copilot, unpackage and test, run initial AUT regression flows for new websites, demos, automated runs, client reporting, export to Jira (templated JSON). This is the main vision now. (See akashic_vision_2025-08-11.md)
+
 ## Triaged Roadmap (Low Risk, High Reward First)
 1. Commit message rule: Disallow '||' in commit messages (low risk, high reward for repo health)
 2. Timestamp format: Change to dd-MM-yyyy_HH-mm (low risk, high reward for clarity)
@@ -13,7 +16,6 @@ Dream: Package the system (tested Alpha), enable extension/cloning, download in 
 9. Machine Learning: All legacy references migrated to 'ML' (complete, QA-verified)
 10. CI/CD: Fix all workflows and keep main branch green (medium risk, high reward)
 11. Jira bugs: Fix To Do bugs in order of impact/priority (medium risk, high reward)
-# MASTER_QA_SUITE Roadmap
 
 ## Backlog & Notes (2025-08-10)
 - Safety: Full snapshot branch exists, all cleanup is reversible, and only generated files are ignored. Manual evidence should be moved to docs/evidence/ if it must be tracked.

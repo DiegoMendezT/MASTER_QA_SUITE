@@ -12,12 +12,12 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 
 @pytest.mark.ui
-def test_03_explicit_waits_for_dynamic_element(driver, config):
+def test_03_explicit_waits_for_dynamic_element(driver):
     """
     Tests waiting for a dynamically loaded element to appear.
     """
     # Arrange: Navigate to the "Dynamic Loading" example page
-    driver.get(config['urls']['the_internet'] + "/dynamic_loading/2")
+    driver.get("https://the-internet.herokuapp.com/dynamic_loading/1")
 
     # Act: Click the "Start" button to trigger the loading of a new element
     start_button = driver.find_element(By.CSS_SELECTOR, "#start button")

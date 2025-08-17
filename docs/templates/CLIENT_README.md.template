@@ -1,0 +1,64 @@
+# MASTER_QA_SUITE
+# Project: MASTER_QA_SUITE
+# File: CLIENT_README.md.template
+# Purpose: Template for a client README in the MASTER_QA_SUITE framework.
+# Maintainer: DiegoMendezT / InnerCouncil
+# Last updated: 2025-08-10 13:45 UTC
+#
+# This template is part of the Akashic Records. All changes must be attributed and timestamped.
+
+# Template: Client README
+
+**To the Client:** This is the README for your new, dedicated Quality Assurance repository, powered by the `MASTER_QA_SUITE` framework.
+
+# `{CLIENT_NAME}` QA Project
+
+**Version:** 1.0
+**Based on:** `MASTER_QA_SUITE` v{VERSION}
+
+## 1. Overview
+
+This repository contains the automated test suite for the `{CLIENT_APPLICATION_NAME}` application. It uses a dual-engine (Selenium and Playwright) framework to ensure robust, reliable, and maintainable quality assurance.
+
+## 2. Getting Started
+
+### Prerequisites
+- Python 3.11+
+- Access to the target application URL: `{APPLICATION_URL}`
+
+### Setup
+1.  **Create a Virtual Environment:**
+    ```bash
+    python -m venv .venv
+    source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+    ```
+2.  **Install Dependencies:**
+    ```bash
+    pip install -r requirements.txt
+    ```
+3.  **Configure Playwright:**
+    ```bash
+    playwright install
+    ```
+
+## 3. Running Tests
+
+*   **Run all tests:**
+    ```bash
+    pytest -n auto
+    ```
+*   **Run only Selenium tests:**
+    ```bash
+    pytest -n auto --engine=selenium
+    ```
+*   **Run only Playwright tests:**
+    ```bash
+    pytest -n auto --engine=playwright
+    ```
+
+## 4. Project Structure
+
+-   `/tests`: Contains all test cases.
+-   `/pages`: Contains Page Object Models for the application.
+-   `/reports`: HTML test reports are generated here.
+-   `/docs`: Contains your project's documentation, including requirements and decision logs.

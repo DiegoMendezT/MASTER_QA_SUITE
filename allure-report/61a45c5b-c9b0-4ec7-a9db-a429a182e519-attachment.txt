@@ -1,0 +1,1 @@
+✅ All YAML configuration files are well-formed

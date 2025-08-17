@@ -1,0 +1,2 @@
+✅ Generated 5000 profiles in 2.68s
+📊 Memory usage: 4.74 MB

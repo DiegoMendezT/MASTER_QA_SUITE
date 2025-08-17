@@ -1,0 +1,42 @@
+# MASTER_QA_SUITE
+# Project: MASTER_QA_SUITE
+# File: test_01_basic_smoke.py.template
+# Purpose: Template for a basic smoke test in the MASTER_QA_SUITE framework.
+# Maintainer: DiegoMendezT / InnerCouncil
+# Last updated: 2025-08-10 13:45 UTC
+#
+# This template is part of the Akashic Records. All changes must be attributed and timestamped.
+
+"""
+Template for a basic smoke test.
+
+A smoke test is a simple, quick test that verifies the most critical functionality of a page or feature.
+It's not exhaustive, but it tells you if the application is "on fire" or not.
+"""
+import pytest
+from pages.inventory_page import InventoryPage # Placeholder: Import the relevant Page Object
+from pages.sauce_login_page import SauceLoginPage
+
+@pytest.mark.smoke
+@pytest.mark.ui
+def test_page_loads_successfully(driver):
+    """
+    REQ-ID: F-LOAD-001
+    Description: Verifies that the main inventory page loads correctly after login.
+    """
+    # --- Arrange ---
+    # Use a Page Object to perform the login action.
+    login_page = SauceLoginPage(driver)
+    login_page.load()
+    login_page.login("standard_user", "secret_sauce")
+
+    # --- Act ---
+    # Navigate to the page under test.
+    inventory_page = InventoryPage(driver)
+    # The login action should automatically take us here, so no explicit load is needed.
+
+    # --- Assert ---
+    # Assert that a critical, unique element of the page is visible.
+    # This confirms the page has loaded correctly.
+    assert inventory_page.is_element_visible(inventory_page.TITLE), "Inventory page title should be visible"
+    assert inventory_page.get_title_text() == "Products", "Page title should be 'Products'"

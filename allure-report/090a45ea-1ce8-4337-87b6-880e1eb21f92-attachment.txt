@@ -1,0 +1,8 @@
+📊 API Performance Results:
+   /posts: 0.24s
+   /posts/1: 0.06s
+   /users: 0.09s
+   /users/1: 0.08s
+   /comments: 0.95s
+   /albums: 0.13s
+   Average: 0.26s

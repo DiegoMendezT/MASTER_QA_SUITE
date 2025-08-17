@@ -1,0 +1,6 @@
+[32mINFO    [0m root:conftest.py:186 Running locally with browser: chrome
+[32mINFO    [0m root:utils.py:317 Chromedriver is already installed.
+[32mINFO    [0m pages.base_page:base_page.py:47 Navigating to URL: https://www.saucedemo.com
+[32mINFO    [0m pages.base_page:base_page.py:141 Entering text 'performance_glitch_user' into element: ('id', 'user-name')
+[32mINFO    [0m pages.base_page:base_page.py:141 Entering text 'secret_sauce' into element: ('id', 'password')
+[32mINFO    [0m pages.base_page:base_page.py:117 Clicking element: ('id', 'login-button')
