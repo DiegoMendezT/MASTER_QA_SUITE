@@ -20,6 +20,8 @@ from allure_commons.types import AttachmentType
 from applitools.selenium import BatchInfo, Configuration, Eyes, Target
 from chromedriver_autoinstaller import install
 from dotenv import load_dotenv
+import pytest
+
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
@@ -88,6 +90,16 @@ def applitools_config():
     config_path = os.path.join(os.path.dirname(__file__), 'config', 'applitools.yml')
     with open(config_path, 'r', encoding='utf-8') as file:
         return yaml.safe_load(file)
+
+# Set Applitools API key for visual tests
+os.environ["APPLITOOLS_API_KEY"] = "85zBuGi6GOlQFrEKZea2u9yL7LKJrdGYPlQ16HfycuY110"
+
+# Optionally skip visual tests if API key is not set or invalid
+def pytest_runtest_setup(item):
+    if "visual" in item.keywords:
+        api_key = os.environ.get("APPLITOOLS_API_KEY", "")
+        if not api_key or api_key == "${APPLITOOLS_API_KEY}":
+            pytest.skip("Skipping visual test: APPLITOOLS_API_KEY not set or invalid.")
 
 @pytest.fixture(scope="session")
 def integration_config():

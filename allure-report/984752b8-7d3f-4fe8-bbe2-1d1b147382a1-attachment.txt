@@ -1,0 +1,8 @@
+[32mINFO    [0m root:conftest.py:198 Running locally with browser: chrome
+[32mINFO    [0m root:utils.py:317 Chromedriver is already installed.
+[32mINFO    [0m root:conftest.py:307 Using standard UI Login method.
+[32mINFO    [0m pages.base_page:base_page.py:141 Entering text 'standard_user' into element: ('id', 'user-name')
+[32mINFO    [0m pages.base_page:base_page.py:141 Entering text 'secret_sauce' into element: ('id', 'password')
+[32mINFO    [0m pages.base_page:base_page.py:117 Clicking element: ('id', 'login-button')
+[32mINFO    [0m applitools.core_universal.server:server.py:47 Started Universal SDK server at 21077
+[32mINFO    [0m applitools.common.connection:connection.py:125 Logs saved in: C:\Users\USUARIO\AppData\Local\Temp\applitools-logs
