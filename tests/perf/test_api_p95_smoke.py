@@ -6,10 +6,12 @@ Markers: @perf @api @external
 Purpose: Verifies that the 95th percentile response time of a stable API
          endpoint is within an acceptable performance budget.
 """
-import pytest
 import os
 import time
+
 import numpy as np
+import pytest
+
 from utils.http_client import get_http_client
 
 # --- Test Configuration ---
@@ -20,12 +22,13 @@ SAMPLE_COUNT = 10 # Number of API calls to make
 @pytest.mark.perf
 @pytest.mark.api
 @pytest.mark.external
-def test_api_p95_response_time_smoke(api_client):
+def test_api_p95_response_time_smoke(api_client, config):
     """
     Tests that a stable demo API endpoint's P95 response time is within budget.
     """
     # Arrange
-    endpoint = "/posts/1"
+    base_url = config['apis']['jsonplaceholder']
+    endpoint = f"{base_url}/posts/1"
     response_times_ms = []
 
     # Act: Call the endpoint multiple times and record response times

@@ -1,31 +1,14 @@
 """
-Advanced API Testing Module for MASTER QA SUITE v2.5
+Advanced test module for MASTER QA SUITE v2.5
 Comprehensive API validation with consciousness integration
 """
+import time
+
 import pytest
 import requests
-import json
-import time
-from datetime import datetime
-import sys
-import os
-from typing import Dict, List, Any
 
-# Add utils to path
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', 'utils'))
-try:
-    from data_factory import DataFactory
-except ImportError:
-    # Fallback for import issues
-    class DataFactory:
-        @staticmethod
-        def random_string(length=10):
-            import random, string
-            return ''.join(random.choices(string.ascii_letters, k=length))
-        
-        @staticmethod
-        def consciousness_test_data():
-            return {'framework_name': 'MASTER_QA_SUITE', 'consciousness_level': 23.3}
+from utils.data_factory import DataFactory
+
 
 @pytest.mark.api
 @pytest.mark.regression

@@ -1,0 +1,51 @@
+# MASTER_QA_SUITE
+# Project: MASTER_QA_SUITE
+# File: page_object.py.template
+# Purpose: Template for a Page Object class in the MASTER_QA_SUITE framework.
+# Maintainer: DiegoMendezT / InnerCouncil
+# Last updated: 2025-08-10 13:45 UTC
+#
+# This template is part of the Akashic Records. All changes must be attributed and timestamped.
+
+"""
+Template for a Page Object class.
+
+A Page Object represents a single page or a significant component of a page in the web application.
+It abstracts away the details of the page's HTML structure from the tests.
+"""
+from pages.base_page import BasePage
+from selenium.webdriver.common.by import By
+
+# Inherit from BasePage to get access to common helper methods
+# (e.g., self.find_element, self.click, self.fill_text)
+class LoginPage(BasePage):
+
+    # --- Locators ---
+    # Define all element locators in one place.
+    # Use descriptive names. Use By from Selenium.
+    USERNAME_INPUT = (By.ID, "user-name")
+    PASSWORD_INPUT = (By.ID, "password")
+    LOGIN_BUTTON = (By.ID, "login-button")
+    ERROR_MESSAGE = (By.CSS_SELECTOR, "[data-test='error']")
+
+    # --- Initializer ---
+    # The __init__ is inherited from BasePage, which takes the driver.
+    # You can add a custom path for navigation.
+    def __init__(self, driver, path="/"):
+        # The 'path' argument is optional. If provided, the load() method will navigate to it.
+        super().__init__(driver, path=path)
+
+    # --- Page Actions ---
+    # Create methods for high-level user interactions.
+    # These methods should represent what a user *does*, not how the page is built.
+    # Tests will call these methods.
+
+    def login(self, username, password):
+        """Fills the login form and clicks the login button."""
+        self.fill_text(self.USERNAME_INPUT, username)
+        self.fill_text(self.PASSWORD_INPUT, password)
+        self.click(self.LOGIN_BUTTON)
+
+    def get_error_message(self):
+        """Returns the text of the error message, if it's visible."""
+        return self.find_element(self.ERROR_MESSAGE).text

@@ -1,0 +1,1 @@
+2025-08-10 14:40:45,358 - INFO - ✅ Framework auto-creates necessary directories

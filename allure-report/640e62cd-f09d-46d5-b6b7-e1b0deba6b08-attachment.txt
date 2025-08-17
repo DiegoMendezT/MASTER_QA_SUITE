@@ -1,0 +1,7 @@
+2025-08-10 14:40:28,334 - INFO - Running locally with browser: chrome
+2025-08-10 14:40:29,036 - INFO - Chromedriver is already installed.
+2025-08-10 14:40:30,404 - INFO - Using standard UI Login method.
+2025-08-10 14:40:31,543 - INFO - Entering text 'standard_user' into element: ('id', 'user-name')
+2025-08-10 14:40:31,648 - INFO - Entering text 'secret_sauce' into element: ('id', 'password')
+2025-08-10 14:40:31,729 - INFO - Clicking element: ('id', 'login-button')
+2025-08-10 14:40:31,792 - INFO - Clicking element: ('css selector', "button[data-test='add-to-cart-sauce-labs-backpack']")

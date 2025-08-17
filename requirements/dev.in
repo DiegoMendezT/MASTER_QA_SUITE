@@ -1,0 +1,15 @@
+-r base.in
+
+# Development and code quality tools
+pytest-xdist
+pytest-rerunfailures
+pytest-html
+pytest-metadata
+faker
+gitpython
+pip-audit
+pip-check-reqs
+pipdeptree
+autoflake
+isort
+pip-tools

@@ -1,0 +1,13 @@
+# Development and code quality tools
+-r requirements-base.in
+pytest-xdist
+pytest-rerunfailures
+pytest-html
+pytest-metadata
+faker
+gitpython
+pip-audit
+pip-check-reqs
+pipdeptree
+autoflake
+isort

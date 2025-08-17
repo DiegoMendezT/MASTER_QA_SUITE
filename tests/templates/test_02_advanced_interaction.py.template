@@ -1,0 +1,55 @@
+# MASTER_QA_SUITE
+# Project: MASTER_QA_SUITE
+# File: test_02_advanced_interaction.py.template
+# Purpose: Template for an advanced interaction test in the MASTER_QA_SUITE framework.
+# Maintainer: DiegoMendezT / InnerCouncil
+# Last updated: 2025-08-10 13:45 UTC
+#
+# This template is part of the Akashic Records. All changes must be attributed and timestamped.
+
+"""
+Template for an advanced interaction test.
+
+This type of test goes beyond simple checks and validates more complex user interactions,
+such as filling out forms, handling dynamic elements, and waiting for actions to complete.
+"""
+import pytest
+from pages.cart_page import CartPage # Placeholder: Import relevant Page Objects
+from pages.inventory_page import InventoryPage
+from pages.sauce_login_page import SauceLoginPage
+
+@pytest.mark.regression
+@pytest.mark.ui
+def test_add_item_to_cart_and_verify(driver):
+    """
+    REQ-ID: F-CART-001
+    Description: Verifies that a user can add a specific item to the cart
+                 and that the item appears correctly in the cart.
+    """
+    # --- Arrange ---
+    # Perform setup actions, like logging in.
+    login_page = SauceLoginPage(driver)
+    login_page.load()
+    login_page.login("standard_user", "secret_sauce")
+    inventory_page = InventoryPage(driver)
+    item_name_to_add = "Sauce Labs Backpack"
+
+    # --- Act ---
+    # Perform the primary user action.
+    # Use the Page Object to abstract the interaction details.
+    inventory_page.add_item_to_cart(item_name_to_add)
+    inventory_page.go_to_cart()
+
+    # --- Assert ---
+    # Verify the outcome of the action.
+    cart_page = CartPage(driver)
+    assert cart_page.is_element_visible(cart_page.TITLE), "Cart page should be visible"
+
+    # Get the list of items from the cart page
+    items_in_cart = cart_page.get_items_in_cart()
+
+    # Assert that the correct number of items is in the cart
+    assert len(items_in_cart) == 1, "There should be exactly one item in the cart"
+
+    # Assert that the item name is correct
+    assert items_in_cart[0] == item_name_to_add, f"The item in the cart should be '{item_name_to_add}'"

@@ -81,9 +81,17 @@ For a more detailed breakdown of each component and the execution flow, please s
     ```
 
 3.  **Install all dependencies:**
+    This project uses a modular dependency structure. Install them in the correct order:
     ```bash
-    pip install -r requirements.txt
+    pip install -r requirements/base.txt
+    pip install -r requirements/core-tests.txt
+    pip install -r requirements/dev.txt
+    pip install -r requirements/ui.txt
+    pip install -r requirements/visual.txt
+    pip install -r requirements/data.txt
     ```
+    **DO NOT** use a single `requirements.txt` file from the root directory.
+
 
 4.  **(Optional) Set up environment variables:**
     Create a `.env` file in the root directory for secrets and local overrides. This is required for Sauce Labs execution.
@@ -93,35 +101,48 @@ For a more detailed breakdown of each component and the execution flow, please s
     SAUCE_ACCESS_KEY="your-sauce-access-key"
     ```
 
----
-
-## 🧪 Running Tests
-
-You can run tests via the command line or the Streamlit UI.
-
-### 1. Command Line (Powerful & Flexible)
-
+### Note for Windows Users (Git Hooks)
+To enable the pre-commit hook on Windows, you may need to configure Git to use the correct hooks path. Run this command in your terminal from the project root:
 ```bash
-# Run all tests sequentially
-pytest
-
-# Run tests in parallel (recommended)
-pytest -n auto
-
-# Run only tests with a specific marker (e.g., smoke tests)
-pytest -m smoke
-
-# Generate a self-contained HTML report
-pytest --html=reports/report.html --self-contained-html
+git config core.hooksPath .githooks
 ```
 
-### 2. Streamlit UI (User-Friendly)
+---
+
+## 🧪 Test Engines
+
+We support two UI automation engines:
+
+- **Selenium** — full-fidelity, plugin-rich UI testing (local Chrome/Firefox/Edge + Sauce Labs in CI).
+- **Playwright** — fast, hermetic headless/headed runs with built-in fixtures (browser, context, page).
+
+Switch engines with a single flag:
+
+```bash
+# Selenium (default)
+pytest -m "ui and not external" --engine selenium -n 4
+
+# Playwright
+pytest tests/playwright --engine playwright --browser chromium
+pytest tests/playwright --engine playwright --browser chromium --headed  # visible
+```
+
+### One-time setup (per machine/runner):
+
+```bash
+python -m pip install -r requirements.txt
+python -m playwright install   # add --with-deps on Linux containers if needed
+```
+
+## 🚀 Streamlit Runner
 
 Launch the interactive test runner dashboard:
 ```bash
 streamlit run ui/controls.py
 ```
-Open `http://localhost:8501` in your browser to select tests, configure options, and run them with the click of a button.
+Open `http://localhost:8501` in your browser.
+
+Controls auto-adapt: when Playwright is selected, the UI shows "PW Browser" and "Headed" toggles. When Selenium is selected, the UI shows Selenium-specific options (headless, Sauce Labs, etc.).
 
 ---
 
@@ -136,9 +157,9 @@ Open `http://localhost:8501` in your browser to select tests, configure options,
 
 ---
 
-## 🏛️ Governance: The InnerCouncil
+## 🏛️ Governance: The Task Prioritizer
 
-This project's development is guided by the **InnerCouncil**, a symbolic Agile framework that ensures every change is deliberate, documented, and aligned with our architectural principles. All significant changes follow a structured review process detailed in our `CONTRIBUTING.md`. The protocol is symbolically represented by the **Origin Seal** located in the `docs/` folder.
+This project's development is guided by the **Task Prioritizer**, a symbolic Agile framework that ensures every change is deliberate, documented, and aligned with our architectural principles. All significant changes follow a structured review process detailed in our `CONTRIBUTING.md`. The protocol is symbolically represented by the **Origin Seal** located in the `docs/` folder.
 
 ---
 Built with ❤️ and AI for the future of QA.

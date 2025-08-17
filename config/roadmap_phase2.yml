@@ -1,0 +1,144 @@
+version: 2
+updated: 2025-08-09
+owner: diego
+principles:
+  - "Don’t break v1.0.0 stability."
+  - "Prefer delighters that help hiring managers & students see value fast."
+  - "Everything ships with docs + demo script."
+
+epics:
+  - id: E2-UX
+    name: "Developer UX & Observability"
+    why: "Make failures obvious, debugging fast, and demos slick."
+    tasks:
+      - id: T2-01
+        name: "FlakyGuard: unified retry + smart waits (both engines)"
+        engine: both
+        roi: 9
+        complexity: 5
+        learning: 6
+        accepts:
+          - Retries configurable via pytest flags & env
+          - Auto-screenshot + DOM snapshot + console/log capture on final failure
+          - Playwright traces + Selenium HAR where possible
+        labels: [stability, visibility, core]
+      - id: T2-02
+        name: "Live artifacts panel in Streamlit (screens, traces, allure link)"
+        engine: both
+        roi: 8
+        complexity: 4
+        learning: 5
+        depends_on: [T2-01]
+        accepts:
+          - Streamlit UI shows last N runs, click to open artifacts
+          - “Share demo” button copies artifact bundle path/URL
+        labels: [dx, ui]
+
+  - id: E2-CFG
+    name: "Environments & Data"
+    why: "One suite, many targets (dev/stage/prod) with hermetic data."
+    tasks:
+      - id: T2-03
+        name: "Env switcher (dev/stage/prod) + secrets model"
+        engine: both
+        roi: 8
+        complexity: 4
+        learning: 4
+        accepts:
+          - "--env=dev|stage|prod or ENV var"
+          - single config resolver (URLs, creds, toggles)
+        labels: [config]
+      - id: T2-04
+        name: "Test data factory + fixtures (users, carts, orders)"
+        engine: both
+        roi: 7
+        complexity: 5
+        learning: 5
+        accepts:
+          - Deterministic factories with Faker seeds
+          - YAML/JSON datasets + schema validation
+        labels: [data, repeatability]
+
+  - id: E2-CROSS
+    name: "Cross-device & Visual Excellence"
+    why: "Impress designers/PMs + broaden coverage."
+    tasks:
+      - id: T2-05
+        name: "Playwright mobile emulation matrix (iPhone/Pixel/iPad)"
+        engine: playwright
+        roi: 8
+        complexity: 5
+        learning: 6
+        accepts:
+          - matrix via CLI & CI
+          - per-device screenshots on failure
+        labels: [mobile, coverage]
+      - id: T2-06
+        name: "Visual Baseline Manager (Applitools)"
+        engine: both
+        roi: 7
+        complexity: 4
+        learning: 5
+        accepts:
+          - Baseline per env + per device tag
+          - README section for reviewer workflow
+        labels: [visual, ux]
+
+  - id: E2-API
+    name: "Full-stack hardening"
+    why: "Prove integration depth for Tech Heads & the course."
+    tasks:
+      - id: T2-07
+        name: "Contract tests + schema registry & drift alerts"
+        engine: n/a
+        roi: 8
+        complexity: 6
+        learning: 6
+        accepts:
+          - "jsonschema set + `pytest --contract`"
+          - CI job fails on breaking change
+        labels: [api, contracts]
+      - id: T2-08
+        name: "UI↔API parity checks (cart totals, inventory)"
+        engine: both
+        roi: 8
+        complexity: 5
+        learning: 5
+        accepts:
+          - assertions comparing UI state vs API response
+        labels: [integration]
+
+  - id: E2-DOCS
+    name: "Course & Wiki Enhancements"
+    why: "This repo doubles as a course—serve Tech Heads, leaders, and students."
+    tasks:
+      - id: T2-09
+        name: "Powered By + Credits auto-generator"
+        engine: n/a
+        roi: 6
+        complexity: 3
+        learning: 3
+        accepts:
+          - "Script scrapes `requirements.txt` + tools to update README Powered By"
+          - "Section explains ‘why we chose it’ for each item"
+        labels: [docs]
+      - id: T2-10
+        name: "Dual-audience docs mode (Tech Heads vs Managers)"
+        engine: n/a
+        roi: 7
+        complexity: 4
+        learning: 4
+        accepts:
+          - "Toggle blocks: deep dive vs outcomes/ROI"
+          - Examples in Wiki lesson pages
+        labels: [docs, course]
+
+governance:
+  innercouncil:
+    backlog_file: config/roadmap_phase2.yml
+    weights:
+      roi: 0.5
+      complexity: -0.2
+      learning: 0.3
+    tie_breaker: ["lowest complexity", "highest learning"]
+    persist_decisions_to: docs/checkpoints/innercouncil_history.json

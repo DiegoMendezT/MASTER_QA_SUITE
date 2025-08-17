@@ -1,0 +1,5 @@
+2025-08-09 12:34:57,593 - INFO - Running locally with browser: chrome
+2025-08-09 12:34:57,939 - INFO - Chromedriver is already installed.
+2025-08-09 12:35:00,801 - INFO - Testing with fake username: ApFdEaCw
+2025-08-09 12:35:01,385 - INFO - ✅ Invalid login properly rejected with message: Your username is invalid!
+×

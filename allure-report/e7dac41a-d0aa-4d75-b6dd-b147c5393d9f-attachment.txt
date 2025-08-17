@@ -1,0 +1,6 @@
+2025-08-10 15:54:05,862 - INFO - Running locally with browser: chrome
+2025-08-10 15:54:06,852 - INFO - Chromedriver is already installed.
+2025-08-10 15:54:21,789 - INFO - ✅ Invalid attempt properly rejected: admin
+2025-08-10 15:54:22,522 - INFO - ✅ Invalid attempt properly rejected: user
+2025-08-10 15:54:23,252 - INFO - ✅ Invalid attempt properly rejected: test
+2025-08-10 15:54:23,944 - INFO - ✅ Invalid attempt properly rejected: whdqexql@test.com

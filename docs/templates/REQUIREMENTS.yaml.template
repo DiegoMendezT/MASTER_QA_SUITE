@@ -1,0 +1,36 @@
+# MASTER_QA_SUITE
+# Project: MASTER_QA_SUITE
+# File: REQUIREMENTS.yaml.template
+# Purpose: Template for requirements YAML in the MASTER_QA_SUITE framework.
+# Maintainer: DiegoMendezT / InnerCouncil
+# Last updated: 2025-08-10 13:45 UTC
+#
+# This template is part of the Akashic Records. All changes must be attributed and timestamped.
+
+# Template: Application Requirements
+
+# List of all requirements for the project
+# Use a unique ID for each requirement (e.g., F-001, NF-001)
+# - F for Functional
+# - NF for Non-Functional
+
+requirements:
+  - id: F-AUTH-001
+    description: "User should be able to log in with valid credentials."
+    type: "Functional"
+    source: "Login Page Spec v1.2"
+
+  - id: F-AUTH-002
+    description: "User should see an error message with invalid credentials."
+    type: "Functional"
+    source: "Login Page Spec v1.2"
+
+  - id: NF-PERF-001
+    description: "The login page should load in under 2 seconds on a standard connection."
+    type: "Non-Functional"
+    source: "SLA-2025"
+
+  - id: NF-A11Y-001
+    description: "The login form should be fully keyboard-navigable and meet WCAG 2.1 AA standards."
+    type: "Non-Functional"
+    source: "Accessibility Policy v3"

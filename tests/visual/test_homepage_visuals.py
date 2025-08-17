@@ -1,6 +1,7 @@
 import pytest
 from applitools.selenium import Target
 
+
 @pytest.mark.visual
 @pytest.mark.usefixtures("logged_in_driver")
 class TestHomepageVisuals:

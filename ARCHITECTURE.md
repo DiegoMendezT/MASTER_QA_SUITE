@@ -75,6 +75,13 @@ MASTER_QA_SUITE/
 - The `eyes` fixture in `conftest.py` manages the connection to the Applitools Ultrafast Grid.
 - Tests can capture screenshots of pages or elements and compare them against an established baseline, catching unintended UI changes that functional tests might miss.
 
+## Dual-Engine Execution Model
+- **Router**: The test engine is selected via the `--engine {selenium|playwright}` flag, which is also surfaced in the Streamlit UI.
+- **Selenium Path**: Tests rely on the custom `driver(config, request)` fixture, which is parallel-safe and Sauce-aware.
+- **Playwright Path**: Tests use `pytest-playwright`’s native fixtures (`page`, `context`, `browser`), ensuring no overlap with Selenium fixtures.
+- **Isolation**: Playwright tests are located under `tests/playwright/`, while Selenium tests reside in `tests/ui/` and other directories. Both can run from the same repository and CI matrix without conflicts.
+- **CI**: GitHub Actions runs Selenium jobs (either locally or on Sauce Labs) and a separate Playwright job (across chromium, firefox, and webkit).
+
 ## Execution Flow
 
 1.  **Initialization**: `conftest.py` reads configuration files and sets up the environment based on command-line arguments or Streamlit UI selections.

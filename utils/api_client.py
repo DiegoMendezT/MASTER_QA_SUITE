@@ -1,3 +1,17 @@
+# MASTER_QA_SUITE
+# Project: MASTER_QA_SUITE
+# File: api_client.py
+# Purpose: Centralized API client for simulated/live API calls in MASTER_QA_SUITE.
+# Maintainer: DiegoMendezT / InnerCouncil
+# Last updated: 2025-08-10 14:00 UTC
+#
+# Agile Voice Attribution (Full Team):
+# - Product Owner, Scrum Master, Development Team, Stakeholders, Subject Matter Experts
+# - QA Voice: [Diego Alejandro], Shadow QA: [Diego's Shadow]
+# - Teacher as Copilot, Gatekeeper as Copilot, Release Captain
+#
+# All major changes must be attributed in docs/decision_log.md.
+
 """
 API Client for MASTER QA SUITE
 
@@ -6,6 +20,7 @@ It can be configured to work in 'simulated' or 'live' mode.
 """
 import requests
 from tenacity import retry, stop_after_attempt, wait_fixed
+
 
 class ApiClient:
     """A client for interacting with the application's API."""

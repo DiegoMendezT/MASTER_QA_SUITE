@@ -1,0 +1,8 @@
+2025-08-09 15:54:39,817 - INFO - Running locally with browser: chrome
+2025-08-09 15:54:40,168 - INFO - Chromedriver is already installed.
+2025-08-09 15:54:41,618 - INFO - Using standard UI Login method.
+2025-08-09 15:54:42,845 - INFO - Entering text 'standard_user' into element: ('id', 'user-name')
+2025-08-09 15:54:42,988 - INFO - Entering text 'secret_sauce' into element: ('id', 'password')
+2025-08-09 15:54:43,214 - INFO - Clicking element: ('id', 'login-button')
+2025-08-09 15:54:43,332 - INFO - Clicking element: ('class name', 'shopping_cart_link')
+2025-08-09 15:54:43,371 - INFO - Waiting for URL to contain: 'cart.html'

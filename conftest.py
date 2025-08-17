@@ -1,19 +1,31 @@
 """
-Pytest configuration and fixtures for MASTER QA SUITE v2.0
+Project: MASTER_QA_SUITE
+Module: conftest.py
+Purpose: Pytest configuration, fixtures, and engine toggles for MASTER_QA_SUITE.
+Voices: Architect, Engineer, QA, Gatekeeper, Release Captain, Product Owner, Shadow QA, Copilot
+Traceability: decision_log.md:2025-08-10 entry; roadmap.md:PytestConfig; requirements:conf-001
+Notes: Freeze-safe; no behavior change. [Kintsugi]
 """
+import logging
+import os
+import shutil
+import tempfile
+import threading
+import datetime
+
+import allure
 import pytest
+import yaml
+from allure_commons.types import AttachmentType
+from applitools.selenium import BatchInfo, Configuration, Eyes, Target
+from chromedriver_autoinstaller import install
+from dotenv import load_dotenv
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from chromedriver_autoinstaller import install
-import os
-import yaml
-import json
-import logging
-import tempfile
-import shutil
-import threading
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
-from applitools.selenium import Eyes, BatchInfo, Configuration, Target
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Set up basic logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -24,8 +36,29 @@ thread_local_data = threading.local()
 # --- Constants ---
 SAUCE_ENABLED = bool(os.getenv("SAUCE_USERNAME") and os.getenv("SAUCE_ACCESS_KEY"))
 
+# --- Playwright/Selenium engine toggle ---------------------------
 def pytest_addoption(parser):
     """Add custom command-line options to pytest."""
+    group = parser.getgroup("engine", "Engine Configuration")
+    group.addoption(
+        "--engine",
+        action="store",
+        default="selenium",
+        choices=["selenium", "playwright"],
+        help="Choose test engine: selenium | playwright (default: selenium)",
+    )
+    
+    # Selenium-specific browser option
+    group.addoption(
+        "--sel-browser",
+        action="store",
+        default="chrome",
+        help="Choose Selenium browser: chrome | firefox | edge (default: chrome)",
+    )
+
+    # Let pytest-playwright handle its own options like --browser, --headed etc.
+    
+    # Add other options to the general group to avoid conflicts
     parser.addoption(
         "--integration-mode", 
         action="store", 
@@ -38,6 +71,16 @@ def pytest_addoption(parser):
         default="UI Login", 
         help="Login method: 'UI Login' or 'API+Cookie Login'"
     )
+
+def pytest_configure(config):
+    # Make the selected engine visible in reports/metadata
+    config._metadata = getattr(config, "_metadata", {})
+    config._metadata["Engine"] = config.getoption("--engine")
+    if config.getoption("--engine") == "playwright":
+        # For Playwright, browser and headed are standard pytest-playwright options
+        config._metadata["PW Browser"] = config.getoption("browser")
+        config._metadata["PW Headed"] = config.getoption("--headed")
+
 
 @pytest.fixture(scope="session")
 def applitools_config():
@@ -64,10 +107,14 @@ def config():
 def eyes(driver, applitools_config, request):
     """Applitools Eyes fixture for visual testing."""
     # Initialize the eyes SDK and set your private API key.
+    api_key = os.getenv("APPLITOOLS_API_KEY", applitools_config.get('api_key'))
+    if not api_key or "YOUR_APPLITOOLS_API_KEY" in api_key:
+        pytest.skip("APPLITOOLS_API_KEY is not set or is a placeholder. Skipping visual tests.")
+
     eyes = Eyes()
     
     config = Configuration()
-    config.set_api_key(os.getenv("APPLITOOLS_API_KEY", applitools_config.get('api_key')))
+    config.set_api_key(api_key)
     config.set_batch(BatchInfo(applitools_config.get('batch_name', "MASTER QA SUITE")))
     config.set_app_name(applitools_config.get('app_name', "MASTER QA SUITE"))
     
@@ -93,7 +140,13 @@ def driver(config, request):
     - For CI/Sauce Labs runs, it connects to a remote WebDriver.
     - It is thread-safe for parallel execution.
     """
-    browser_name = os.getenv("BROWSER", "chrome").lower()
+    # This fixture is for Selenium only. Playwright has its own fixtures.
+    # We check if 'page' (a Playwright fixture) is in the request. If so, we skip.
+    if 'page' in request.fixturenames:
+        pytest.skip("Skipping Selenium driver fixture for a Playwright test.")
+        return
+
+    browser_name = request.config.getoption("--sel-browser").lower()
     
     if SAUCE_ENABLED:
         logging.info(f"Running on Sauce Labs with browser: {browser_name}")
@@ -107,7 +160,8 @@ def driver(config, request):
         }
 
         if browser_name == "firefox":
-            from selenium.webdriver.firefox.options import Options as FirefoxOptions
+            from selenium.webdriver.firefox.options import \
+                Options as FirefoxOptions
             options = FirefoxOptions()
             options.browser_version = 'latest'
             options.platform_name = 'Windows 11'
@@ -119,7 +173,8 @@ def driver(config, request):
             options.platform_name = 'Windows 11'
             options.set_capability('sauce:options', sauce_options)
         else: # Default to Chrome
-            from selenium.webdriver.chrome.options import Options as ChromeOptions
+            from selenium.webdriver.chrome.options import \
+                Options as ChromeOptions
             options = ChromeOptions()
             options.browser_version = 'latest'
             options.platform_name = 'Windows 11'
@@ -130,7 +185,8 @@ def driver(config, request):
     else: # Local execution
         logging.info(f"Running locally with browser: {browser_name}")
         if browser_name == "firefox":
-            from selenium.webdriver.firefox.options import Options as FirefoxOptions
+            from selenium.webdriver.firefox.options import \
+                Options as FirefoxOptions
             options = FirefoxOptions()
             web_driver = webdriver.Firefox(options=options)
         elif browser_name == "edge":
@@ -200,6 +256,11 @@ def api_client(config):
         thread_local_data.api_client = get_http_client()
     return thread_local_data.api_client
 
+@pytest.fixture(scope="session")
+def integration_mode(request):
+    """Returns the selected integration mode from the command line, defaulting to 'live'."""
+    return request.config.getoption("--integration-mode") or "live"
+
 @pytest.fixture(scope="function")
 def active_integration_config(integration_mode, integration_config):
     """Returns the configuration for the active integration mode."""
@@ -255,15 +316,84 @@ def pytest_runtest_makereport(item, call):
 
     if rep.when == "call" and rep.failed:
         try:
-            if "driver" in item.fixturenames:
-                web_driver = item.funcargs['driver']
-                # Create a valid filename for the screenshot
+            # --- Screenshot and Allure attachment on failure ---
+            web_driver = None
+            # Try to get driver from known fixture names
+            for drv_name in ("driver", "page", "browser", "web_driver"):
+                if drv_name in item.funcargs:
+                    web_driver = item.funcargs[drv_name]
+                    break
+            # If not found, try to get from parent (for class-based tests)
+            if not web_driver and hasattr(item, 'parent') and hasattr(item.parent, 'funcargs'):
+                for drv_name in ("driver", "page", "browser", "web_driver"):
+                    if drv_name in item.parent.funcargs:
+                        web_driver = item.parent.funcargs[drv_name]
+                        break
+            # Only proceed if we have a driver with save_screenshot
+            if web_driver and hasattr(web_driver, 'save_screenshot'):
+                from datetime import datetime
                 test_name = item.name.encode('ascii', 'ignore').decode('ascii').replace('[', '_').replace(']', '')
+                now_str = datetime.now().strftime('%Y%m%d_%H%M%S')
+                # Determine test type (marker)
+                test_type = None
+                marker_priority = ["ui", "api", "integration", "a11y", "perf", "auth", "security"]
+                for m in marker_priority:
+                    if item.get_closest_marker(m):
+                        test_type = m
+                        break
+                if not test_type:
+                    test_type = "other"
                 screenshot_dir = os.path.join(os.path.dirname(__file__), 'artifacts', 'screenshots')
                 os.makedirs(screenshot_dir, exist_ok=True)
-                screenshot_path = os.path.join(screenshot_dir, f"{test_name}_failed.png")
+                screenshot_path = os.path.join(
+                    screenshot_dir,
+                    f"{now_str}_{test_name}_{test_type}_failed.png"
+                )
+                # Save screenshot
                 web_driver.save_screenshot(screenshot_path)
                 logging.info(f"Screenshot saved: {screenshot_path}")
+                # Attach to Allure report
+                try:
+                    allure.attach(
+                        web_driver.get_screenshot_as_png(),
+                        name="failure_screenshot",
+                        attachment_type=AttachmentType.PNG
+                    )
+                except Exception as e:
+                    logging.warning(f"Could not attach screenshot to Allure: {e}")
+            else:
+                logging.warning("No web driver found for screenshot capture on failure.")
         except Exception as e:
-            logging.error(f"Failed to capture screenshot: {e}")
+            logging.error(f"Failed to capture screenshot or attach to Allure: {e}")
+
+def save_screenshot_on_failure(driver, test_name, test_type, status, bug_id=None, is_manual_bug=False):
+    timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+    browser = getattr(driver, 'name', 'unknownbrowser')
+    bug_type = 'manual' if is_manual_bug else 'aut'
+    base_filename = f"{timestamp}_{browser}_{test_name}_{test_type}_{bug_type}_{status}"
+    ext = ".png"
+    if is_manual_bug and bug_id:
+        # Manual/symbolic bug evidence for Jira
+        bug_dir = os.path.join(os.getcwd(), "artifacts", "jira_bugs", bug_id)
+        os.makedirs(bug_dir, exist_ok=True)
+        # Ensure unique filename (evidenceA, evidenceB, ...)
+        letter = 'A'
+        while True:
+            filename = f"{base_filename}_evidence{letter}{ext}"
+            filepath = os.path.join(bug_dir, filename)
+            if not os.path.exists(filepath):
+                break
+            letter = chr(ord(letter) + 1)
+        driver.save_screenshot(filepath)
+        print(f"Screenshot saved: {filepath}")
+        return filepath
+    else:
+        # AUT failure evidence
+        screenshot_dir = os.path.join(os.getcwd(), "artifacts", "aut_failures")
+        os.makedirs(screenshot_dir, exist_ok=True)
+        filename = f"{base_filename}{ext}"
+        filepath = os.path.join(screenshot_dir, filename)
+        driver.save_screenshot(filepath)
+        print(f"Screenshot saved: {filepath}")
+        return filepath
 

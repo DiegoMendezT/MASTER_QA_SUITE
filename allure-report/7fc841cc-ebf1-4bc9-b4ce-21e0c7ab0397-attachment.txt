@@ -1,0 +1,1 @@
+[32mINFO    [0m tests.test_self_reflection:test_self_reflection.py:246 📊 Framework Metrics: {'test_files': 4, 'page_objects': 5, 'utility_modules': 10, 'config_files': 3}

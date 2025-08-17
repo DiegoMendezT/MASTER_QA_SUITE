@@ -2,14 +2,16 @@
 Self-Reflective Test Module for MASTER QA SUITE v2.0
 Meta-layer that tests the test suite itself - maintaining coherence and precision
 """
-import os
-import pytest
-import glob
-import yaml
 import ast
+import glob
+import logging
+import os
 import subprocess
 from pathlib import Path
-import logging
+import sys
+
+import pytest
+import yaml
 
 logger = logging.getLogger(__name__)
 
@@ -35,7 +37,7 @@ class TestFrameworkStructure:
     def test_core_files_exist(self):
         """Verify core framework files exist"""
         core_files = [
-            "conftest.py", "pytest.ini", "requirements.txt",
+            "conftest.py", "pytest.ini",
             "README.md", ".gitignore", "verify_setup.py"
         ]
         
@@ -109,7 +111,7 @@ class TestCodeQuality:
         problematic_files = []
         for py_file in python_files:
             try:
-                with open(py_file, 'r') as file:
+                with open(py_file, 'r', encoding='utf-8') as file:
                     tree = ast.parse(file.read())
                     
                 # Check for basic import structure
@@ -142,45 +144,52 @@ class TestFrameworkCoherence:
         logger.info("✅ pytest.ini configuration is coherent")
     
     def test_requirements_match_imports(self):
-        """Verify requirements.txt exists and contains essential packages"""
-        if not os.path.exists("requirements.txt"):
-            pytest.skip("requirements.txt not found")
-            
-        with open("requirements.txt", 'r') as file:
-            requirements_content = file.read()
-        
-        # Verify file has content
-        assert len(requirements_content.strip()) > 0, "requirements.txt is empty"
-        
-        # Check for essential packages (flexible matching)
-        required_packages = ["selenium", "pytest", "streamlit", "PyYAML"]
-        missing_packages = []
-        
-        for package in required_packages:
-            # Check if package name appears anywhere in the requirements
-            if package.lower() not in requirements_content.lower():
-                missing_packages.append(package)
-        
-        assert not missing_packages, f"Missing packages in requirements.txt: {missing_packages}"
-        logger.info("✅ Requirements file matches framework needs")
+        """Verify requirements files exist and contain essential packages"""
+        req_dir = Path("requirements")
+        if not req_dir.is_dir():
+            pytest.skip("requirements/ directory not found")
+
+        all_requirements = ""
+        for req_file in req_dir.glob("*.txt"):
+            with open(req_file, 'r', encoding='utf-8') as f:
+                all_requirements += f.read()
+
+        assert len(all_requirements.strip()) > 0, "No requirements found in requirements/*.txt files"
+
+        required_packages = ["pytest", "selenium", "playwright", "allure-pytest", "eyes-selenium"]
+        missing_packages = [pkg for pkg in required_packages if pkg.lower() not in all_requirements.lower()]
+
+        assert not missing_packages, f"Missing packages in requirements files: {missing_packages}"
+        logger.info("✅ Requirements files match framework needs")
     
     def test_framework_can_self_execute(self):
         """Test that the framework can run its own verification with full Unicode support"""
         try:
+            # Use sys.executable to ensure we're running with the same Python interpreter
             result = subprocess.run(
-                ["python", "verify_unicode.py"], 
-                capture_output=True, 
-                text=True, 
+                [sys.executable, "verify_unicode.py"],
+                capture_output=True,
+                text=True,
                 timeout=30,
-                encoding='utf-8'
+                encoding='utf-8',
+                check=False  # Do not raise exception on non-zero exit codes
             )
-            assert result.returncode == 0, f"Self-verification failed: {result.stderr}"
-            assert "SUCCESS" in result.stdout, "Self-verification didn't pass all checks"
+            
+            # Provide detailed output for debugging
+            assert result.returncode == 0, (
+                f"Self-verification failed with exit code {result.returncode}.\n"
+                f"STDOUT:\n{result.stdout}\n"
+                f"STDERR:\n{result.stderr}"
+            )
+            assert "SUCCESS" in result.stdout, (
+                f"Self-verification didn't pass all checks.\n"
+                f"STDOUT:\n{result.stdout}"
+            )
             
         except subprocess.TimeoutExpired:
             pytest.fail("Self-verification timed out")
         except FileNotFoundError:
-            pytest.skip("verify_setup.py not found")
+            pytest.skip("verify_unicode.py not found")
         
         logger.info("✅ Framework successfully self-executes verification")
 

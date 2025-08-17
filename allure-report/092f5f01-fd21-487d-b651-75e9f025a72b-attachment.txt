@@ -1,0 +1,5 @@
+2025-08-10 22:14:38,314 - INFO - Running locally with browser: chrome
+2025-08-10 22:14:38,693 - INFO - Chromedriver is already installed.
+2025-08-10 22:14:42,984 - INFO - Opening page: https://www.google.com/ncr
+2025-08-10 22:14:53,723 - INFO - Entering text 'selenium webdriver' into element: ('name', 'q')
+2025-08-10 22:14:53,967 - INFO - Waiting for URL to contain: 'search?'

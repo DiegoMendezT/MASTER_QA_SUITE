@@ -6,10 +6,12 @@ Markers: @a11y @ui
 Purpose: Verifies that key pages of the application do not have serious or
          critical accessibility violations, ensuring a baseline of usability.
 """
-import pytest
 import os
-from pages.sauce_login_page import SauceLoginPage
+
+import pytest
+
 from pages.sauce_inventory_page import SauceInventoryPage
+from pages.sauce_login_page import SauceLoginPage
 from utils.a11y import inject_axe, run_axe
 
 # --- Test Configuration ---

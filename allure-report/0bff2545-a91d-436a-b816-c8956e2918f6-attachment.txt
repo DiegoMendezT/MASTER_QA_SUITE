@@ -1,0 +1,1 @@
+2025-08-10 14:27:41,867 - INFO - ✅ All essential directories present

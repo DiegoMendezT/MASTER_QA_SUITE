@@ -1,0 +1,1 @@
+✅ settings.yaml has all required configuration sections

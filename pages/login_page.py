@@ -2,11 +2,13 @@
 Login Page Object Model for MASTER QA SUITE v2.0
 Demonstrates advanced form handling and POM inheritance
 """
+import logging
+
+from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import TimeoutException
+
 from pages.base_page import BasePage
-import logging
 
 logger = logging.getLogger(__name__)
 

@@ -12,9 +12,9 @@ MVP Approach (v0.1):
 - Generates a markdown file for each test.
 - Generates a main Traceability Matrix page.
 """
+import argparse
 import os
 import re
-import argparse
 from pathlib import Path
 
 # --- Configuration ---

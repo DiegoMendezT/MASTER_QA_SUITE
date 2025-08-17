@@ -1,0 +1,17 @@
+#!/bin/bash
+# .githooks/pre-commit
+
+echo "Running pre-commit hook..."
+
+# Run the consistency check
+python -m tools.consistency_check
+if [ $? -ne 0 ]; then
+    echo "COMMIT REJECTED: Consistency check failed."
+    exit 1
+fi
+
+# Run the LOC tracker but don't block the commit if it fails
+python -m tools.loc_tracker --mode=delta || true
+
+echo "Pre-commit hook finished."
+exit 0

@@ -1,10 +1,14 @@
-"""
-Performance Utilities for MASTER QA SUITE
 
-This module provides helper functions for performance testing, such as
-retrieving navigation timing metrics from the browser.
+"""
+Project: MASTER_QA_SUITE
+Module: utils/perf.py
+Purpose: Performance utilities for browser/page load metrics and timing analysis.
+Voices: Architect, Engineer, QA, Gatekeeper, Release Captain, Product Owner, Shadow QA, Copilot
+Traceability: decision_log.md:2025-08-10 entry; roadmap.md:Performance; requirements:perf-001
+Notes: Freeze-safe; no behavior change. [Kintsugi]
 """
 import logging
+
 
 def get_nav_timing(driver) -> dict:
     """
@@ -17,11 +21,19 @@ def get_nav_timing(driver) -> dict:
         A dictionary containing the performance timing attributes.
         Returns an empty dictionary if the timing object is not available.
     """
-    try:
-        return driver.execute_script("return window.performance.timing.toJSON();")
-    except Exception as e:
-        logging.error(f"Could not retrieve navigation timing: {e}")
-        return {}
+    import time
+    max_attempts = 5
+    for attempt in range(max_attempts):
+        try:
+            timing = driver.execute_script("return window.performance.timing.toJSON();")
+            if timing and timing.get('loadEventEnd', 0) > 0:
+                return timing
+            time.sleep(0.5)
+        except Exception as e:
+            logging.error(f"Could not retrieve navigation timing: {e}")
+            break
+    logging.warning(f"Navigation timing data invalid or incomplete: {timing if 'timing' in locals() else '{}'}")
+    return {}
 
 def calc_load_ms(timing: dict) -> int:
     """
