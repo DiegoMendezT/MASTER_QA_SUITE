@@ -1,0 +1,2 @@
+✅ 20 concurrent requests completed in 0.43s
+📊 Average response time: 0.20s
