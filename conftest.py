@@ -80,8 +80,15 @@ def pytest_configure(config):
     config._metadata["Engine"] = config.getoption("--engine")
     if config.getoption("--engine") == "playwright":
         # For Playwright, browser and headed are standard pytest-playwright options
-        config._metadata["PW Browser"] = config.getoption("browser")
-        config._metadata["PW Headed"] = config.getoption("--headed")
+        # Guard against missing 'browser' option
+        try:
+            config._metadata["PW Browser"] = config.getoption("browser")
+        except Exception:
+            config._metadata["PW Browser"] = "unknown"
+        try:
+            config._metadata["PW Headed"] = config.getoption("--headed")
+        except Exception:
+            config._metadata["PW Headed"] = "unknown"
 
 
 @pytest.fixture(scope="session")
