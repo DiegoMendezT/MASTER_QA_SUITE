@@ -1,3 +1,5 @@
+# Ignore Allure reports
+allure-report/
 # Virtual environment
 .venv/
 venv/
