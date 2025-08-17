@@ -28,11 +28,8 @@ class TestLoginScenarios:
             return False
     """Comprehensive login testing scenarios"""
     
-    @pytest.mark.xfail(reason="the-internet.herokuapp.com is unreachable; test is skipped for CI reliability if site is down.",
-                       condition=lambda: not _is_site_reachable('the-internet.herokuapp.com'))
     def test_invalid_login_with_fake_data(self, driver, config):
-        if not self._is_site_reachable():
-            pytest.xfail("the-internet.herokuapp.com is unreachable; test skipped for CI reliability.")
+    # xfail removed: test now passes reliably
         """Test login with invalid credentials using generated data"""
         # Test with the-internet.herokuapp.com login page (reliable test site)
         login_url = "https://the-internet.herokuapp.com/login"
@@ -54,7 +51,9 @@ class TestLoginScenarios:
         driver.find_element(By.CSS_SELECTOR, "button[type='submit']").click()
         
         # Verify error message appears
-        error_element = driver.find_element(By.ID, "flash")
+        error_element = WebDriverWait(driver, 5).until(
+            EC.presence_of_element_located((By.ID, "flash"))
+        )
         error_text = error_element.text
         
         assert "invalid" in error_text.lower() or "incorrect" in error_text.lower(), \
@@ -62,11 +61,8 @@ class TestLoginScenarios:
         
         logger.info(f"✅ Invalid login properly rejected with message: {error_text}")
     
-    @pytest.mark.xfail(reason="the-internet.herokuapp.com is unreachable; test is skipped for CI reliability if site is down.",
-                       condition=lambda: not _is_site_reachable('the-internet.herokuapp.com'))
     def test_valid_login_the_internet(self, driver):
-        if not self._is_site_reachable():
-            pytest.xfail("the-internet.herokuapp.com is unreachable; test skipped for CI reliability.")
+    # xfail removed: test now passes reliably
         """Test valid login on the-internet.herokuapp.com"""
         login_url = "https://the-internet.herokuapp.com/login"
         driver.get(login_url)
@@ -93,11 +89,8 @@ class TestLoginScenarios:
         
         logger.info("✅ Valid login successful - redirected to secure area")
     
-    @pytest.mark.xfail(reason="the-internet.herokuapp.com is unreachable; test is skipped for CI reliability if site is down.",
-                       condition=lambda: not _is_site_reachable('the-internet.herokuapp.com'))
     def test_empty_credentials(self, driver):
-        if not self._is_site_reachable():
-            pytest.xfail("the-internet.herokuapp.com is unreachable; test skipped for CI reliability.")
+    # xfail removed: test now passes reliably
         """Test login with empty credentials"""
         login_url = "https://the-internet.herokuapp.com/login"
         driver.get(login_url)
@@ -114,11 +107,8 @@ class TestLoginScenarios:
         
         logger.info("✅ Empty credentials properly rejected")
     
-    @pytest.mark.xfail(reason="the-internet.herokuapp.com is unreachable; test is skipped for CI reliability if site is down.",
-                       condition=lambda: not _is_site_reachable('the-internet.herokuapp.com'))
     def test_only_username_provided(self, driver):
-        if not self._is_site_reachable():
-            pytest.xfail("the-internet.herokuapp.com is unreachable; test skipped for CI reliability.")
+    # xfail removed: test now passes reliably
         """Test login with only username, no password"""
         login_url = "https://the-internet.herokuapp.com/login"
         driver.get(login_url)
@@ -140,11 +130,8 @@ class TestLoginScenarios:
         logger.info("✅ Missing password properly handled")
     
     @pytest.mark.slow
-    @pytest.mark.xfail(reason="the-internet.herokuapp.com is unreachable; test is skipped for CI reliability if site is down.",
-                       condition=lambda: not _is_site_reachable('the-internet.herokuapp.com'))
     def test_multiple_invalid_attempts(self, driver):
-        if not self._is_site_reachable():
-            pytest.xfail("the-internet.herokuapp.com is unreachable; test skipped for CI reliability.")
+        # xfail removed: test now passes reliably
         """Test multiple invalid login attempts"""
         login_url = "https://the-internet.herokuapp.com/login"
         
@@ -173,11 +160,8 @@ class TestLoginScenarios:
             
             logger.info(f"✅ Invalid attempt properly rejected: {username}")
     
-    @pytest.mark.xfail(reason="the-internet.herokuapp.com is unreachable; test is skipped for CI reliability if site is down.",
-                       condition=lambda: not _is_site_reachable('the-internet.herokuapp.com'))
     def test_login_page_elements_present(self, driver):
-        if not self._is_site_reachable():
-            pytest.xfail("the-internet.herokuapp.com is unreachable; test skipped for CI reliability.")
+    # xfail removed: test now passes reliably
         """Test that all expected login page elements are present"""
         login_url = "https://the-internet.herokuapp.com/login"
         driver.get(login_url)
@@ -198,11 +182,23 @@ class TestLoginScenarios:
         
         logger.info("✅ All login page elements present and functional")
     
-    @pytest.mark.xfail(reason="the-internet.herokuapp.com is unreachable; test is skipped for CI reliability if site is down.",
-                       condition=lambda: not _is_site_reachable('the-internet.herokuapp.com'))
     def test_password_masking(self, driver):
-        if not self._is_site_reachable():
-            pytest.xfail("the-internet.herokuapp.com is unreachable; test skipped for CI reliability.")
+        # xfail removed: test now passes reliably
+        """Test that password field masks input"""
+        login_url = "https://the-internet.herokuapp.com/login"
+        driver.get(login_url)
+
+        password_field = driver.find_element(By.ID, "password")
+        test_password = "TestPassword123!"
+
+        password_field.send_keys(test_password)
+
+        # Password field should be type="password" to mask input
+        field_type = password_field.get_attribute("type")
+        assert field_type == "password", f"Password field should mask input, type is: {field_type}"
+
+        logger.info("✅ Password field properly masks input")
+
 def _is_site_reachable(host):
     import socket
     try:
@@ -213,21 +209,7 @@ def _is_site_reachable(host):
         return True
     except Exception:
         return False
-        """Test that password field masks input"""
-        login_url = "https://the-internet.herokuapp.com/login"
-        driver.get(login_url)
-        
-        password_field = driver.find_element(By.ID, "password")
-        test_password = "TestPassword123!"
-        
-        password_field.send_keys(test_password)
-        
-        # Password field should be type="password" to mask input
-        field_type = password_field.get_attribute("type")
-        assert field_type == "password", f"Password field should mask input, type is: {field_type}"
-        
-        logger.info("✅ Password field properly masks input")
-
+    
 @pytest.mark.regression
 class TestLoginPageNavigation:
     """Test navigation and page behavior"""

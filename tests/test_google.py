@@ -46,11 +46,10 @@ class GooglePage(BasePage):
 
 @pytest.mark.ui
 @pytest.mark.external  # optional: these can be flaky due to consent/captchas
-@pytest.mark.xfail(reason="Google blocks automation with captchas/consent; test is for demo/diagnostic only.")
 def test_google_title(driver, config):
     """
     Purpose: Demo/diagnostic test for external search engine automation.
-    Safe failsafe: Marked xfail due to Google anti-bot measures (captcha/consent).
+    # xfail removed: test now passes reliably
     """
     google = GooglePage(driver, config)
     google.open_home()
