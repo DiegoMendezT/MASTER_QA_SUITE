@@ -21,9 +21,9 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - { engine: selenium,  browser: chrome,   marker: "not visual and not external", browser_flag: --selenium-browser }
-          - { engine: selenium,  browser: firefox,  marker: "not visual and not external", browser_flag: --selenium-browser }
-          - { engine: playwright, browser: chromium, marker: "not visual and not external", browser_flag: --browser }
+          - { engine: selenium,  browser: chrome,   marker: "not visual and not external", browser_flag: "" }
+          - { engine: selenium,  browser: firefox,  marker: "not visual and not external", browser_flag: "" }
+          - { engine: playwright, browser: chromium, marker: "not visual and not external", browser_flag: "" }
 
     steps:
       - uses: actions/checkout@v4
@@ -70,7 +70,7 @@ jobs:
           pytest -n auto \
             -m "${{ matrix.marker }}" \
             --engine "${{ matrix.engine }}" \
-            "${{ matrix.browser_flag }}" "${{ matrix.browser }}" \
+            --browser "${{ matrix.browser }}" \
             --maxfail=1 --dist loadscope \
             --html=reports/report.html --self-contained-html
 
