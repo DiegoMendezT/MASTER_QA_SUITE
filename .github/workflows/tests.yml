@@ -70,7 +70,6 @@ jobs:
           pytest -n auto \
             -m "${{ matrix.marker }}" \
             --engine "${{ matrix.engine }}" \
-            --browser "${{ matrix.browser }}" \
             --maxfail=1 --dist loadscope \
             --html=reports/report.html --self-contained-html
 
