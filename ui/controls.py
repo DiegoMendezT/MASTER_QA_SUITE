@@ -1,13 +1,9 @@
 import os
 import subprocess
 import sys
-
 import streamlit as st
-
-# Add project root to the Python path
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
-from tools.task_prioritizer import TaskPrioritizer
+from tools.task_prioritizer import Task, prioritize, _load_tasks
 
 
 def run_tests_ui():
@@ -121,29 +117,31 @@ def run_tests_ui():
     with col2:
         st.header("Task Prioritizer")
 
+
         # --- Strategy Selection ---
         strategies = ["wsjf", "rice", "linear"]
         strategy = st.selectbox("Scoring Strategy", strategies, index=0)
-        
+
         if st.button(f"Prioritize with '{strategy.upper()}'", use_container_width=True):
             try:
-                engine = TaskPrioritizer()
-                recommended_tasks = engine.prioritize(strategy_name=strategy, top=5)
-                
+                tasks = _load_tasks()
+                recommended_tasks = prioritize(tasks, strategy=strategy, top=5, explain=True)
+
                 st.success(f"Top 5 Recommendations using '{strategy}' strategy:")
 
                 if not recommended_tasks:
                     st.info("No tasks to prioritize or all tasks are blocked.")
-                
+
                 for i, task in enumerate(recommended_tasks, 1):
-                    with st.expander(f"{i}. {task.name} (Score: {task.score:.2f})"):
+                    score = task._explain.get("total", 0.0)
+                    with st.expander(f"{i}. {task.name} (Score: {score:.2f})"):
                         st.markdown(f"**ID:** `{task.id}` | **Status:** `{task.status}`")
-                        st.json(task.metrics)
-                        if task.dependencies:
-                            st.markdown(f"**Dependencies:** `{', '.join(task.dependencies)}`")
+                        st.json(task._explain)
+                        if getattr(task, "depends_on", None):
+                            st.markdown(f"**Dependencies:** `{', '.join(task.depends_on)}`")
 
             except FileNotFoundError:
-                st.error("Error: A required configuration file (`prioritizer_rules.yml` or `roadmap_phase2.yml`) was not found.")
+                st.error("Error: A required configuration file (`roadmap_phase2.yml` or `backlog.yml`) was not found.")
             except ValueError as ve:
                 st.error(f"Configuration Error: {ve}")
             except Exception as e:

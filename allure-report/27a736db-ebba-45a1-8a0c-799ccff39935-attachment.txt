@@ -1,3 +1,0 @@
-2025-08-09 13:37:34,522 - INFO - Running locally with browser: chrome
-2025-08-09 13:37:34,906 - INFO - Chromedriver is already installed.
-2025-08-09 13:37:39,591 - INFO - Screenshot saved: C:\Users\USUARIO\Projects\MASTER_QA_SUITE\artifacts\screenshots\test_valid_login_the_internet_failed.png

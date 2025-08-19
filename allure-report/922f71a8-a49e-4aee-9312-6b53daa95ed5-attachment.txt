@@ -1,6 +1,0 @@
-[32mINFO    [0m root:conftest.py:162 Running locally with browser: chrome
-[32mINFO    [0m root:utils.py:317 Chromedriver is already installed.
-[32mINFO    [0m tests.test_login:test_login.py:135 ✅ Invalid attempt properly rejected: admin
-[32mINFO    [0m tests.test_login:test_login.py:135 ✅ Invalid attempt properly rejected: user
-[32mINFO    [0m tests.test_login:test_login.py:135 ✅ Invalid attempt properly rejected: test
-[32mINFO    [0m tests.test_login:test_login.py:135 ✅ Invalid attempt properly rejected: wlpxdwzw@outlook.com

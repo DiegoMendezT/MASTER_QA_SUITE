@@ -1,5 +1,0 @@
-2025-08-09 13:25:11,830 - INFO - Running locally with browser: chrome
-2025-08-09 13:25:12,182 - INFO - Chromedriver is already installed.
-2025-08-09 13:25:13,656 - INFO - Opening page: https://www.google.com/ncr
-2025-08-09 13:25:24,274 - INFO - Entering text 'python' into element: ('name', 'q')
-2025-08-09 13:25:24,662 - INFO - Waiting for URL to contain: 'search?'

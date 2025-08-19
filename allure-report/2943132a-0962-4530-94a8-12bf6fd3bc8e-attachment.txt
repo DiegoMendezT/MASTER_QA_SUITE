@@ -1,7 +1,0 @@
-✅ ML-aware API test completed
-
-� API ML Metrics:
-   api_ml_integration: True
-   ml_post_id: 101
-   processing_time_ms: 332.761287689209
-   ml_level_tested: 55.9

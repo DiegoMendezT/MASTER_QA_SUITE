@@ -1,3 +1,0 @@
-2025-08-09 14:33:47,533 - INFO - Running locally with browser: chrome
-2025-08-09 14:33:49,054 - INFO - Chromedriver is already installed.
-2025-08-09 14:33:54,124 - INFO - ✅ Login page title verified: The Internet

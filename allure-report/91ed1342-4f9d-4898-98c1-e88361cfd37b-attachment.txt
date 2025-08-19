@@ -1,6 +1,0 @@
-2025-08-11 04:43:30,172 - INFO - Running locally with browser: chrome
-2025-08-11 04:43:30,575 - INFO - Chromedriver is already installed.
-2025-08-11 04:43:32,018 - INFO - Opening page: https://www.google.com/ncr
-2025-08-11 04:43:42,304 - INFO - Entering text 'selenium' into element: ('name', 'q')
-2025-08-11 04:43:42,633 - INFO - Waiting for URL to contain: 'search?'
-2025-08-11 04:43:48,099 - WARNING - Timeout waiting for URL to contain 'search?'. Current URL: https://www.google.com/sorry/index?continue=https://www.google.com/search%3Fq%3Dselenium%26sca_esv%3Df5680b47e71e92a2%26source%3Dhp%26ei%3DVcmZaOrHBNeXwbkP6sWM-Q8%26iflsig%3DAOw8s4IAAAAAaJnXZZzHK5yeN6lwvBHlozAAkyeogy-H%26ved%3D0ahUKEwiqxtnCyYKPAxXXSzABHeoiI_8Q4dUDCA0%26uact%3D5%26oq%3Dselenium%26gs_lp%3DEgdnd3Mtd2l6IghzZWxlbml1bUggUABYCnAAeACQAQCYAQCgAQCqAQC4AQPIAQD4AQGYAgCgAgCYAwCSBwCgBwCyBwC4BwDCBwDIBwA%26sclient%3Dgws-wiz%26sei%3DX8mZaOrZDLXw1sQP-vXcuQw&q=EgS6n-9yGN-S58QGIjD46osIKEmuQ-j8yz9r5fhI5nnbZAZQuqHCCLjBs-VSUmbqE_UXnThNlCYynDBP2WoyAVJaAUM

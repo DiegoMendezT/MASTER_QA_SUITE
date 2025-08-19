@@ -26,8 +26,10 @@ Purpose: This test verifies that the user session created in the UI is consisten
          that the front-end state (like localStorage) matches the backend's view.
 """
 import pytest
+
 from pages.sauce_login_page import SauceLoginPage
 from utils.api_client import get_api_client
+
 
 @pytest.mark.integration
 def test_session_consistency_after_login(logged_in_driver, active_integration_config, config):

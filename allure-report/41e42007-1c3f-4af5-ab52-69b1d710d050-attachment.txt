@@ -1,1 +1,0 @@
-2025-08-11 04:22:20,848 - INFO - 📊 Framework Metrics: {'test_files': 4, 'page_objects': 5, 'utility_modules': 11, 'config_files': 3}

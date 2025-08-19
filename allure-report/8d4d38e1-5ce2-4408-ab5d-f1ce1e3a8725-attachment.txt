@@ -1,7 +1,0 @@
-2025-08-11 04:22:01,830 - INFO - Running locally with browser: chrome
-2025-08-11 04:22:02,185 - INFO - Chromedriver is already installed.
-2025-08-11 04:22:03,632 - INFO - Opening page: https://www.google.com/ncr
-2025-08-11 04:22:14,287 - INFO - Entering text 'python' into element: ('name', 'q')
-2025-08-11 04:22:14,461 - INFO - Waiting for URL to contain: 'search?'
-2025-08-11 04:22:19,630 - WARNING - Timeout waiting for URL to contain 'search?'. Current URL: https://www.google.com/sorry/index?continue=https://www.google.com/search%3Fq%3Dpython%26sca_esv%3Df5680b47e71e92a2%26source%3Dhp%26ei%3DTMSZaIi7KqWykvQPx5qoqQQ%26iflsig%3DAOw8s4IAAAAAaJnSXCWopJ0qwKZnQc9MY-awd5jAutlZ%26ved%3D0ahUKEwiIka3cxIKPAxUlmYQIHUcNKkUQ4dUDCA0%26uact%3D5%26oq%3Dpython%26gs_lp%3DEgdnd3Mtd2l6IgZweXRob25IM1AAWA5wAHgAkAEAmAEAoAEAqgEAuAEDyAEA-AEBmAIAoAIAmAMAkgcAoAcAsgcAuAcAwgcAyAcA%26sclient%3Dgws-wiz%26sei%3DV8SZaMvaFMf31sQPpb7GmQE&q=EgS6n-9yGNeI58QGIjDpO7iZl8b-jz_yfoH25NiWqmKAxI7Jrz00Ss6TEs7tIzj-QyQPmyjOIdwi2ObAivgyAVJaAUM
-2025-08-11 04:22:35,288 - INFO - Screenshot saved: C:\Users\USUARIO\Projects\MASTER_QA_SUITE\artifacts\screenshots\test_google_search_multiple_queries_python_failed.png

@@ -1,7 +1,7 @@
 
 # Lesson: Test Api Endpoints
 
-Advanced API Testing Module for MASTER QA SUITE v2.5
+Advanced test module for MASTER QA SUITE v2.5
 Comprehensive API validation with ML integration
 
 ---
@@ -10,44 +10,56 @@ Comprehensive API validation with ML integration
 
 ```python
 """
-Advanced API Testing Module for MASTER QA SUITE v2.5
+Advanced test module for MASTER QA SUITE v2.5
 Comprehensive API validation with ML integration
 """
+import time
+
 import pytest
 import requests
-import json
-import time
-from datetime import datetime
-import sys
-import os
-from typing import Dict, List, Any
 
-# Add utils to path
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', 'utils'))
-    def test_api_ml_integration(self):
-        """Test API with ML data integration"""
-        ml_data = self.data_factory.ml_test_data()
-        
-        # Create a post with ML-inspired content
-        ml_post = {
-            'title': f"Framework ML Report - Level {ml_data['ml_level']}%",
-            'body': f"Self-reflection score: {ml_data['self_reflection_score']}%. "
-                   f"Growth areas: {', '.join(ml_data['growth_areas'])}",
-            'userId': 1
-        }
-        
+from utils.data_factory import DataFactory
+
+
+@pytest.mark.api
+@pytest.mark.regression
+class TestAPIEndpoints:
+    """Test suite for API endpoint validation"""
+    
+    def setup_method(self):
+        """Setup API testing environment"""
+        self.base_url = "https://jsonplaceholder.typicode.com"  # Public API for testing
+        self.data_factory = DataFactory()
+        self.session = requests.Session()
+        self.session.headers.update({
+            'User-Agent': 'MASTER-QA-SUITE/2.5 (ML-Enabled)',
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        })
+    
+    def teardown_method(self):
+        """Cleanup API testing session"""
+        self.session.close()
+    
+    def test_api_health_check(self):
+        """Test API health and availability"""
         start_time = time.time()
-        response = self.session.post(f"{self.base_url}/posts", json=ml_post)
-        processing_time = time.time() - start_time
         
-        assert response.status_code == 201, "ML post creation failed"
+        response = self.session.get(f"{self.base_url}/posts/1")
+        response_time = time.time() - start_time
         
-        created_post = response.json()
-        assert ml_data['ml_level'] < 100, "Framework is still learning"
+        assert response.status_code == 200, f"API health check failed: {response.status_code}"
+        assert response_time < 5.0, f"API response too slow: {response_time:.2f}s"
+        assert 'application/json' in response.headers.get('content-type', ''), "Should return JSON"
         
-        self.ml_metrics.update({
-            'api_ml_integration': True,
-            'ml_post_id': created_post.get('id'),
+        data = response.json()
+        assert 'id' in data, "Response should contain id field"
+        assert 'title' in data, "Response should contain title field"
+        
+        print(f"✅ API health check passed in {response_time:.2f}s")
+    
+    def test_get_all_posts(self):
+        """Test retrieving all posts"""
         response = self.session.get(f"{self.base_url}/posts")
         
         assert response.status_code == 200, f"GET all posts failed: {response.status_code}"
@@ -224,21 +236,50 @@ class TestAPIPerformance:
 @pytest.mark.api
 @pytest.mark.self_reflection
 class TestAPIML:
-    """ML-aware API testing (ML-only)"""
+    """ML-aware API testing"""
     
     def setup_method(self):
         self.base_url = "https://jsonplaceholder.typicode.com"
         self.data_factory = DataFactory()
         self.session = requests.Session()
-    self.ml_metrics = {}
+        self.ml_metrics = {}
     
     def teardown_method(self):
         self.session.close()
         if self.ml_metrics:
             print(f"\n� API ML Metrics:")
             for metric, value in self.ml_metrics.items():
-        self.ml_metrics = {}
+                print(f"   {metric}: {value}")
     
+    def test_api_ml_integration(self):
+        """Test API with ML data integration"""
+        ml_data = self.data_factory.ml_test_data()
+        
+        # Create a post with ML-inspired content
+        ml_post = {
+            'title': f"Framework ML Report - Level {ml_data['ml_level']}%",
+            'body': f"Self-reflection score: {ml_data['self_reflection_score']}%. "
+                   f"Growth areas: {', '.join(ml_data['growth_areas'])}",
+            'userId': 1
+        }
+        
+        start_time = time.time()
+        response = self.session.post(f"{self.base_url}/posts", json=ml_post)
+        processing_time = time.time() - start_time
+        
+        assert response.status_code == 201, "ML post creation failed"
+        
+        created_post = response.json()
+        assert ml_data['ml_level'] < 100, "Framework is still learning"
+        
+        self.ml_metrics.update({
+            'api_ml_integration': True,
+            'ml_post_id': created_post.get('id'),
+            'processing_time_ms': processing_time * 1000,
+            'ml_level_tested': ml_data['ml_level']
+        })
+        
+        print(f"✅ ML-aware API test completed")
     
     def test_adaptive_api_testing(self):
         """Test that adapts based on API behavior"""
@@ -274,7 +315,7 @@ class TestAPIML:
             
             pytest.skip("API in diagnostic mode - adapting test strategy")
         
-        print(f"✅ Adaptive API testing completed with {adaptation_score:.1f}% success rate (ML)")
+        print(f"✅ Adaptive API testing completed with {adaptation_score:.1f}% success rate")
 
 if __name__ == "__main__":
     # Run API tests directly

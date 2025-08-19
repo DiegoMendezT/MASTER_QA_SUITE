@@ -1,1 +1,0 @@
-[32mINFO    [0m unicode_test:test_unicode_support.py:114 🚀 Test Log: αβγ ∑∆∇ 你好 🌟

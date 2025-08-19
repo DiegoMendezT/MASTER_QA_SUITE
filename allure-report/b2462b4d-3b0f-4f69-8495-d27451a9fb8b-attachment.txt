@@ -1,5 +1,0 @@
-✅ Generated 100 profiles in parallel in 0.06s
-
-📊 Performance Metrics:
-   ⏱️  Execution Time: 0.07s
-   🧠 Memory Usage: 0.21 MB

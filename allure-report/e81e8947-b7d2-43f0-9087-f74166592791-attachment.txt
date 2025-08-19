@@ -1,4 +1,0 @@
-UI cookie 'session-username': standard_user
-SIMULATED: Fetching session for user_id: standard_user
-Simulated API response for session: {'userId': 'standard_user', 'username': 'standard_user', 'token': 'dummy-auth-token-for-standard-user', 'expires': '2025-12-31T23:59:59Z'}
-SUCCESS: UI username 'standard_user' matches API username 'standard_user'.

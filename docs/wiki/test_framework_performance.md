@@ -13,29 +13,14 @@ Tests framework performance under various conditions
 Advanced Performance and Load Testing for MASTER QA SUITE v2.5
 Tests framework performance under various conditions
 """
-import pytest
-import time
-import psutil
-import threading
 import concurrent.futures
-from datetime import datetime, timedelta
-import sys
-import os
+import time
 
-# Add utils to path
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', 'utils'))
-try:
-    from data_factory import DataFactory
-except ImportError:
-    # Fallback for import issues
-    class DataFactory:
-        @staticmethod
-        def random_user_data():
-            return {'username': 'test_user', 'email': 'test@example.com', 'password': 'test_pass'}
-        
-        @staticmethod
-        def ml_test_data():
-            return {'framework_name': 'MASTER_QA_SUITE', 'ml_level': 23.3}
+import psutil
+import pytest
+
+from utils.data_factory import DataFactory
+
 
 @pytest.mark.perf
 @pytest.mark.self_reflection

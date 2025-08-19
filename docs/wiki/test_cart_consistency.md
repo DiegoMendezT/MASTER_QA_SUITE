@@ -27,13 +27,25 @@ Purpose: This test verifies that adding an item to the cart in the UI is
          simulated API. It ensures data consistency between the front-end
          action and the backend's view of the cart.
 """
-import pytest
 import json
-from pages.sauce_login_page import SauceLoginPage
+
+import allure
+import pytest
+
 from pages.sauce_inventory_page import SauceInventoryPage
+from pages.sauce_login_page import SauceLoginPage
 from utils.api_client import get_api_client
 
+
 @pytest.mark.integration
+@allure.feature("Cart Management")
+@allure.story("Verify cart consistency between UI and API")
+@allure.title("Test Cart Consistency After Adding Item")
+@allure.description("""
+    This test verifies that adding an item to the cart via the UI is
+    correctly reflected in the backend state, simulated via an API.
+    It ensures data consistency between the frontend action and the backend's view.
+""")
 def test_cart_consistency_after_adding_item(logged_in_driver, config):
     """
     Tests that localStorage cart after UI action matches simulated API cart data.
@@ -46,35 +58,33 @@ def test_cart_consistency_after_adding_item(logged_in_driver, config):
 
     # UI Action: Add an item to the cart
     item_to_add = 'Sauce Labs Backpack'
-    inventory_page.add_to_cart_by_name(item_to_add)
-    print(f"UI: Added '{item_to_add}' to cart.")
+    with allure.step(f"Add '{item_to_add}' to cart via UI"):
+        inventory_page.add_to_cart_by_name(item_to_add)
+        print(f"UI: Added '{item_to_add}' to cart.")
 
     # Act: Retrieve cart state from both UI (localStorage) and a simulated API
-    
-    # 1. Get cart from the browser's localStorage and parse it
-    ui_cart_json = driver.execute_script("return window.localStorage.getItem('cart-contents');")
-    ui_cart_list = json.loads(ui_cart_json) if ui_cart_json else []
-    print(f"UI localStorage 'cart-contents': {ui_cart_list}")
-    
-    # 2. Get cart data from the (simulated) API
-    # In a real scenario, we'd use an auth token from the UI session
-    api_cart = api_client.get_cart(session_token='dummy-auth-token-for-standard-user')
-    api_cart_items = api_cart.get('items', [])
-    print(f"Simulated API response for cart: {api_cart_items}")
+    with allure.step("Retrieve cart state from UI and API"):
+        # 1. Get cart from the browser's localStorage and parse it
+        ui_cart_json = driver.execute_script("return window.localStorage.getItem('cart-contents');")
+        ui_cart_list = json.loads(ui_cart_json) if ui_cart_json else []
+        allure.attach(json.dumps(ui_cart_list, indent=2), name="UI Cart (localStorage)", attachment_type=allure.attachment_type.JSON)
+        print(f"UI localStorage 'cart-contents': {ui_cart_list}")
+        
+        # 2. Get cart data from the (simulated) API
+        api_cart = api_client.get_cart(session_token='dummy-auth-token-for-standard-user')
+        api_cart_items = api_cart.get('items', [])
+        allure.attach(json.dumps(api_cart_items, indent=2), name="API Cart (simulated)", attachment_type=allure.attachment_type.JSON)
+        print(f"Simulated API response for cart: {api_cart_items}")
 
     # Assert: Verify that the cart contents are consistent
-    assert ui_cart_list, "Cart contents should not be empty in UI localStorage"
-    assert api_cart_items, "Cart items should not be empty in API response"
-    
-    # For this test, we'll just check the number of items.
-    # A more complex test could compare the exact product IDs.
-    assert len(ui_cart_list) == len(api_cart_items), \
-        f"Cart inconsistency! UI shows {len(ui_cart_list)} item(s), but API reports {len(api_cart_items)}."
+    with allure.step("Verify cart consistency"):
+        assert ui_cart_list, "Cart contents should not be empty in UI localStorage"
+        assert api_cart_items, "Cart items should not be empty in API response"
+        
+        assert len(ui_cart_list) == len(api_cart_items), \
+            f"Cart inconsistency! UI shows {len(ui_cart_list)} item(s), but API reports {len(api_cart_items)}."
 
-    # The UI stores item IDs (e.g., 4), while our simulated API might use names or different IDs.
-    # This is a realistic integration challenge. For now, we'll rely on the count.
-    # A more robust solution would be to map UI IDs to API product IDs.
-    print(f"SUCCESS: UI cart count ({len(ui_cart_list)}) matches API cart count ({len(api_cart_items)}).")
+        print(f"SUCCESS: UI cart count ({len(ui_cart_list)}) matches API cart count ({len(api_cart_items)}).")
 
 ```
 

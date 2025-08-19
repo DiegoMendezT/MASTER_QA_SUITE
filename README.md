@@ -41,7 +41,7 @@ The framework follows a modular, configuration-driven architecture that separate
 ```
 +-------------------------+      +-----------------------+      +---------------------+
 |      Streamlit UI       |----->|       Pytest Core     |<---->|      Selenium       |
-| (ui/controls.py)        |      | (conftest.py, tests/) |      | (pages/, BasePage)  |
+| (conftest.py, tests/) |      | (pages/, BasePage)  |
 +-------------------------+      +-----------+-----------+      +----------+----------+
             ^                            |                              |
             |                            |                              |
@@ -138,11 +138,11 @@ python -m playwright install   # add --with-deps on Linux containers if needed
 
 Launch the interactive test runner dashboard:
 ```bash
-streamlit run ui/controls.py
+
 ```
 Open `http://localhost:8501` in your browser.
 
-Controls auto-adapt: when Playwright is selected, the UI shows "PW Browser" and "Headed" toggles. When Selenium is selected, the UI shows Selenium-specific options (headless, Sauce Labs, etc.).
+
 
 ---
 

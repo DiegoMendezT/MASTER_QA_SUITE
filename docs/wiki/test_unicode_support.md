@@ -15,9 +15,11 @@ Unicode Test Suite for MASTER QA SUITE
 Testing full international character support
 🌍✨ Universal Text Processing ✨🌍
 """
-import pytest
-import sys
 import os
+import sys
+
+import pytest
+
 
 class TestUnicodeSupport:
     """Test comprehensive Unicode support across the framework"""
@@ -114,7 +116,7 @@ class TestUnicodeSupport:
         """Test Unicode integration with framework components"""
         # Test logging with Unicode
         import logging
-        
+
         # Create a Unicode test message
         unicode_msg = "🚀 Test Log: αβγ ∑∆∇ 你好 🌟"
         

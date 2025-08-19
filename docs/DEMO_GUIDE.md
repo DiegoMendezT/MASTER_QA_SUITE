@@ -5,7 +5,7 @@
 ### 1. Switch Engines in Streamlit
 - Launch the Streamlit dashboard:
   ```bash
-  streamlit run ui/controls.py
+
   ```
 - Open `http://localhost:8501` in your browser.
 - Toggle between Selenium and Playwright engines.

@@ -1,6 +1,0 @@
-2025-08-11 04:22:00,907 - INFO - Running locally with browser: chrome
-2025-08-11 04:22:01,285 - INFO - Chromedriver is already installed.
-2025-08-11 04:22:03,051 - INFO - Navigating to URL: https://www.saucedemo.com
-2025-08-11 04:22:04,464 - INFO - Entering text 'standard_user' into element: ('id', 'user-name')
-2025-08-11 04:22:04,646 - INFO - Entering text 'secret_sauce' into element: ('id', 'password')
-2025-08-11 04:22:04,809 - INFO - Clicking element: ('id', 'login-button')
