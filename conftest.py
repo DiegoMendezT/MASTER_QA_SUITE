@@ -32,6 +32,13 @@ SAUCE_ENABLED = bool(os.getenv("SAUCE_USERNAME") and os.getenv("SAUCE_ACCESS_KEY
 
 # --- Playwright/Selenium engine toggle ---------------------------
 def pytest_addoption(parser):
+    # Add headless CLI flag for dynamic control
+    parser.addoption(
+        "--headless",
+        action="store_true",
+        default=False,
+        help="Run browsers in headless mode (no UI)."
+    )
     """Add custom command-line options to pytest."""
     group = parser.getgroup("engine", "Engine Configuration")
     group.addoption(
@@ -141,6 +148,7 @@ def driver(config, request):
         return
 
     browser_name = request.config.getoption("--sel-browser").lower()
+    headless_cli = request.config.getoption("--headless")
     
     if SAUCE_ENABLED:
         logging.info(f"Running on Sauce Labs with browser: {browser_name}")
@@ -182,10 +190,14 @@ def driver(config, request):
             from selenium.webdriver.firefox.options import \
                 Options as FirefoxOptions
             options = FirefoxOptions()
+            if headless_cli:
+                options.add_argument("--headless")
             web_driver = webdriver.Firefox(options=options)
         elif browser_name == "edge":
             from selenium.webdriver.edge.options import Options as EdgeOptions
             options = EdgeOptions()
+            if headless_cli:
+                options.add_argument("--headless")
             web_driver = webdriver.Edge(options=options)
         else: # Default to local Chrome with hardened profile
             temp_profile_dir = tempfile.mkdtemp()
@@ -196,8 +208,9 @@ def driver(config, request):
                 pytest.fail("ChromeDriver installation failed.")
 
             options = Options()
-            # Always run headless for DEMO AUT tests to avoid browser popping up
-            options.add_argument("--headless=new")
+            # Optionally run headless for DEMO AUT tests (controlled by UI or CLI)
+            if headless_cli:
+                options.add_argument("--headless=new")
             # Profile and Isolation
             options.add_argument(f"--user-data-dir={temp_profile_dir}")
             options.add_argument("--password-store=basic")

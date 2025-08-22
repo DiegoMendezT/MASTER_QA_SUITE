@@ -1,13 +1,22 @@
+
 import streamlit as st
 from datetime import datetime
+import os
+import glob
+
+st.write('**[DEBUG] Current working directory:**', os.getcwd())
+st.write('**[DEBUG] Script location:**', os.path.abspath(__file__))
+pages_dir = os.path.join(os.path.dirname(__file__), 'pages')
+page_files = glob.glob(os.path.join(pages_dir, '*.py'))
+st.write('**[DEBUG] .py files in pages folder:**', [os.path.basename(f) for f in page_files])
 
 st.set_page_config(
-    page_title="🧪 Master QA Suite",
+    page_title="Master QA Suite",
     page_icon="🧪",
     layout="wide"
 )
 
-st.title("🧪 Master QA Suite")
+st.title("Master QA Suite")
 st.caption(f"Last updated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 
 st.markdown(

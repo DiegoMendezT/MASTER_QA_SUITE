@@ -2,17 +2,17 @@ import streamlit as st
 from datetime import datetime
 
 st.set_page_config(
-    page_title="🧑‍💻 Test Runner – Client AUT",
+    page_title="Test Runner – Client AUT",
     page_icon="🧑‍💻",
     layout="wide"
 )
 
-st.header("🧑‍💻 Test Runner – Client AUT")
+st.header("🧑‍💻Test Runner – Client AUT")
 
 with st.sidebar:
     st.header("Test Selection")
-    selected_tests = st.multiselect("Select tests by marker:", options=["smoke", "regression", "api", "ui"], default=["smoke"])
     run_button = st.button("▶️ Run Client Tests", use_container_width=True, type="primary")
+    selected_tests = st.multiselect("Select tests by marker:", options=["smoke", "regression", "api", "ui"], default=["smoke"])
     st.header("Configuration")
     integration_modes = ['simulated', 'live']
     selected_mode = st.selectbox("Select integration mode:", options=integration_modes, index=0)
@@ -21,7 +21,7 @@ with st.sidebar:
     if parallel_mode == 'Custom':
         worker_count = st.number_input("Number of workers:", min_value=2, max_value=16, value=4)
 
-tabs = st.tabs(["Run Client Tests", "Last Test Run Metrics"])
+tabs = st.tabs(["Run Client Tests", "See Test Metrics"])
 
 with tabs[0]:
     st.write("## Run Client Tests")
@@ -29,6 +29,6 @@ with tabs[0]:
     # Add logic for running client tests here
 
 with tabs[1]:
-    st.write("## Last Test Run Metrics")
+    st.write("## See Test Metrics")
     st.info("This page will show widgets and graphs reflecting the last Client's Test run metrics.")
     # Add widgets/graphs for metrics here

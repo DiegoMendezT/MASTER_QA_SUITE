@@ -45,24 +45,19 @@ class WebDriverFactory:
     def _create_chrome_driver(self, headless=False):
         """Create Chrome WebDriver"""
         options = ChromeOptions()
-        
         # Common Chrome options
         options.add_argument('--disable-blink-features=AutomationControlled')
         options.add_experimental_option("excludeSwitches", ["enable-automation"])
         options.add_experimental_option('useAutomationExtension', False)
         options.add_argument('--disable-dev-shm-usage')
         options.add_argument('--no-sandbox')
-        
-        if headless:
-            options.add_argument('--headless')
-        
+        # Always run non-headless for visible browser testing
+        # (headless argument is ignored for now)
         # Window size from config
         window_size = self.config['browsers']['chrome']['window_size']
         options.add_argument(f'--window-size={window_size}')
-        
         service = ChromeService(ChromeDriverManager().install())
         driver = webdriver.Chrome(service=service, options=options)
-        
         # Apply timeouts from config
         self._apply_timeouts(driver)
         return driver
