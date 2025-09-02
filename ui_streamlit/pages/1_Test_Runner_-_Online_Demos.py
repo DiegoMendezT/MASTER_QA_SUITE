@@ -33,7 +33,8 @@ def find_pytest_markers():
     return sorted(list(set(markers)))
 
 def run_pytest(command):
-    import threading
+    import time
+    import platform
     process = subprocess.Popen(
         command,
         stdout=subprocess.PIPE,
@@ -49,37 +50,35 @@ def run_pytest(command):
     st.session_state['stderr_output'] = ""
     st.session_state['stop_requested'] = False
 
-    def stream_logs_to_buffer():
-        import platform, os
-        log_output = ""
-        while True:
-            if st.session_state.get('stop_requested', False):
-                try:
-                    if platform.system() == "Windows":
-                        os.system(f"taskkill /F /T /PID {process.pid}")
-                    else:
-                        process.terminate()
-                except Exception:
-                    pass
+    log_placeholder = st.empty()
+    log_output = ""
+    while True:
+        if st.session_state.get('stop_requested', False):
+            try:
+                if platform.system() == "Windows":
+                    os.system(f"taskkill /F /T /PID {process.pid}")
+                else:
+                    process.terminate()
+            except Exception:
+                pass
+            break
+        line = process.stdout.readline()
+        if not line:
+            if process.poll() is not None:
                 break
-            line = process.stdout.readline()
-            if not line:
-                break
-            log_output += line
-            st.session_state['log_output'] = log_output
-        process.stdout.close()
-        return_code = process.wait()
-        stderr_output = process.stderr.read()
-        st.session_state['test_process'] = None
-        st.session_state['return_code'] = return_code
-        st.session_state['stderr_output'] = stderr_output
-        st.session_state['stop_requested'] = False
-
-    # Only start a new thread if not already running
-    if 'log_thread' not in st.session_state or not st.session_state['log_thread'] or not st.session_state['log_thread'].is_alive():
-        log_thread = threading.Thread(target=stream_logs_to_buffer, daemon=True)
-        st.session_state['log_thread'] = log_thread
-        log_thread.start()
+            time.sleep(0.1)
+            continue
+        log_output += line
+        st.session_state['log_output'] = log_output
+        log_placeholder.code(log_output, language="log")
+        time.sleep(0.05)
+    process.stdout.close()
+    return_code = process.wait()
+    stderr_output = process.stderr.read()
+    st.session_state['test_process'] = None
+    st.session_state['return_code'] = return_code
+    st.session_state['stderr_output'] = stderr_output
+    st.session_state['stop_requested'] = False
     return process
 
 
@@ -150,88 +149,73 @@ with st.sidebar:
 tabs = st.tabs(["Run Online Demo Tests", "See Test Metrics"])
 
 with tabs[0]:
-    if run_button and not test_running:
-        # Actually start the test process before rerun
-        st.header("Test Execution")
-        marker_expression = " or ".join(selected_markers) if selected_markers else ""
-        if not marker_expression:
-            st.warning("No markers selected. Please select at least one marker to run tests.")
-            st.stop()
-        # Map UI label to CLI value (move here for correct scope)
-        integration_mode_cli = 'live' if selected_integration_mode == 'Live API Endpoints' else 'simulated'
-        command_parts = [
-            f"C:/Users/USUARIO/Projects/MASTER_QA_SUITE/.venv/Scripts/python.exe",
-            "-m", "pytest", "-v",
-            f"--html={HTML_REPORT}", "--self-contained-html",
-            f"--integration-mode={integration_mode_cli}"
-        ]
-        if headless_mode:
-            command_parts.append("--headless")
-        if run_button:
-            if not test_running:
-                # Start test run in background
-                marker_expression = " or ".join(selected_markers) if selected_markers else ""
-                if not marker_expression:
-                    st.warning("No markers selected. Please select at least one marker to run tests.")
-                    st.stop()
-                integration_mode_cli = 'live' if selected_integration_mode == 'Live API Endpoints' else 'simulated'
-                command_parts = [
-                    f"C:/Users/USUARIO/Projects/MASTER_QA_SUITE/.venv/Scripts/python.exe",
-                    "-m", "pytest", "-v",
-                    f"--html={HTML_REPORT}", "--self-contained-html",
-                    f"--integration-mode={integration_mode_cli}"
-                ]
-                if headless_mode:
-                    command_parts.append("--headless")
-                if execution_mode == 'Serial Run (1 worker)':
-                    command_parts.extend(["-n", "1"])
-                elif execution_mode == 'Parallel Run (8 workers)':
-                    command_parts.extend(["-n", "8"])
-                elif execution_mode == 'Parallel Custom Run':
-                    command_parts.extend(["-n", str(worker_count)])
-                if execution_mode != 'Serial Run (1 worker)' and 'serial' not in selected_markers:
-                    final_marker_expr = f"({marker_expression}) and not serial"
-                else:
-                    final_marker_expr = marker_expression
-                command_parts.extend(["-m", f'"{final_marker_expr}"'])
-                command = " ".join(command_parts)
-                st.session_state['log_output'] = ""
-                st.session_state['return_code'] = None
-                st.session_state['stderr_output'] = ""
-                run_pytest(command)
-                st.rerun()  # Force UI to update button and log placeholders
+    # Handle test run start/stop
+    if run_button:
+        if not test_running:
+            # Start test run in background
+            marker_expression = " or ".join(selected_markers) if selected_markers else ""
+            if not marker_expression:
+                st.warning("No markers selected. Please select at least one marker to run tests.")
+                st.stop()
+            integration_mode_cli = 'live' if selected_integration_mode == 'Live API Endpoints' else 'simulated'
+            command_parts = [
+                f"C:/Users/USUARIO/Projects/MASTER_QA_SUITE/.venv/Scripts/python.exe",
+                "-m", "pytest", "-v",
+                f"--html={HTML_REPORT}", "--self-contained-html",
+                f"--integration-mode={integration_mode_cli}"
+            ]
+            if headless_mode:
+                command_parts.append("--headless")
+            if execution_mode == 'Serial Run (1 worker)':
+                command_parts.extend(["-n", "1"])
+            elif execution_mode == 'Parallel Run (8 workers)':
+                command_parts.extend(["-n", "8"])
+            elif execution_mode == 'Parallel Custom Run':
+                command_parts.extend(["-n", str(worker_count)])
+            if execution_mode != 'Serial Run (1 worker)' and 'serial' not in selected_markers:
+                final_marker_expr = f"({marker_expression}) and not serial"
             else:
-                # Stop test run
-                st.session_state['stop_requested'] = True
-                st.warning("Test run stopped by user.")
-                st.rerun()
-        # Show log output and results if available
-        st.header("Test Execution")
-        log_output = st.session_state.get('log_output', "")
-        return_code = st.session_state.get('return_code', None)
-        stderr_output = st.session_state.get('stderr_output', "")
-        log_placeholder = st.empty()
-        if log_output:
-            log_placeholder.code(log_output, language="log")
-        if stderr_output:
-            st.subheader("Errors from Test Runner")
-            st.error(stderr_output)
-        if return_code is not None:
-            st.info(f"**Pytest Exit Code:** `{return_code}`")
-            if return_code == 0:
-                st.success("Test run completed successfully.")
-            else:
-                st.error("Test run finished with errors. See logs and report for details.")
-        if os.path.exists(HTML_REPORT):
-            with open(HTML_REPORT, "r", encoding="utf-8") as f:
-                st.download_button("Download HTML Report", f, file_name="test_report.html")
-            st.markdown(f'<a href="file:///{os.path.abspath(HTML_REPORT)}" target="_blank">View HTML Report</a>', unsafe_allow_html=True)
-        screenshots_dir = os.path.join(ARTIFACTS_DIR, "screenshots")
-        if os.path.exists(screenshots_dir):
-            screenshots = glob.glob(os.path.join(screenshots_dir, "*.png"))
-            if screenshots:
-                st.subheader("📷 Screenshots on Failure")
-                for screenshot in screenshots:
-                    st.image(screenshot, caption=os.path.basename(screenshot))
-        if not log_output:
-            st.info("Select test markers from the sidebar and click 'Run Tests' to begin.")
+                final_marker_expr = marker_expression
+            command_parts.extend(["-m", f'"{final_marker_expr}"'])
+            command = " ".join(command_parts)
+            st.session_state['log_output'] = ""
+            st.session_state['return_code'] = None
+            st.session_state['stderr_output'] = ""
+            run_pytest(command)
+            st.rerun()  # Force UI to update button and log placeholders
+        else:
+            # Stop test run
+            st.session_state['stop_requested'] = True
+            st.warning("Test run stopped by user.")
+            st.rerun()
+
+    # Always show logs/results if available
+    st.header("Test Execution")
+    log_output = st.session_state.get('log_output', "")
+    return_code = st.session_state.get('return_code', None)
+    stderr_output = st.session_state.get('stderr_output', "")
+    log_placeholder = st.empty()
+    if log_output:
+        log_placeholder.code(log_output, language="log")
+    if stderr_output:
+        st.subheader("Errors from Test Runner")
+        st.error(stderr_output)
+    if return_code is not None:
+        st.info(f"**Pytest Exit Code:** `{return_code}`")
+        if return_code == 0:
+            st.success("Test run completed successfully.")
+        else:
+            st.error("Test run finished with errors. See logs and report for details.")
+    if os.path.exists(HTML_REPORT):
+        with open(HTML_REPORT, "r", encoding="utf-8") as f:
+            st.download_button("Download HTML Report", f, file_name="test_report.html")
+        st.markdown(f'<a href="file:///{os.path.abspath(HTML_REPORT)}" target="_blank">View HTML Report</a>', unsafe_allow_html=True)
+    screenshots_dir = os.path.join(ARTIFACTS_DIR, "screenshots")
+    if os.path.exists(screenshots_dir):
+        screenshots = glob.glob(os.path.join(screenshots_dir, "*.png"))
+        if screenshots:
+            st.subheader("\U0001F4F7 Screenshots on Failure")
+            for screenshot in screenshots:
+                st.image(screenshot, caption=os.path.basename(screenshot))
+    if not log_output and not test_running:
+        st.info("Select test markers from the sidebar and click 'Run Tests' to begin.")
