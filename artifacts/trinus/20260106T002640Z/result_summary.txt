@@ -1,0 +1,36 @@
+**Test Name:** Trinus Site Tour
+**Component:** Selenium Automation
+**Duration:** 2m 26s
+**Start Time:** 2026-01-06 00:26:40
+**Test Level:** UI
+**Test Type:** Site Snapshot
+**Build:** N/A
+**Release:** N/A
+**Milestone:** N/A
+**Environment:** Production
+**Pipeline Run:** N/A
+**Run By:** Diego_Alejandro
+
+---
+**Error Info:**
+- Error Message: None
+- Error Type: None
+- Error Details: None
+
+---
+**Purpose:**
+Deliver a complete, reproducible record of the Trinus.com site's structure, content, and accessibility, invaluable for QA, compliance, and historical comparison.
+All results are logged in a structured block, including page names, URLs, pass/fail status, and direct links to screenshots, making it easy to review and trace any issues or changes over time.
+This approach mirrors best practices in enterprise test management systems (Jira, ALM, Octane), where each run is a documented artifact for stakeholders and auditors.
+
+**Expected Results:**
+- Every main navigation and submenu page is visited and loaded successfully.
+- The test scrolls through each page, ensuring the footer and all dynamic content are captured.
+- Unique screenshots are taken for every scroll position, with no duplicates.
+- The evidence block contains a detailed record for each page, including name, URL, status, and screenshot path.
+- The summary reports the total number of pages visited, passed, and failed, with zero failures expected for a healthy site.
+
+**Actual Results:**
+- This run visited 76 pages: 76 passed, 0 failed. All pages loaded successfully and all screenshots were captured as evidence.
+
+This test is a critical part of the QA suite, providing a reliable, repeatable method to verify the complete state of Trinus.com at any point in time.

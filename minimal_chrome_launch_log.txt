@@ -1,0 +1,5 @@
+--- MINIMAL CHROME LAUNCH TEST START ---
+Attempting to launch Chrome driver (non-headless)...
+Chrome driver launched successfully.
+Navigated to Google.
+Chrome driver closed successfully.

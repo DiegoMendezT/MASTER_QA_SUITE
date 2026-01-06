@@ -1,0 +1,21 @@
+# About.pi – Debugging Session Log
+
+## Purpose
+This file will log each debugging step, decision, and outcome for the MASTER_QA_SUITE Selenium test issue, as guided by the Symbolic Agile Table and user.
+
+---
+
+## [Step 1] Minimal Chrome Launch Test
+- **Action:** Created and ran minimal_chrome_launch_test.py (non-headless).
+- **Result:** Chrome launched, navigated to Google, and closed successfully.
+- **Conclusion:** Chrome and Chromedriver are functional in this environment.
+
+---
+
+## [Step 2] Next Debugging Step
+- **Action:** Awaiting user or council decision on whether to incrementally re-enable original test logic or focus on navigation/timing debugging.
+- **Next:** Will log each further step here as About.pi debugging continues.
+
+---
+
+*This file is updated with each debugging action and decision for full traceability.*

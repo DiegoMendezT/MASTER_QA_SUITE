@@ -1,0 +1,9 @@
+Visiting: Home | https://trinus.com/
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260105T161339Z\Home_Scroll1_20260105T161339Z.png
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260105T161339Z\Home_Scroll2_20260105T161339Z.png
+Visiting: Home | https://trinus.com/
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260105T161339Z\Home_Scroll1_20260105T161339Z.png
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260105T161339Z\Home_Scroll2_20260105T161339Z.png
+Visiting: Services > Business Intelligence & Analytics | https://trinus.com/business-intelligence-analytics/
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260105T161339Z\Services_>_Business_Intelligence_&_Analytics_Scroll1_20260105T161339Z.png
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260105T161339Z\Services_>_Business_Intelligence_&_Analytics_Scroll2_20260105T161339Z.png

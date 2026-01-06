@@ -1,7 +1,10 @@
 
+
 import glob
 import os
 import subprocess
+import sys
+import shutil
 from datetime import datetime
 import streamlit as st
 
@@ -35,6 +38,35 @@ def find_pytest_markers():
 def run_pytest(command):
     import time
     import platform
+    # --- Wipe old screenshot evidence before running tests ---
+    import glob
+    # Remove all PNGs in artifacts/screenshots/ and all subfolders
+    screenshots_dir = os.path.join(ARTIFACTS_DIR, "screenshots")
+    if os.path.exists(screenshots_dir):
+        for root, dirs, files in os.walk(screenshots_dir):
+            for file in files:
+                if file.lower().endswith('.png'):
+                    try:
+                        os.remove(os.path.join(root, file))
+                    except Exception:
+                        pass
+    # Remove all PNGs in each artifacts/trinus/*/ run dir, but keep HTMLs
+    trinus_dir = os.path.join(ARTIFACTS_DIR, "trinus")
+    # Only delete PNGs from runs that are NOT the latest (to preserve current evidence)
+    if os.path.exists(trinus_dir):
+        run_dirs = [d for d in glob.glob(os.path.join(trinus_dir, "*")) if os.path.isdir(d)]
+        if run_dirs:
+            latest_run = max(run_dirs, key=os.path.basename)
+            for run_dir in run_dirs:
+                if run_dir == latest_run:
+                    continue  # Do not delete evidence from the latest run
+                for f in glob.glob(os.path.join(run_dir, "*.png")):
+                    try:
+                        os.remove(f)
+                    except Exception:
+                        pass
+    # No evidence wipe after test run. Only before.
+    # --- End wipe logic ---
     process = subprocess.Popen(
         command,
         stdout=subprocess.PIPE,
@@ -42,7 +74,8 @@ def run_pytest(command):
         shell=True,
         text=True,
         encoding='utf-8',
-        bufsize=1
+        bufsize=1,
+        cwd=os.getcwd()  # Ensure working directory is project root
     )
     st.session_state['test_process'] = process
     st.session_state['log_output'] = ""
@@ -87,10 +120,19 @@ st.header("🚀 Test Runner – Online Demos")
 with st.sidebar:
     st.header("Test Selection")
     available_markers = find_pytest_markers()
+    # Set 'trinus' as default if present, else fallback to 'ui' or 'api'
+    if "trinus" in available_markers:
+        default_marker = ["trinus"]
+    elif "ui" in available_markers:
+        default_marker = ["ui"]
+    elif "api" in available_markers:
+        default_marker = ["api"]
+    else:
+        default_marker = available_markers[:1]
     selected_markers = st.multiselect(
         "Select tests by marker:",
         options=available_markers,
-        default=["ui", "api"]
+        default=default_marker
     )
     st.header("Configuration")
     execution_modes = [
@@ -117,7 +159,7 @@ with st.sidebar:
     # Move headless checkbox directly above the Run/Stop button
     headless_mode = st.checkbox(
         "Headless Mode (no browser windows)",
-        value=True,
+        value=False,
         help="When checked, browsers run in headless mode (no UI). Uncheck to see browser windows."
     )
     # Use a single key for the button and always sync label to process state
@@ -151,15 +193,25 @@ tabs = st.tabs(["Run Online Demo Tests", "See Test Metrics"])
 with tabs[0]:
     # Handle test run start/stop
     if run_button:
+        import time
+        st.session_state['run_start_time'] = time.time()
         if not test_running:
             # Start test run in background
-            marker_expression = " or ".join(selected_markers) if selected_markers else ""
+            # Ensure 'trinus' is first in marker expression if present
+            ordered_markers = sorted(selected_markers, key=lambda x: 0 if x.lower() == "trinus" else 1)
+            marker_expression = " or ".join(ordered_markers) if ordered_markers else ""
             if not marker_expression:
                 st.warning("No markers selected. Please select at least one marker to run tests.")
                 st.stop()
             integration_mode_cli = 'live' if selected_integration_mode == 'Live API Endpoints' else 'simulated'
+            import sys, os
+            venv_python = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), ".venv", "Scripts", "python.exe")
+            if os.path.exists(venv_python):
+                python_exec = venv_python
+            else:
+                python_exec = sys.executable
             command_parts = [
-                f"C:/Users/USUARIO/Projects/MASTER_QA_SUITE/.venv/Scripts/python.exe",
+                python_exec,
                 "-m", "pytest", "-v",
                 f"--html={HTML_REPORT}", "--self-contained-html",
                 f"--integration-mode={integration_mode_cli}"
@@ -178,10 +230,66 @@ with tabs[0]:
                 final_marker_expr = marker_expression
             command_parts.extend(["-m", f'"{final_marker_expr}"'])
             command = " ".join(command_parts)
+            # Set TRINUS_VISIBLE=1 in the environment if headless_mode is False
+            custom_env = os.environ.copy()
+            if not headless_mode:
+                custom_env["TRINUS_VISIBLE"] = "1"
+            else:
+                custom_env.pop("TRINUS_VISIBLE", None)
             st.session_state['log_output'] = ""
             st.session_state['return_code'] = None
             st.session_state['stderr_output'] = ""
-            run_pytest(command)
+            # Patch run_pytest to accept env override
+            def run_pytest_with_env(command, env):
+                import time
+                import platform
+                process = subprocess.Popen(
+                    command,
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.PIPE,
+                    shell=True,
+                    text=True,
+                    encoding='utf-8',
+                    bufsize=1,
+                    cwd=os.getcwd(),
+                    env=env
+                )
+                st.session_state['test_process'] = process
+                st.session_state['log_output'] = ""
+                st.session_state['return_code'] = None
+                st.session_state['stderr_output'] = ""
+                st.session_state['stop_requested'] = False
+                log_placeholder = st.empty()
+                log_output = ""
+                while True:
+                    if st.session_state.get('stop_requested', False):
+                        try:
+                            if platform.system() == "Windows":
+                                os.system(f"taskkill /F /T /PID {process.pid}")
+                            else:
+                                process.terminate()
+                        except Exception:
+                            pass
+                        break
+                    line = process.stdout.readline()
+                    if not line:
+                        if process.poll() is not None:
+                            break
+                        time.sleep(0.1)
+                        continue
+                    log_output += line
+                    st.session_state['log_output'] = log_output
+                    log_placeholder.code(log_output, language="log")
+                    time.sleep(0.05)
+                process.stdout.close()
+                return_code = process.wait()
+                stderr_output = process.stderr.read()
+                st.session_state['test_process'] = None
+                st.session_state['return_code'] = return_code
+                st.session_state['stderr_output'] = stderr_output
+                st.session_state['stop_requested'] = False
+                return process
+            run_pytest_with_env(command, custom_env)
             st.rerun()  # Force UI to update button and log placeholders
         else:
             # Stop test run
@@ -208,14 +316,79 @@ with tabs[0]:
             st.error("Test run finished with errors. See logs and report for details.")
     if os.path.exists(HTML_REPORT):
         with open(HTML_REPORT, "r", encoding="utf-8") as f:
-            st.download_button("Download HTML Report", f, file_name="test_report.html")
+            html_content = f.read()
+        st.download_button("Download HTML Report", html_content, file_name="test_report.html")
         st.markdown(f'<a href="file:///{os.path.abspath(HTML_REPORT)}" target="_blank">View HTML Report</a>', unsafe_allow_html=True)
     screenshots_dir = os.path.join(ARTIFACTS_DIR, "screenshots")
-    if os.path.exists(screenshots_dir):
-        screenshots = glob.glob(os.path.join(screenshots_dir, "*.png"))
-        if screenshots:
-            st.subheader("\U0001F4F7 Screenshots on Failure")
-            for screenshot in screenshots:
-                st.image(screenshot, caption=os.path.basename(screenshot))
+    # Show only the latest Trinus run evidence (screenshots) with timestamp in caption
+    # Evidence display logic: only show after a test run, never preload
+    import json, re
+    def friendly_name(filename):
+        # Remove extension, replace underscores with spaces, capitalize
+        base = os.path.splitext(os.path.basename(filename))[0]
+        return re.sub(r'[_]+', ' ', base).title()
+
+    def ai_summary_trinus(result):
+        """Generate a concise summary for Trinus test results."""
+        total = len(result.get('visited', []))
+        passed = sum(1 for v in result.get('visited', []) if v.get('status', '').startswith('Passed'))
+        failed = total - passed
+        errors = [v for v in result.get('visited', []) if v.get('status', '').startswith('Failed')]
+        summary = (
+            "This test visits all top navigation and submenu pages on trinus.com, scrolling and capturing screenshots. "
+            f"Visited {total} pages: {passed} passed, {failed} failed."
+        )
+        if errors:
+            summary += "\nErrors: " + "; ".join(f"{e['name']}: {e['status']}" for e in errors[:2])
+            if len(errors) > 2:
+                summary += f" (+{len(errors)-2} more)"
+        elif failed == 0:
+            summary += " All pages loaded successfully."
+        return summary
+
+    # Only show evidence if a test run just finished
+    if return_code is not None:
+        # Trinus evidence
+        trinus_dir = os.path.join(ARTIFACTS_DIR, "trinus")
+        if os.path.exists(trinus_dir):
+            run_dirs = [d for d in glob.glob(os.path.join(trinus_dir, "*")) if os.path.isdir(d)]
+            if run_dirs:
+                latest_run = max(run_dirs, key=os.path.basename)
+                result_json = os.path.join(latest_run, "result.json")
+                summary_txt = os.path.join(latest_run, "result_summary.txt")
+                if os.path.exists(result_json):
+                    with open(result_json, encoding="utf-8") as f:
+                        result = json.load(f)
+                    run_start = st.session_state.get('run_start_time', None)
+                    # Human-friendly header
+                    dt_str = datetime.strptime(result['timestamp'], "%Y%m%dT%H%M%SZ").strftime("%Y-%m-%d %H:%M:%S")
+                    st.subheader(f"\U0001F4F7 Trinus Site Tour – {dt_str}")
+                    # --- Verbose summary block ---
+                    if os.path.exists(summary_txt):
+                        with open(summary_txt, encoding="utf-8") as sf:
+                            st.markdown(sf.read())
+                    else:
+                        st.info(ai_summary_trinus(result))
+                    # ---
+                    for step in result.get("visited", []):
+                        screenshot = step.get("screenshot")
+                        if screenshot and os.path.exists(screenshot):
+                            if not run_start or os.path.getmtime(screenshot) >= run_start:
+                                # Caption: Test Case | Step | Timestamp
+                                page = step.get('name', '')
+                                ts = dt_str
+                                st.image(screenshot, caption=f"Trinus Site Tour | {page} | {ts}")
+
+        # Generic screenshots (UI, API, etc.)
+        screenshots_dir = os.path.join(ARTIFACTS_DIR, "screenshots")
+        if os.path.exists(screenshots_dir):
+            run_start = st.session_state.get('run_start_time', None)
+            recent_screens = [f for f in glob.glob(os.path.join(screenshots_dir, "*.png"))
+                              if not run_start or os.path.getmtime(f) >= run_start]
+            if recent_screens:
+                st.subheader(f"\U0001F4F7 Test Evidence ({datetime.now().strftime('%Y-%m-%d %H:%M:%S')})")
+                for img in sorted(recent_screens, key=os.path.getmtime):
+                    status = "Passed" if "pass" in img.lower() else ("Failed" if "fail" in img.lower() else "")
+                    st.image(img, caption=f"{friendly_name(img)} | {status} | {datetime.fromtimestamp(os.path.getmtime(img)).strftime('%Y-%m-%d %H:%M:%S')}")
     if not log_output and not test_running:
         st.info("Select test markers from the sidebar and click 'Run Tests' to begin.")

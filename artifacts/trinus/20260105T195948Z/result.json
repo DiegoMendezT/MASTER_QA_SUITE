@@ -1,0 +1,41 @@
+{
+  "timestamp": "20260105T195948Z",
+  "visited": [
+    {
+      "name": "Home (Scroll 1)",
+      "url": "https://trinus.com/",
+      "screenshot": "C:\\Users\\Diego_Alejandro\\Projects\\MASTER_QA_SUITE\\artifacts\\trinus\\20260105T195948Z\\Home_Scroll1_20260105T195948Z.png",
+      "status": "Passed"
+    },
+    {
+      "name": "Home (Scroll 2)",
+      "url": "https://trinus.com/",
+      "screenshot": "C:\\Users\\Diego_Alejandro\\Projects\\MASTER_QA_SUITE\\artifacts\\trinus\\20260105T195948Z\\Home_Scroll2_20260105T195948Z.png",
+      "status": "Passed"
+    },
+    {
+      "name": "Home (Scroll 1)",
+      "url": "https://trinus.com/",
+      "screenshot": "C:\\Users\\Diego_Alejandro\\Projects\\MASTER_QA_SUITE\\artifacts\\trinus\\20260105T195948Z\\Home_Scroll1_20260105T195948Z.png",
+      "status": "Passed"
+    },
+    {
+      "name": "Home (Scroll 2)",
+      "url": "https://trinus.com/",
+      "screenshot": "C:\\Users\\Diego_Alejandro\\Projects\\MASTER_QA_SUITE\\artifacts\\trinus\\20260105T195948Z\\Home_Scroll2_20260105T195948Z.png",
+      "status": "Passed"
+    },
+    {
+      "name": "Services > Business Intelligence & Analytics (Scroll 1)",
+      "url": "https://trinus.com/business-intelligence-analytics/",
+      "screenshot": "C:\\Users\\Diego_Alejandro\\Projects\\MASTER_QA_SUITE\\artifacts\\trinus\\20260105T195948Z\\Services_>_Business_Intelligence_&_Analytics_Scroll1_20260105T195948Z.png",
+      "status": "Passed"
+    },
+    {
+      "name": "Services > Business Intelligence & Analytics (Scroll 2)",
+      "url": "https://trinus.com/business-intelligence-analytics/",
+      "screenshot": "C:\\Users\\Diego_Alejandro\\Projects\\MASTER_QA_SUITE\\artifacts\\trinus\\20260105T195948Z\\Services_>_Business_Intelligence_&_Analytics_Scroll2_20260105T195948Z.png",
+      "status": "Passed"
+    }
+  ]
+}

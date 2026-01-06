@@ -1,0 +1,209 @@
+{
+  "timestamp": "20260105T211433Z",
+  "visited": [
+    {
+      "name": "Home (Scroll 1)",
+      "url": "https://trinus.com/",
+      "screenshot": "C:\\Users\\Diego_Alejandro\\Projects\\MASTER_QA_SUITE\\artifacts\\trinus\\20260105T211433Z\\Home_Scroll1_20260105T211433Z.png",
+      "status": "Passed"
+    },
+    {
+      "name": "Home (Scroll 2)",
+      "url": "https://trinus.com/",
+      "screenshot": "C:\\Users\\Diego_Alejandro\\Projects\\MASTER_QA_SUITE\\artifacts\\trinus\\20260105T211433Z\\Home_Scroll2_20260105T211433Z.png",
+      "status": "Passed"
+    },
+    {
+      "name": "Services > Business Intelligence & Analytics (Scroll 1)",
+      "url": "https://trinus.com/business-intelligence-analytics/",
+      "screenshot": "C:\\Users\\Diego_Alejandro\\Projects\\MASTER_QA_SUITE\\artifacts\\trinus\\20260105T211433Z\\Services_>_Business_Intelligence_&_Analytics_Scroll1_20260105T211433Z.png",
+      "status": "Passed"
+    },
+    {
+      "name": "Services > Business Intelligence & Analytics (Scroll 2)",
+      "url": "https://trinus.com/business-intelligence-analytics/",
+      "screenshot": "C:\\Users\\Diego_Alejandro\\Projects\\MASTER_QA_SUITE\\artifacts\\trinus\\20260105T211433Z\\Services_>_Business_Intelligence_&_Analytics_Scroll2_20260105T211433Z.png",
+      "status": "Passed"
+    },
+    {
+      "name": "Services > Data Management (Scroll 1)",
+      "url": "https://trinus.com/data-management/",
+      "screenshot": "C:\\Users\\Diego_Alejandro\\Projects\\MASTER_QA_SUITE\\artifacts\\trinus\\20260105T211433Z\\Services_>_Data_Management_Scroll1_20260105T211433Z.png",
+      "status": "Passed"
+    },
+    {
+      "name": "Services > Data Management (Scroll 2)",
+      "url": "https://trinus.com/data-management/",
+      "screenshot": "C:\\Users\\Diego_Alejandro\\Projects\\MASTER_QA_SUITE\\artifacts\\trinus\\20260105T211433Z\\Services_>_Data_Management_Scroll2_20260105T211433Z.png",
+      "status": "Passed"
+    },
+    {
+      "name": "Services > Cloud Engineering (Scroll 1)",
+      "url": "https://trinus.com/cloud-engineering/",
+      "screenshot": "C:\\Users\\Diego_Alejandro\\Projects\\MASTER_QA_SUITE\\artifacts\\trinus\\20260105T211433Z\\Services_>_Cloud_Engineering_Scroll1_20260105T211433Z.png",
+      "status": "Passed"
+    },
+    {
+      "name": "Services > Cloud Engineering (Scroll 2)",
+      "url": "https://trinus.com/cloud-engineering/",
+      "screenshot": "C:\\Users\\Diego_Alejandro\\Projects\\MASTER_QA_SUITE\\artifacts\\trinus\\20260105T211433Z\\Services_>_Cloud_Engineering_Scroll2_20260105T211433Z.png",
+      "status": "Passed"
+    },
+    {
+      "name": "Services > IT Consulting (Scroll 1)",
+      "url": "https://trinus.com/it-consulting/",
+      "screenshot": "C:\\Users\\Diego_Alejandro\\Projects\\MASTER_QA_SUITE\\artifacts\\trinus\\20260105T211433Z\\Services_>_IT_Consulting_Scroll1_20260105T211433Z.png",
+      "status": "Passed"
+    },
+    {
+      "name": "Services > IT Consulting (Scroll 2)",
+      "url": "https://trinus.com/it-consulting/",
+      "screenshot": "C:\\Users\\Diego_Alejandro\\Projects\\MASTER_QA_SUITE\\artifacts\\trinus\\20260105T211433Z\\Services_>_IT_Consulting_Scroll2_20260105T211433Z.png",
+      "status": "Passed"
+    },
+    {
+      "name": "Services > Managed Services (Scroll 1)",
+      "url": "https://trinus.com/managed-services/",
+      "screenshot": "C:\\Users\\Diego_Alejandro\\Projects\\MASTER_QA_SUITE\\artifacts\\trinus\\20260105T211433Z\\Services_>_Managed_Services_Scroll1_20260105T211433Z.png",
+      "status": "Passed"
+    },
+    {
+      "name": "Services > Managed Services (Scroll 2)",
+      "url": "https://trinus.com/managed-services/",
+      "screenshot": "C:\\Users\\Diego_Alejandro\\Projects\\MASTER_QA_SUITE\\artifacts\\trinus\\20260105T211433Z\\Services_>_Managed_Services_Scroll2_20260105T211433Z.png",
+      "status": "Passed"
+    },
+    {
+      "name": "Industries > Government (Scroll 1)",
+      "url": "https://trinus.com/government-utilities-experiences/",
+      "screenshot": "C:\\Users\\Diego_Alejandro\\Projects\\MASTER_QA_SUITE\\artifacts\\trinus\\20260105T211433Z\\Industries_>_Government_Scroll1_20260105T211433Z.png",
+      "status": "Passed"
+    },
+    {
+      "name": "Industries > Government (Scroll 2)",
+      "url": "https://trinus.com/government-utilities-experiences/",
+      "screenshot": "C:\\Users\\Diego_Alejandro\\Projects\\MASTER_QA_SUITE\\artifacts\\trinus\\20260105T211433Z\\Industries_>_Government_Scroll2_20260105T211433Z.png",
+      "status": "Passed"
+    },
+    {
+      "name": "Industries > Life Sciences (Scroll 1)",
+      "url": "https://trinus.com/life-sciences/",
+      "screenshot": "C:\\Users\\Diego_Alejandro\\Projects\\MASTER_QA_SUITE\\artifacts\\trinus\\20260105T211433Z\\Industries_>_Life_Sciences_Scroll1_20260105T211433Z.png",
+      "status": "Passed"
+    },
+    {
+      "name": "Industries > Life Sciences (Scroll 2)",
+      "url": "https://trinus.com/life-sciences/",
+      "screenshot": "C:\\Users\\Diego_Alejandro\\Projects\\MASTER_QA_SUITE\\artifacts\\trinus\\20260105T211433Z\\Industries_>_Life_Sciences_Scroll2_20260105T211433Z.png",
+      "status": "Passed"
+    },
+    {
+      "name": "Industries > Utilities (Scroll 1)",
+      "url": "https://trinus.com/government-utilities/",
+      "screenshot": "C:\\Users\\Diego_Alejandro\\Projects\\MASTER_QA_SUITE\\artifacts\\trinus\\20260105T211433Z\\Industries_>_Utilities_Scroll1_20260105T211433Z.png",
+      "status": "Passed"
+    },
+    {
+      "name": "Industries > Utilities (Scroll 2)",
+      "url": "https://trinus.com/government-utilities/",
+      "screenshot": "C:\\Users\\Diego_Alejandro\\Projects\\MASTER_QA_SUITE\\artifacts\\trinus\\20260105T211433Z\\Industries_>_Utilities_Scroll2_20260105T211433Z.png",
+      "status": "Passed"
+    },
+    {
+      "name": "Company > About Us (Scroll 1)",
+      "url": "https://trinus.com/about-us/",
+      "screenshot": "C:\\Users\\Diego_Alejandro\\Projects\\MASTER_QA_SUITE\\artifacts\\trinus\\20260105T211433Z\\Company_>_About_Us_Scroll1_20260105T211433Z.png",
+      "status": "Passed"
+    },
+    {
+      "name": "Company > About Us (Scroll 2)",
+      "url": "https://trinus.com/about-us/",
+      "screenshot": "C:\\Users\\Diego_Alejandro\\Projects\\MASTER_QA_SUITE\\artifacts\\trinus\\20260105T211433Z\\Company_>_About_Us_Scroll2_20260105T211433Z.png",
+      "status": "Passed"
+    },
+    {
+      "name": "Company > Our People (Scroll 1)",
+      "url": "https://trinus.com/our-people/",
+      "screenshot": "C:\\Users\\Diego_Alejandro\\Projects\\MASTER_QA_SUITE\\artifacts\\trinus\\20260105T211433Z\\Company_>_Our_People_Scroll1_20260105T211433Z.png",
+      "status": "Passed"
+    },
+    {
+      "name": "Company > Our People (Scroll 2)",
+      "url": "https://trinus.com/our-people/",
+      "screenshot": "C:\\Users\\Diego_Alejandro\\Projects\\MASTER_QA_SUITE\\artifacts\\trinus\\20260105T211433Z\\Company_>_Our_People_Scroll2_20260105T211433Z.png",
+      "status": "Passed"
+    },
+    {
+      "name": "Company > Technology Alliances (Scroll 1)",
+      "url": "https://trinus.com/technology-alliances/",
+      "screenshot": "C:\\Users\\Diego_Alejandro\\Projects\\MASTER_QA_SUITE\\artifacts\\trinus\\20260105T211433Z\\Company_>_Technology_Alliances_Scroll1_20260105T211433Z.png",
+      "status": "Passed"
+    },
+    {
+      "name": "Company > Technology Alliances (Scroll 2)",
+      "url": "https://trinus.com/technology-alliances/",
+      "screenshot": "C:\\Users\\Diego_Alejandro\\Projects\\MASTER_QA_SUITE\\artifacts\\trinus\\20260105T211433Z\\Company_>_Technology_Alliances_Scroll2_20260105T211433Z.png",
+      "status": "Passed"
+    },
+    {
+      "name": "Join Trinus (Scroll 1)",
+      "url": "https://trinus.com/career/",
+      "screenshot": "C:\\Users\\Diego_Alejandro\\Projects\\MASTER_QA_SUITE\\artifacts\\trinus\\20260105T211433Z\\Join_Trinus_Scroll1_20260105T211433Z.png",
+      "status": "Passed"
+    },
+    {
+      "name": "Join Trinus (Scroll 2)",
+      "url": "https://trinus.com/career/",
+      "screenshot": "C:\\Users\\Diego_Alejandro\\Projects\\MASTER_QA_SUITE\\artifacts\\trinus\\20260105T211433Z\\Join_Trinus_Scroll2_20260105T211433Z.png",
+      "status": "Passed"
+    },
+    {
+      "name": "Insights > Blogs (Scroll 1)",
+      "url": "https://trinus.com/blogs/",
+      "screenshot": "C:\\Users\\Diego_Alejandro\\Projects\\MASTER_QA_SUITE\\artifacts\\trinus\\20260105T211433Z\\Insights_>_Blogs_Scroll1_20260105T211433Z.png",
+      "status": "Passed"
+    },
+    {
+      "name": "Insights > Blogs (Scroll 2)",
+      "url": "https://trinus.com/blogs/",
+      "screenshot": "C:\\Users\\Diego_Alejandro\\Projects\\MASTER_QA_SUITE\\artifacts\\trinus\\20260105T211433Z\\Insights_>_Blogs_Scroll2_20260105T211433Z.png",
+      "status": "Passed"
+    },
+    {
+      "name": "Insights > Case Studies (Scroll 1)",
+      "url": "https://trinus.com/case-studies/",
+      "screenshot": "C:\\Users\\Diego_Alejandro\\Projects\\MASTER_QA_SUITE\\artifacts\\trinus\\20260105T211433Z\\Insights_>_Case_Studies_Scroll1_20260105T211433Z.png",
+      "status": "Passed"
+    },
+    {
+      "name": "Insights > Case Studies (Scroll 2)",
+      "url": "https://trinus.com/case-studies/",
+      "screenshot": "C:\\Users\\Diego_Alejandro\\Projects\\MASTER_QA_SUITE\\artifacts\\trinus\\20260105T211433Z\\Insights_>_Case_Studies_Scroll2_20260105T211433Z.png",
+      "status": "Passed"
+    },
+    {
+      "name": "Insights > Polls (Scroll 1)",
+      "url": "https://trinus.com/polls/",
+      "screenshot": "C:\\Users\\Diego_Alejandro\\Projects\\MASTER_QA_SUITE\\artifacts\\trinus\\20260105T211433Z\\Insights_>_Polls_Scroll1_20260105T211433Z.png",
+      "status": "Passed"
+    },
+    {
+      "name": "Insights > Polls (Scroll 2)",
+      "url": "https://trinus.com/polls/",
+      "screenshot": "C:\\Users\\Diego_Alejandro\\Projects\\MASTER_QA_SUITE\\artifacts\\trinus\\20260105T211433Z\\Insights_>_Polls_Scroll2_20260105T211433Z.png",
+      "status": "Passed"
+    },
+    {
+      "name": "Contact Us (Scroll 1)",
+      "url": "https://trinus.com/contact-us/",
+      "screenshot": "C:\\Users\\Diego_Alejandro\\Projects\\MASTER_QA_SUITE\\artifacts\\trinus\\20260105T211433Z\\Contact_Us_Scroll1_20260105T211433Z.png",
+      "status": "Passed"
+    },
+    {
+      "name": "Contact Us (Scroll 2)",
+      "url": "https://trinus.com/contact-us/",
+      "screenshot": "C:\\Users\\Diego_Alejandro\\Projects\\MASTER_QA_SUITE\\artifacts\\trinus\\20260105T211433Z\\Contact_Us_Scroll2_20260105T211433Z.png",
+      "status": "Passed"
+    }
+  ]
+}

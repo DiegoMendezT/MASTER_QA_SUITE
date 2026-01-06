@@ -1,0 +1,99 @@
+--- TEST START ---
+Could not get Chrome version: [WinError 2] The system cannot find the file specified
+Chromedriver path: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\.venv\Lib\site-packages\chromedriver_autoinstaller\143\chromedriver.EXE
+Chromedriver version: ChromeDriver 143.0.7499.169 (164b20aab62509dad21fd46383951aeec084ad1e-refs/branch-heads/7499@{#3399})
+Attempting to launch Chrome driver...
+Chrome driver launched successfully.
+Visiting: Home | https://trinus.com/
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Home_Scroll1_20260106T002640Z.png
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Home_Scroll2_20260106T002640Z.png
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Home_Scroll3_20260106T002640Z.png
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Home_Scroll4_20260106T002640Z.png
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Home_Scroll5_20260106T002640Z.png
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Home_Scroll6_20260106T002640Z.png
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Home_Scroll7_20260106T002640Z.png
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Home_Scroll8_20260106T002640Z.png
+Visiting: Services > Business Intelligence & Analytics | https://trinus.com/business-intelligence-analytics/
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Services__Business_Intelligence_and_Analytics_Scroll1_20260106T002640Z.png
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Services__Business_Intelligence_and_Analytics_Scroll2_20260106T002640Z.png
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Services__Business_Intelligence_and_Analytics_Scroll3_20260106T002640Z.png
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Services__Business_Intelligence_and_Analytics_Scroll4_20260106T002640Z.png
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Services__Business_Intelligence_and_Analytics_Scroll5_20260106T002640Z.png
+Visiting: Services > Data Management | https://trinus.com/data-management/
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Services__Data_Management_Scroll1_20260106T002640Z.png
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Services__Data_Management_Scroll2_20260106T002640Z.png
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Services__Data_Management_Scroll3_20260106T002640Z.png
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Services__Data_Management_Scroll4_20260106T002640Z.png
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Services__Data_Management_Scroll5_20260106T002640Z.png
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Services__Data_Management_Scroll6_20260106T002640Z.png
+Visiting: Services > Cloud Engineering | https://trinus.com/cloud-engineering/
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Services__Cloud_Engineering_Scroll1_20260106T002640Z.png
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Services__Cloud_Engineering_Scroll2_20260106T002640Z.png
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Services__Cloud_Engineering_Scroll3_20260106T002640Z.png
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Services__Cloud_Engineering_Scroll4_20260106T002640Z.png
+Visiting: Services > IT Consulting | https://trinus.com/it-consulting/
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Services__IT_Consulting_Scroll1_20260106T002640Z.png
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Services__IT_Consulting_Scroll2_20260106T002640Z.png
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Services__IT_Consulting_Scroll3_20260106T002640Z.png
+Visiting: Services > Managed Services | https://trinus.com/managed-services/
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Services__Managed_Services_Scroll1_20260106T002640Z.png
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Services__Managed_Services_Scroll2_20260106T002640Z.png
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Services__Managed_Services_Scroll3_20260106T002640Z.png
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Services__Managed_Services_Scroll4_20260106T002640Z.png
+Visiting: Industries > Government | https://trinus.com/government-utilities-experiences/
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Industries__Government_Scroll1_20260106T002640Z.png
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Industries__Government_Scroll2_20260106T002640Z.png
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Industries__Government_Scroll3_20260106T002640Z.png
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Industries__Government_Scroll4_20260106T002640Z.png
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Industries__Government_Scroll5_20260106T002640Z.png
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Industries__Government_Scroll6_20260106T002640Z.png
+Visiting: Industries > Life Sciences | https://trinus.com/life-sciences/
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Industries__Life_Sciences_Scroll1_20260106T002640Z.png
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Industries__Life_Sciences_Scroll2_20260106T002640Z.png
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Industries__Life_Sciences_Scroll3_20260106T002640Z.png
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Industries__Life_Sciences_Scroll4_20260106T002640Z.png
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Industries__Life_Sciences_Scroll5_20260106T002640Z.png
+Visiting: Industries > Utilities | https://trinus.com/government-utilities/
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Industries__Utilities_Scroll1_20260106T002640Z.png
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Industries__Utilities_Scroll2_20260106T002640Z.png
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Industries__Utilities_Scroll3_20260106T002640Z.png
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Industries__Utilities_Scroll4_20260106T002640Z.png
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Industries__Utilities_Scroll5_20260106T002640Z.png
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Industries__Utilities_Scroll6_20260106T002640Z.png
+Visiting: Company > About Us | https://trinus.com/about-us/
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Company__About_Us_Scroll1_20260106T002640Z.png
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Company__About_Us_Scroll2_20260106T002640Z.png
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Company__About_Us_Scroll3_20260106T002640Z.png
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Company__About_Us_Scroll4_20260106T002640Z.png
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Company__About_Us_Scroll5_20260106T002640Z.png
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Company__About_Us_Scroll6_20260106T002640Z.png
+Visiting: Company > Our People | https://trinus.com/our-people/
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Company__Our_People_Scroll1_20260106T002640Z.png
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Company__Our_People_Scroll2_20260106T002640Z.png
+Visiting: Company > Technology Alliances | https://trinus.com/technology-alliances/
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Company__Technology_Alliances_Scroll1_20260106T002640Z.png
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Company__Technology_Alliances_Scroll2_20260106T002640Z.png
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Company__Technology_Alliances_Scroll3_20260106T002640Z.png
+Visiting: Join Trinus | https://trinus.com/career/
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Join_Trinus_Scroll1_20260106T002640Z.png
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Join_Trinus_Scroll2_20260106T002640Z.png
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Join_Trinus_Scroll3_20260106T002640Z.png
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Join_Trinus_Scroll4_20260106T002640Z.png
+Visiting: Insights > Blogs | https://trinus.com/blogs/
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Insights__Blogs_Scroll1_20260106T002640Z.png
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Insights__Blogs_Scroll2_20260106T002640Z.png
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Insights__Blogs_Scroll3_20260106T002640Z.png
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Insights__Blogs_Scroll4_20260106T002640Z.png
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Insights__Blogs_Scroll5_20260106T002640Z.png
+Visiting: Insights > Case Studies | https://trinus.com/case-studies/
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Insights__Case_Studies_Scroll1_20260106T002640Z.png
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Insights__Case_Studies_Scroll2_20260106T002640Z.png
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Insights__Case_Studies_Scroll3_20260106T002640Z.png
+Visiting: Insights > Polls | https://trinus.com/polls/
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Insights__Polls_Scroll1_20260106T002640Z.png
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Insights__Polls_Scroll2_20260106T002640Z.png
+Visiting: Contact Us | https://trinus.com/contact-us/
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Contact_Us_Scroll1_20260106T002640Z.png
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Contact_Us_Scroll2_20260106T002640Z.png
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Contact_Us_Scroll3_20260106T002640Z.png
+  Saved screenshot: C:\Users\Diego_Alejandro\Projects\MASTER_QA_SUITE\artifacts\trinus\20260106T002640Z\Contact_Us_Scroll4_20260106T002640Z.png

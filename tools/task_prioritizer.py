@@ -3,7 +3,7 @@ from __future__ import annotations
 import argparse
 import datetime as dt
 import json
-from dataclasses import asdict, dataclass, field
+from dataclasses import asdict, dataclass, field, fields
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
@@ -59,7 +59,8 @@ def _load_tasks() -> List[Task]:
 
     tasks: List[Task] = []
     seen: set[str] = set()
-    task_fields = {f.name for f in field(Task) if f.init}
+    # use dataclasses.fields to reflect Task fields for safe filtering
+    task_fields = {f.name for f in fields(Task) if f.init}
 
     def add(raw: Dict[str, Any]):
         # normalize keys

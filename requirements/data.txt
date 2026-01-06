@@ -111,7 +111,7 @@ rich==14.1.0
     # via keras
 scikit-learn==1.7.1
     # via -r requirements/data.in
-scipy==1.16.1
+scipy>=1.10.0
     # via scikit-learn
 six==1.17.0
     # via
