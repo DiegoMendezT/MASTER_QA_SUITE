@@ -1,31 +1,53 @@
-"""
-Pytest configuration and fixtures for MASTER QA SUITE v2.0
-"""
-import logging
-import os
+import chromedriver_autoinstaller
 import shutil
 import tempfile
+import logging
 import threading
-
-import allure
-import pytest
-import yaml
-from allure_commons.types import AttachmentType
-from applitools.selenium import BatchInfo, Configuration, Eyes, Target
-from chromedriver_autoinstaller import install
-from dotenv import load_dotenv
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
-
-# Load environment variables from .env file
-load_dotenv()
-
-# Set up basic logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-
-# Thread-local storage for resources that need to be unique per thread/worker
 thread_local_data = threading.local()
+import yaml
+import pytest
+import os
+from pathlib import Path
+from utils.test_reporting import write_test_summary
+
+# Store test outcomes by marker
+def pytest_configure(config):
+    config._marker_outcomes = {}
+
+def pytest_runtest_logreport(report):
+    if report.when == "call":
+        item = getattr(report, "_pyfuncitem", None)
+        if item is not None:
+            for marker in item.iter_markers():
+                marker_name = marker.name.lower()
+                config = item.config
+                if not hasattr(config, "_marker_outcomes"):
+                    config._marker_outcomes = {}
+                if marker_name not in config._marker_outcomes:
+                    config._marker_outcomes[marker_name] = []
+                config._marker_outcomes[marker_name].append({
+                    'name': getattr(item, 'name', report.nodeid),
+                    'outcome': report.outcome,
+                    'nodeid': report.nodeid
+                })
+
+def pytest_sessionfinish(session, exitstatus):
+    marker_results = getattr(session.config, "_marker_outcomes", {})
+    # Always generate summary files for UI and API markers, even if no results
+    all_possible_markers = set(marker_results.keys()) | {"ui", "api"}
+    for marker in all_possible_markers:
+        results = marker_results.get(marker, [])
+        metadata = {
+            'test_name': f'{marker.upper()} Test Suite',
+            'component': marker,
+            'test_level': 'Automated',
+            'test_type': marker,
+            'environment': os.environ.get('ENV', 'N/A'),
+        }
+        from utils.test_reporting import write_test_summary
+        summary_path = Path(f"artifacts/result_summary_{marker}.txt")
+        write_test_summary(metadata, {"visited": results}, summary_path)
+# Thread-local storage for resources that need to be unique per thread/worker
 
 # --- Constants ---
 SAUCE_ENABLED = bool(os.getenv("SAUCE_USERNAME") and os.getenv("SAUCE_ACCESS_KEY"))
@@ -202,12 +224,15 @@ def driver(config, request):
         else: # Default to local Chrome with hardened profile
             temp_profile_dir = tempfile.mkdtemp()
             try:
-                install()
+                # Install chromedriver to a user-writable temp directory
+                chromedriver_autoinstaller.install(path=temp_profile_dir)
             except Exception as e:
                 logging.error(f"Error installing ChromeDriver: {e}")
                 pytest.fail("ChromeDriver installation failed.")
 
-            options = Options()
+            from selenium import webdriver
+            from selenium.webdriver.chrome.options import Options as ChromeOptions
+            options = ChromeOptions()
             # Optionally run headless for DEMO AUT tests (controlled by UI or CLI)
             if headless_cli:
                 options.add_argument("--headless=new")

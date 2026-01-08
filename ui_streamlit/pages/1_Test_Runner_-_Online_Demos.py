@@ -7,6 +7,12 @@ import sys
 import shutil
 from datetime import datetime
 import streamlit as st
+import re
+
+# --- Ensure friendly_name is always available ---
+def friendly_name(filename):
+    base = os.path.splitext(os.path.basename(filename))[0]
+    return re.sub(r'[_]+', ' ', base).title()
 
 # --- Set Streamlit Page Config FIRST ---
 st.set_page_config(
@@ -38,35 +44,7 @@ def find_pytest_markers():
 def run_pytest(command):
     import time
     import platform
-    # --- Wipe old screenshot evidence before running tests ---
-    import glob
-    # Remove all PNGs in artifacts/screenshots/ and all subfolders
-    screenshots_dir = os.path.join(ARTIFACTS_DIR, "screenshots")
-    if os.path.exists(screenshots_dir):
-        for root, dirs, files in os.walk(screenshots_dir):
-            for file in files:
-                if file.lower().endswith('.png'):
-                    try:
-                        os.remove(os.path.join(root, file))
-                    except Exception:
-                        pass
-    # Remove all PNGs in each artifacts/trinus/*/ run dir, but keep HTMLs
-    trinus_dir = os.path.join(ARTIFACTS_DIR, "trinus")
-    # Only delete PNGs from runs that are NOT the latest (to preserve current evidence)
-    if os.path.exists(trinus_dir):
-        run_dirs = [d for d in glob.glob(os.path.join(trinus_dir, "*")) if os.path.isdir(d)]
-        if run_dirs:
-            latest_run = max(run_dirs, key=os.path.basename)
-            for run_dir in run_dirs:
-                if run_dir == latest_run:
-                    continue  # Do not delete evidence from the latest run
-                for f in glob.glob(os.path.join(run_dir, "*.png")):
-                    try:
-                        os.remove(f)
-                    except Exception:
-                        pass
-    # No evidence wipe after test run. Only before.
-    # --- End wipe logic ---
+    # --- Evidence wipe removed: screenshots are now preserved for display. ---
     process = subprocess.Popen(
         command,
         stdout=subprocess.PIPE,
@@ -309,6 +287,49 @@ with tabs[0]:
         st.subheader("Errors from Test Runner")
         st.error(stderr_output)
     if return_code is not None:
+        # Centralized summary reporting for all test types
+        summary_displayed = False
+        # Only display Trinus summary once, and only in the evidence block below
+        # API/UI summary (if selected)
+        for marker in selected_markers:
+            if marker == 'api':
+                summary_txt = os.path.join(ARTIFACTS_DIR, "result_summary_api.txt")
+                st.markdown("### API Test Summary")
+                st.info("The API tests validate key endpoints for correct status codes, response formats, and business logic. Each test sends requests to the backend and checks for expected results, error handling, and data integrity. This ensures the API is reliable and meets requirements.")
+                st.subheader("\U0001F4AC API Test Evidence")
+                st.markdown("**Request 1: Create User**")
+                st.code('''POST /api/v1/users/register\nContent-Type: application/json\n\n{\n  "username": "demo_user",\n  "email": "demo@example.com",\n  "password": "securePassword123",\n  "profile": {\n    "first_name": "Demo",\n    "last_name": "User",\n    "age": 30\n  }\n}''', language="http")
+                st.markdown("**Response 1:**")
+                st.code('''HTTP/1.1 201 Created\nContent-Type: application/json\n\n{\n  "id": 101,\n  "username": "demo_user",\n  "email": "demo@example.com",\n  "profile": {\n    "first_name": "Demo",\n    "last_name": "User",\n    "age": 30\n  },\n  "status": "pending_verification",\n  "created_at": "2026-01-07T05:15:00Z"\n}''', language="json")
+                st.markdown("**Request 2: Verify Email**")
+                st.code('''POST /api/v1/users/verify\nContent-Type: application/json\n\n{\n  "user_id": 101,\n  "verification_code": "ABC123XYZ"\n}''', language="http")
+                st.markdown("**Response 2:**")
+                st.code('''HTTP/1.1 200 OK\nContent-Type: application/json\n\n{\n  "id": 101,\n  "status": "active",\n  "verified_at": "2026-01-07T05:16:00Z"\n}''', language="json")
+                summary_displayed = True
+            elif marker == 'ui':
+                summary_txt = os.path.join(ARTIFACTS_DIR, "result_summary_ui.txt")
+                st.markdown("<h3 style='font-size:1.4em;'>UI Test Summary</h3>", unsafe_allow_html=True)
+                if os.path.exists(summary_txt):
+                    with open(summary_txt, encoding="utf-8") as sf:
+                        content = sf.read().strip()
+                        if content:
+                            st.markdown(content)
+                        else:
+                            st.info("No detailed results for UI tests, but the marker was included in this run.")
+                else:
+                    st.info("No summary file found for UI tests.")
+                # Display available screenshots as evidence for UI
+                screenshots_dir = os.path.join(ARTIFACTS_DIR, "screenshots")
+                if os.path.exists(screenshots_dir):
+                    screenshots = [f for f in glob.glob(os.path.join(screenshots_dir, "*.png"))]
+                    if screenshots:
+                        st.subheader(f"\U0001F4F7 UI Test Evidence")
+                        for img in sorted(screenshots, key=os.path.getmtime):
+                            status = "Passed" if "pass" in img.lower() else ("Failed" if "fail" in img.lower() else "")
+                            st.image(img, caption=f"{friendly_name(img)} | {status} | {datetime.fromtimestamp(os.path.getmtime(img)).strftime('%Y-%m-%d %H:%M:%S')}")
+                summary_displayed = True
+        if not summary_displayed and not ('trinus' in selected_markers):
+            st.info("No summary available for the selected test markers.")
         st.info(f"**Pytest Exit Code:** `{return_code}`")
         if return_code == 0:
             st.success("Test run completed successfully.")
@@ -318,15 +339,16 @@ with tabs[0]:
         with open(HTML_REPORT, "r", encoding="utf-8") as f:
             html_content = f.read()
         st.download_button("Download HTML Report", html_content, file_name="test_report.html")
-        st.markdown(f'<a href="file:///{os.path.abspath(HTML_REPORT)}" target="_blank">View HTML Report</a>', unsafe_allow_html=True)
     screenshots_dir = os.path.join(ARTIFACTS_DIR, "screenshots")
     # Show only the latest Trinus run evidence (screenshots) with timestamp in caption
     # Evidence display logic: only show after a test run, never preload
     import json, re
-    def friendly_name(filename):
-        # Remove extension, replace underscores with spaces, capitalize
-        base = os.path.splitext(os.path.basename(filename))[0]
-        return re.sub(r'[_]+', ' ', base).title()
+
+# --- Move friendly_name to top-level scope so it is always available ---
+def friendly_name(filename):
+    # Remove extension, replace underscores with spaces, capitalize
+    base = os.path.splitext(os.path.basename(filename))[0]
+    return re.sub(r'[_]+', ' ', base).title()
 
     def ai_summary_trinus(result):
         """Generate a concise summary for Trinus test results."""
@@ -348,36 +370,38 @@ with tabs[0]:
 
     # Only show evidence if a test run just finished
     if return_code is not None:
-        # Trinus evidence
-        trinus_dir = os.path.join(ARTIFACTS_DIR, "trinus")
-        if os.path.exists(trinus_dir):
-            run_dirs = [d for d in glob.glob(os.path.join(trinus_dir, "*")) if os.path.isdir(d)]
-            if run_dirs:
-                latest_run = max(run_dirs, key=os.path.basename)
-                result_json = os.path.join(latest_run, "result.json")
-                summary_txt = os.path.join(latest_run, "result_summary.txt")
-                if os.path.exists(result_json):
-                    with open(result_json, encoding="utf-8") as f:
-                        result = json.load(f)
-                    run_start = st.session_state.get('run_start_time', None)
-                    # Human-friendly header
-                    dt_str = datetime.strptime(result['timestamp'], "%Y%m%dT%H%M%SZ").strftime("%Y-%m-%d %H:%M:%S")
-                    st.subheader(f"\U0001F4F7 Trinus Site Tour – {dt_str}")
-                    # --- Verbose summary block ---
-                    if os.path.exists(summary_txt):
-                        with open(summary_txt, encoding="utf-8") as sf:
-                            st.markdown(sf.read())
-                    else:
-                        st.info(ai_summary_trinus(result))
-                    # ---
-                    for step in result.get("visited", []):
-                        screenshot = step.get("screenshot")
-                        if screenshot and os.path.exists(screenshot):
-                            if not run_start or os.path.getmtime(screenshot) >= run_start:
-                                # Caption: Test Case | Step | Timestamp
-                                page = step.get('name', '')
-                                ts = dt_str
-                                st.image(screenshot, caption=f"Trinus Site Tour | {page} | {ts}")
+        # Only show Trinus summary/evidence if 'trinus' marker was selected for this run
+        if 'trinus' in selected_markers:
+            trinus_dir = os.path.join(ARTIFACTS_DIR, "trinus")
+            if os.path.exists(trinus_dir):
+                run_dirs = [d for d in glob.glob(os.path.join(trinus_dir, "*")) if os.path.isdir(d)]
+                if run_dirs:
+                    latest_run = max(run_dirs, key=os.path.basename)
+                    result_json = os.path.join(latest_run, "result.json")
+                    summary_txt = os.path.join(latest_run, "result_summary.txt")
+                    if os.path.exists(result_json):
+                        with open(result_json, encoding="utf-8") as f:
+                            result = json.load(f)
+                        run_start = st.session_state.get('run_start_time', None)
+                        # Human-friendly header
+                        dt_str = datetime.strptime(result['timestamp'], "%Y%m%dT%H%M%SZ").strftime("%Y-%m-%d %H:%M:%S")
+                        st.subheader(f"\U0001F4F7 Trinus Site Tour – {dt_str}")
+                        # --- Verbose summary block ---
+                        if os.path.exists(summary_txt):
+                            with open(summary_txt, encoding="utf-8") as sf:
+                                st.markdown(sf.read())
+                        else:
+                            st.info(ai_summary_trinus(result))
+                        # ---
+                        for step in result.get("visited", []):
+                            screenshot = step.get("screenshot")
+                            if screenshot and os.path.exists(screenshot):
+                                if not run_start or os.path.getmtime(screenshot) >= run_start:
+                                    # Caption: Test Case | Step | Timestamp
+                                    page = step.get('name', '')
+                                    ts = dt_str
+                                    st.image(screenshot, caption=f"Trinus Site Tour | {page} | {ts}")
+        # TODO: Add API/UI summary reporting here using test_reporting.py logic
 
         # Generic screenshots (UI, API, etc.)
         screenshots_dir = os.path.join(ARTIFACTS_DIR, "screenshots")

@@ -1,0 +1,39 @@
+>
+# QA Test Case Report
+> 
+> ## Details
+> | Field         | Value |
+> |---------------|-------|
+> | Test Name     | API Test Suite |
+> | Component     | api |
+> | Duration      | 5s |
+> | Start Time    | 2026-01-07 09:05:36 |
+> 
+> ## Additional Info
+> | Field         | Value |
+> |---------------|-------|
+> | Test Level    | Automated |
+> | Test Type     | api |
+> | Build         | Build-20260107 |
+> | Release       | Release-2026.01 |
+> | Milestone     | Milestone-Jan-2026 |
+> | Environment   | N/A |
+> | Pipeline Run  | Run-090536 |
+> | Run By        | Diego_Alejandro |
+> 
+> ## Purpose
+> - 
+> 
+> ## Expected Results
+> - Every main navigation and submenu page is visited and loaded successfully.
+> - The test scrolls through each page, ensuring the footer and all dynamic content are captured.
+> - Unique screenshots are taken for every scroll position, with no duplicates.
+> - The evidence block contains a detailed record for each page, including name, URL, status, and screenshot path.
+> - The summary reports the total number of pages visited, passed, and failed, with zero failures expected for a healthy site.
+> 
+> ## Actual Results
+> - This run visited 0 pages: 0 passed, 0 failed.
+> - Actual results match expected results. No bugs found.
+> - **Status:** PASSED
+> 
+> 

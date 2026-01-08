@@ -1,0 +1,16 @@
+{
+  "timestamp": "20260106T184542Z",
+  "start_url": "https://trinus.com/career",
+  "visited": [
+    {
+      "step": 0,
+      "url": "https://trinus.com/career/",
+      "screenshot": "C:\\Users\\Diego_Alejandro\\Projects\\MASTER_QA_SUITE\\artifacts\\trinus\\20260106T184542Z\\careers.png"
+    },
+    {
+      "step": 2,
+      "url": "https://trinus.com/career/",
+      "screenshot": "C:\\Users\\Diego_Alejandro\\Projects\\MASTER_QA_SUITE\\artifacts\\trinus\\20260106T184542Z\\filters.png"
+    }
+  ]
+}

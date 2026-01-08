@@ -4,5 +4,5 @@ metrics:
   config_files: 3
   page_object_files: 5
   self_reflection_tests: 1
-  total_test_files: 24
-  utility_modules: 11
+  total_test_files: 25
+  utility_modules: 12
