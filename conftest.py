@@ -72,6 +72,13 @@ def pytest_addoption(parser):
         default="UI Login", 
         help="Login method: 'UI Login' or 'API+Cookie Login'"
     )
+    parser.addoption(
+        "--demo-case",
+        action="store",
+        default=None,
+        choices=["trinus", "superbaterias"],
+        help="Run only the selected homepage demo case: 'trinus' or 'superbaterias'",
+    )
 
 def pytest_configure(config):
     # Make the selected engine visible in reports/metadata
@@ -314,36 +321,59 @@ def logged_in_driver(driver, active_integration_config, config, request):
 
 @pytest.hookimpl(hookwrapper=True, tryfirst=True)
 def pytest_runtest_makereport(item, call):
-    """Capture screenshot on test failure and report test status to Sauce Labs."""
+    """Capture screenshot evidence for UI tests and report test status to Sauce Labs."""
     outcome = yield
     rep = outcome.get_result()
-    
+
     # Store the result in the item for later use in the driver fixture
     if rep.when == "call":
         item.rep_call = rep
 
-    if rep.when == "call" and rep.failed:
-        try:
-            # --- Screenshot and Allure attachment on failure ---
-            if "driver" in item.fixturenames:
-                web_driver = item.funcargs['driver']
-                
-                # Create a valid filename for the screenshot
+    try:
+        if rep.when == "call" and "driver" in item.fixturenames:
+            web_driver = item.funcargs['driver']
+            has_ui_marker = any(marker.name == "ui" for marker in item.iter_markers())
+            if has_ui_marker:
                 test_name = item.name.encode('ascii', 'ignore').decode('ascii').replace('[', '_').replace(']', '')
                 screenshot_dir = os.path.join(os.path.dirname(__file__), 'artifacts', 'screenshots')
                 os.makedirs(screenshot_dir, exist_ok=True)
-                screenshot_path = os.path.join(screenshot_dir, f"{test_name}_failed.png")
-                
-                # Save screenshot
+                if rep.failed:
+                    screenshot_path = os.path.join(screenshot_dir, f"ui_{test_name}_failed.png")
+                    screenshot_label = "failure_screenshot"
+                else:
+                    screenshot_path = os.path.join(screenshot_dir, f"ui_{test_name}_passed.png")
+                    screenshot_label = "passed_screenshot"
+                web_driver.save_screenshot(screenshot_path)
+                logging.info(f"UI screenshot saved: {screenshot_path}")
+                try:
+                    allure.attach(
+                        web_driver.get_screenshot_as_png(),
+                        name=screenshot_label,
+                        attachment_type=AttachmentType.PNG
+                    )
+                except Exception:
+                    pass
+    except Exception as e:
+        logging.error(f"Failed to capture screenshot or attach to Allure: {e}")
+
+    if rep.when == "call" and rep.failed:
+        try:
+            if "driver" in item.fixturenames:
+                web_driver = item.funcargs['driver']
+                test_name = item.name.encode('ascii', 'ignore').decode('ascii').replace('[', '_').replace(']', '')
+                screenshot_dir = os.path.join(os.path.dirname(__file__), 'artifacts', 'screenshots')
+                os.makedirs(screenshot_dir, exist_ok=True)
+                screenshot_path = os.path.join(screenshot_dir, f"ui_{test_name}_failed.png")
                 web_driver.save_screenshot(screenshot_path)
                 logging.info(f"Screenshot saved: {screenshot_path}")
-
-                # Attach to Allure report
-                allure.attach(
-                    web_driver.get_screenshot_as_png(),
-                    name="failure_screenshot",
-                    attachment_type=AttachmentType.PNG
-                )
+                try:
+                    allure.attach(
+                        web_driver.get_screenshot_as_png(),
+                        name="failure_screenshot",
+                        attachment_type=AttachmentType.PNG
+                    )
+                except Exception:
+                    pass
         except Exception as e:
             logging.error(f"Failed to capture screenshot or attach to Allure: {e}")
 
